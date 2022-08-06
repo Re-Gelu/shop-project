@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Title -->
+        <title>{% block title %}TEST{% endblock title %}</title>
+
+        <!-- Icon -->
+        <link rel="icon" type="image/png" href="{% static 'images/favcon.png' %}">
+
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css\styles1.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css\themify-icons.css' %}">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    </head>
+    <body>
+        <header id="header">
+            <div class="header-left-block">
+                <a class="logo" href="">{% block  header%}SAMPLE-SHOP.COM{% endblock  %}</a>
+                <!-- <a class="logo" href=""><img src="{% static 'images/logo.png' %}"></a> -->
+            </div>
+            <div class="header-right-block">
+                <a class="header-element" href=""><span class="ti-search"></span></a>
+                <a class="header-element" href="/admin"><span class="ti-shopping-cart"></span></a>
+            </div>
+            <nav class="top-menu">
+                <ul class='top-menu'>   
+                    <a href="/"><li>Домой</li></a>
+                    <a href=""><li>Акции</li></a>
+                    <a href="/contacts"><li>Контакты</li></a>
+                    <a href=""><li>Доставка</li></a>
+                    <a href="/about"><li>О нас</li></a>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="wrapper">
+            <aside class="sidebar">
+                <nav>
+                    <p><span class="ti-menu-alt"></span> Категории:</p>
+                    <ul class="aside-menu">
+                        {% for category in categories %}
+                            <a href=""><li>{{category}}<span class="ti-angle-right"></span></li></a>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                <section>
+                    <h2>Возможно вам понравится:</h2>
+                    <a href="">
+                        <img src="{% static 'images/WIP.png' %}" alt="возможно вам понравится"/>
+                    </a>
+                </section>
+            </aside>
+            <main id="content">
+                {% block content %}{% endblock content %}
+            </main>
+        </div>
+        <footer id="footer">
+            <p>Контакты: <a href="mailto:morandva@yandex.ru?subject=Вопрос о сайте">morandva@yandex.ru</a></p>
+            <p>Copyright © mysite.com, 2022</p>
+        </footer>
+
+        <!-- Optional JavaScript -->
+        <script defer src="{% static 'js\slider.js' %}"></script>
+    </body>
+</html>
