@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %} 
     <div class="container col-xl-4 col-12 p-3 p-xl-5 pt-5">
-        <form class="row g-4 needs-validation" method="post">
+        <form class="row g-4 needs-validation" method="post" novalidate>
             {% csrf_token %}
             
             <p class="h3 text-center">Регистрация</p>
@@ -12,22 +12,46 @@
 
             {% for field in registration_form %}
                 {% if forloop.first %}
-                    <!-- Email input -->
+                
+                    <!-- Email form -->
                     <div class="col-12">
-                        <label class="form-label">{{registration_form.email.label_tag}}</label>
+
+                        <!-- Form label -->
+                        <label class="form-label">{{field.label_tag}}</label>
+
+                        <!-- Form input -->
                         <div class="input-group">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            {{registration_form.email}}
+                            {{field}}
                         </div>
+
+                        <!-- Optional form errors -->
+                        {% if field.errors %}
+                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
+                                {{field.errors}}
+                            </div>
+                        {% endif %}
                     </div>
+
                 {% else %}
-                    <!-- Form -->
+
+                    <!-- Standart form -->
                     <div class="col-6">
+
+                        <!-- Form label -->
                         <label class="form-label">{{field.label_tag}}</label>
+
+                        <!-- Form input -->
                         {{field}}
-                        {{field.errors}}
-                        {{field.non_field_errors}}
-                    </div>
+
+                        <!-- Optional form errors -->
+                        {% if field.errors %}
+                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
+                                {{field.errors}}
+                            </div>
+                        {% endif %}
+                
+                    </div>  
                 {% endif %}
             {% endfor %}
 

@@ -69,10 +69,10 @@ def registration(request):
             new_user.username = (registration_form.cleaned_data['email'])
 
             # Set the chosen password
-            new_user.set_password(registration_form.cleaned_data['password'])
+            new_user.set_password(registration_form.cleaned_data['password1'])
 
             # Save the User object
-            #new_user.save()
+            new_user.save()
             return render(request, "registration_done.html", {"new_user": new_user})
         else:
             registration_form = RegistrationForm(request.POST)

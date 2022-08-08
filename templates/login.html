@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
     <div class="container col-xl-3 col-9 p-3 p-xl-5 pt-5">
-        <form class="row g-4 needs-validation" method="post" action="{% url 'login' %}">
+        <form class="row g-4 needs-validation" method="post" action="{% url 'login' %}" novalidate>
             {% csrf_token %}
 
             <p class="h3 text-center">Вход</p>  
@@ -14,25 +14,54 @@
                 Пожалуйста, используйте следующую форму для входа в систему. Если у вас до сих пор нет учетной записи 
                 <a class="text-decoration-underline" href="{% url 'registration' %}">зарегистрируйтесь здесь!</a>
             </p>
-            
-            <!-- Email input -->
+    
+            <!-- Email form -->
             <div class="col-12">
+
+                <!-- Form label -->
                 <label class="form-label">{{form.username.label_tag}}</label>
+
+                <!-- Form input -->
                 <div class="input-group">
                     <span class="input-group-text" id="inputGroupPrepend">@</span>
                     {{form.username}}
                 </div>
+
+                <!-- Optional form errors -->
+                {% if form.username.errors %}
+                    <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
+                        {{form.username.errors}}
+                    </div>
+                {% endif %}
             </div>
 
-            <!-- Password input -->
+            <!-- Password form -->
             <div class="col-12">
+
+                <!-- Form label -->
                 <label class="form-label">{{form.password.label_tag}}</label>
+
+                <!-- Form input -->
                 {{form.password}}
+
+                <!-- Optional form errors -->
+                {% if field.errors %}
+                    <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
+                        {{form.password.errors}}
+                    </div>
+                {% endif %}
             </div>
 
             <input type="hidden" name="next" value="{{next}}"/>
 
             <hr>
+
+            {% if form.non_field_errors %}
+                <div class="text-reset uk-button-text text-center offcanvas-submit-button my-3 py-2">
+                    {{form.non_field_errors}}
+                </div>
+                <hr>
+            {% endif %}
 
             <!-- Submit form -->
             <div class="col-12 text-center">
