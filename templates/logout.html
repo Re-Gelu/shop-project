@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Выход{% endblock title %}
+{% load static %}
+{% block content %} 
+    <div class="container col-xl-5 col-12 p-5 pt-5">
+        <div class="row g-3 text-center">
+            <p class="h3 text-center">Выход</p>
+            <hr>
+            <p>Вы успешно вышли из учетной записи. Вы можете <a  class="text-decoration-underline" href="{% url 'login' %}">войти снова</a>.</p>
+        </div>
+    </div>
+{% endblock content %}

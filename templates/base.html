@@ -104,6 +104,10 @@
 
                             </div>
 
+                        <a class="header-element me-5" href="{% url 'dashboard' %}">
+                            <span class="ti-user"></span>
+                        </a>
+
                         <a class="header-element me-5" href="#shopping-cart-offcanvas" data-bs-toggle="offcanvas" aria-controls="shopping-cart-offcanvas">
                             <span class="ti-shopping-cart"></span>
                         </a>
@@ -144,18 +148,23 @@
                     </div>
 
                     <!-- Product -->
-                    <div class="d-flex border p-3">
-                        <img src="{% static 'images/WIP.png' %}" alt="Product image"
-                        class="flex-shrink-0 me-3 my-auto rounded" width="60" height="60">
+                    <div class="uk-transition-toggle">
+                        <div class="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
+                            
+                            <img src="{% static 'images/WIP.png' %}" alt="Product image"
+                            class="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60">
 
-                        <div>
-                            <p class="lead">Product name</p><br>
-                            <p>Кол-во: <a href="#"> <span class="ti-minus"></span></a> <strong>2</strong> <a href="#"><span class="ti-plus"></span></a></p><br>
-                            <p>$25.49</p>
+                            <div>
+                                <p class="lead uk-button-text">Product name
+                                    <button type="button" class="btn-close btn-sm ms-3" aria-label="Close"></button>
+                                </p><br>
+                                <p>Кол-во: <a href="#"> <span class="ti-minus"></span></a> <strong>3</strong> <a href="#"><span class="ti-plus"></span></a></p><br>
+                                <p>$25.49</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Product -->
+                    <!-- Product in cart-->
                     <div class="uk-transition-toggle">
                         <div class="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
                             
@@ -181,7 +190,7 @@
 
                 <div class="d-grid gap-2">
                     <!-- <button type="button" class="btn btn-outline-danger btn-lg uk-button-text">Перейти к оформлению заказа</button> -->
-                    <button type="button" class="btn-lg offcanvas-submit-button uk-button-text">Перейти к оформлению заказа</button>
+                    <a type="button" class="btn-lg offcanvas-submit-button uk-button-text" href="#">Перейти к оформлению заказа</a>
                 </div>
             </div>
 
@@ -190,175 +199,15 @@
         </div>
 
         <!-- Wrapper -->
-        <div id="wrapper" class="container">
+        <div id="wrapper" class="container-fluid">
+
+            <!-- Wrapper content -->
             <div class="row">
-
-                <!-- Sidebar -->
-                <div class="col-xl-3 col-12 pt-3">
-                    <aside class="sidebar">
-
-                        <!-- Sidebar-menu -->
-                        <nav class="sidebar-menu">
-                            <p class="sidebar-menu-header text-center"><span class="ti-menu-alt small"></span> Категории:</p>
-                            <ul class="sidebar-menu-content list-unstiled">
-
-                                <!-- Sidebar menu element - Dropdown menu-->
-                                <div class="dropend">
-
-                                    <!-- Category -->
-                                    <li class="text-left dropdown-toggle-split" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-                                    
-                                    <!-- Subcategories -->
-                                    <ul class="dropdown-menu dropdown-menu-lg-end p-0">    
-                                        <li><a class="dropdown-item-text" href="#">Действие</a></li>
-                                        <li><a class="dropdown-item-text" href="#">Другое действие</a></li>
-                                        <li><a class="dropdown-item-text" href="#">Что-то еще здесь</a></li>
-                                        <li><a class="dropdown-item-text" href="#">Что-то еще</a></li>
-                                    </ul>
-                                </div>
-
-                                <!-- Sidebar menu element - Dropdown menu 2 TEST -->
-                                <!-- Category -->
-                                <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-
-                                <!-- Subcategories -->
-                                <div class="uk-width-large " uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
-                                    <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
-
-                                        <div>
-                                            <ul class="uk-nav uk-dropdown-nav p-0">    
-                                                <li><a href="#">Действие</a></li>
-                                                <li><a href="#">Другое действие</a></li>
-                                                <li><a href="#">Что-то еще здесь</a></li>
-                                                <li><a href="#">Что-то еще</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div>
-                                            <ul class="uk-nav uk-dropdown-nav p-0">
-                                                <li class="uk-active"><a href="#">Активная ссылка</a></li>
-                                                <li><a href="#">Ссылка</a></li>
-                                                <li class="uk-nav-header">Заголовок</li>
-                                                <li><a href="#">Ссылка</a></li>
-                                                <li><a href="#">Ссылка</a></li>
-                                                <li class="uk-nav-divider"></li>
-                                                <li><a href="#">Ссылка</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Sidebar menu element - Dropdown menu 2 TEST -->
-                                <!-- Category -->
-                                <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-
-                                <!-- Subcategories -->
-                                <div class="uk-width-small" uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
-                                    <div class="uk-dropdown-grid" uk-grid>
-
-                                        <div>
-                                            <ul class="uk-nav uk-dropdown-nav p-0">    
-                                                <li><a href="#">Действие</a></li>
-                                                <li><a href="#">Другое действие</a></li>
-                                                <li><a href="#">Что-то еще здесь</a></li>
-                                                <li><a href="#">Что-то еще</a></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Sidebar menu element - Dropdown menu 2 TEST -->
-                                <!-- Category -->
-                                <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-                                
-
-                                <!-- Subcategories -->
-                                <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;">
-                                        <div>
-                                            <ul class="uk-nav uk-dropdown-nav p-0">    
-                                                <li>
-                                                    <a href="#">Действие</a>
-                                                    <div uk-dropdown="pos: right-top">
-                                                        <ul class="uk-nav uk-dropdown-nav">
-                                                            <li class="uk-active"><a href="#">Активная ссылка</a></li>
-                                                            <li><a href="#">Ссылка</a></li>
-                                                            <li class="uk-nav-header">Заголовок</li>
-                                                            <li><a href="#">Ссылка</a></li>
-                                                            <li><a href="#">Ссылка</a></li>
-                                                            <li class="uk-nav-divider"></li>
-                                                            <li><a href="#">Ссылка</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li><a href="#">Другое действие</a></li>
-                                                <li><a href="#">Что-то еще здесь</a></li>
-                                                <li><a href="#">Что-то еще</a></li>
-                                            </ul>
-                                        </div>
-                                </div>
-
-                                {% for category in categories %}
-                                    {% if category %}
-
-                                        <!-- Sidebar menu element -->
-                                            <li class="text-left">{{category}}<span class="ti-angle-right pe-1 float-end "></span></li>
-                                    {% elif category.subcategories %}
-
-                                            <!-- Sidebar menu element - Dropdown menu-->
-                                            <div class="dropend">
-
-                                                <!-- Category -->
-                                                <li class="text-left dropdown-toggle-split" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-                                                
-                                                <!-- Subcategories -->
-                                                <ul class="dropdown-menu dropdown-menu-lg-end p-0">    
-                                                    <li><a class="dropdown-item-text" href="#">Действие</a></li>
-                                                    <li><a class="dropdown-item-text" href="#">Другое действие</a></li>
-                                                    <li><a class="dropdown-item-text" href="#">Что-то еще здесь</a></li>
-                                                    <li><a class="dropdown-item-text" href="#">Что-то еще</a></li>
-                                                </ul>
-                                            </div>
-                                    {% endif %}
-                                {% endfor %}
-
-                            </ul>
-                        </nav>
-
-                        <!-- Sidebar content -->
-                        <section class="sidebar-content p-2">
-                            <h2 class="sidebar-content-header">Возможно вам понравится:</h2>
-                            <a href="">
-                                <img class="img-fluid mt-2" src="{% static 'images/WIP.png' %}" alt="возможно вам понравится"/>
-                            </a>
-                        </section>
-                    </aside>
-                </div>
-
-                <!-- Content -->
-                <div class="col-xl-9 col-12  pt-3">
-                    {% block content %}{% endblock content %}
-                </div>
-                
-
+                {% block content %}{% endblock content %}
             </div>
 
             <!-- Back to top button -->
             <a id="btn-back-to-top" href="#" type="button" class="btn btn-light position-fixed" uk-totop uk-scroll></a>
-
-            <!-- Pagination -->
-            <div class="row">
-                <ul class="uk-pagination uk-flex-center fs-4" uk-margin>
-                    <li><a href="#"><span uk-pagination-previous></span></a></li>
-                    <li><a href="#" class="uk-active">1</a></li>
-                    <li class="uk-disabled"><span>...</span></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><span>7</span></li>
-                    <li><a href="#">8</a></li>
-                    <li><a href="#"><span uk-pagination-next></span></a></li>
-                </ul>
-            </div>
 
         </div>
 

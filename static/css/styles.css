@@ -52,7 +52,7 @@
 /* Colors */
 
 	:root {
-		--body-background-color: #999;
+		--body-background-color: white;
 		--header-background-color: rgba(255, 255, 255, 0.9);
 		--wrapper-background-color: white;
 		--footer-background-color: rgb(226, 226, 226);
@@ -101,8 +101,8 @@
 
 	#header {
 		background: var(--header-background-color);	
-		padding: 10px 0;
-		margin-bottom: 10px;
+		/* padding: 10px 0;
+		margin-bottom: 10px; */
 		box-shadow: 0 0.2em 5px rgba(220, 20, 60, 0.5);
 	}
 
@@ -196,4 +196,13 @@
 	.sidebar-content {
 		margin: 10px 0px 10px 0px;
 		background: var(--color-5);
+	}
+
+/* Forms */
+
+	form input {
+		color: #212529;
+		border: 1px solid #ced4da;
+		background-color: #fff;
+		border-radius: 0.25rem;
 	}

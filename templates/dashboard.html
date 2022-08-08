@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock title %}
+{% load static %}
+{% block content %}
+    <div class="container col-xl-5 col-12 p-5">
+        <div class="row g-3 text-center">
+            <p class="h2">Личный кабинет</p>
+            <hr>
+            {% if request.user.is_authenticated  %}
+                <p>Привет, {{ request.user.first_name }}</p>
+                <p><a class="text-reset uk-button-text a-important lead" href="{% url 'logout' %}">Выйти</a></p>
+            {% else %}
+                <a href="{% url 'login' %}">Log-in</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
