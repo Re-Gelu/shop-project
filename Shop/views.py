@@ -33,28 +33,6 @@ def promo(request):
 def about(request):
     return render(request, "about.html")
 
-# Login
-""" def user_login(request):
-    if request.method == "POST":
-        login_form = LoginForm(request.POST)
-
-        if login_form.is_valid():
-            cd = login_form.cleaned_data
-            user = authenticate(request, username=cd["username"], password=cd["password"])
-
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return render(request, "dashboard.html")
-                else:
-                    return HTTPResponse('Неверные данные для входа!')
-            else:
-                return HTTPResponse('Invalid login')
-
-    else:
-        login_form = LoginForm()
-        return render(request, "login.html", {"form": login_form}) """
-
 # Registration
 def registration(request):
     if request.method == "POST":

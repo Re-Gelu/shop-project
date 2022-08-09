@@ -28,9 +28,31 @@ urlpatterns = [
     path('contacts/', views.contacts),
     path('about/', views.about),
     path('dashboard/', views.dashboard, name="dashboard"),
-    re_path(r'^login/$', LoginView.as_view(template_name="login.html", authentication_form=LoginForm), name='login'),
-    re_path(r'^logout/$', LogoutView.as_view(template_name="logout.html"), name='logout'),
-    re_path(r'^registration/$', views.registration, name='registration'),
+    re_path(
+        r'^login/$', 
+        LoginView.as_view(template_name="login.html", authentication_form=LoginForm), 
+        name='login'
+    ),
+    re_path(
+        r'^logout/$', 
+        LogoutView.as_view(template_name="logout.html"), 
+        name='logout'
+    ),
+    re_path(
+        r'^registration/$', 
+        views.registration, 
+        name='registration'
+    ),
+    re_path(
+        r'^password_change/$',
+        PasswordChangeView.as_view(template_name="change_password.html", form_class=ChangePassword), 
+        name='password_change'
+    ),
+    re_path(
+        r'^password_change_done/$',
+        PasswordChangeDoneView.as_view(template_name="change_password_done.html"), 
+        name="password_change_done"
+    ),
     
     #re_path(r'^login/$', views.user_login, name='login'),
     #re_path(r'^logout/$', views.user_logout, name='logout'),
