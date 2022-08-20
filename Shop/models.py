@@ -1,5 +1,8 @@
-from fileinput import filename
+from unicodedata import category
+from django.utils import timezone
 from django.db import models
+
+import datetime
 
 class Categories(models.Model):
     name = models.CharField(max_length=50)
@@ -11,6 +14,7 @@ class Categories(models.Model):
 class Subcategories(models.Model):
     name = models.CharField(max_length=50)
     add_date = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -27,12 +31,16 @@ class Products(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     promo_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     image = models.ImageField(upload_to="product_images")
-    information = models.TextField(max_length=1000, blank=True, null=True)
-    subcategory_id = models.PositiveIntegerField(blank=True, null=True)
+    information = models.TextField(max_length=100, blank=True, null=True)
     add_date = models.DateTimeField(auto_now=True)
+    subcategory = models.ForeignKey(Subcategories, on_delete=models.CASCADE, blank=True, null=True)
+
 
     def __str__(self):
         return self.name
+    
+    def was_publiched_recently(self):
+        return self.add_date >= timezone.now() - datetime.timedelta(days=7)
     
 
 

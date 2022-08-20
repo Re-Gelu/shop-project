@@ -15,8 +15,6 @@ class LoginForm(AuthenticationForm):
             
         self.fields["username"].label = "Адрес электронной почты"
             
-
-
 class RegistrationForm(UserCreationForm):
      
     def __init__(self, *args, **kwargs):

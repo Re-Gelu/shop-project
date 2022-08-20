@@ -24,10 +24,11 @@ from Shop.forms import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('products/<page>/', views.products),
     path('promo/', views.promo),
     path('contacts/', views.contacts),
     path('about/', views.about),
-    path('dashboard/', views.dashboard, name="dashboard"),
+    path('dashboard/', views.dashboard, name="dashboard"),  
     re_path(
         r'^login/$', 
         LoginView.as_view(template_name="login.html", authentication_form=LoginForm), 

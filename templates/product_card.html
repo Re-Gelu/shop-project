@@ -1,0 +1,46 @@
+<!-- Product card -->
+<div class="h-100 uk-transition-toggle">
+    <div class="card h-100 uk-card-hover uk-transition-opaque {{card_animation_class|default:'uk-transition-scale-up'}}" aria-hidden="true">
+        
+        <!-- Product card image-->
+        <img src="{{product.image.url}}" class="card-img-top h-100 uk-object-scale-down p-2 uk-transition-opaque uk-transition-scale-up" alt="Product">
+
+        <!-- Product card body -->
+        <div class="card-body">
+
+            {% if product.promo_price %}
+                <div class="uk-card-badge background-colored">Скидка!</div>
+            {% elif product.was_publiched_recently %}
+                <div class="uk-card-badge uk-label">Новинка!</div>
+            {% endif %}
+
+            <h5 class="card-title h5">
+                {{product.name}}
+            </h5>
+
+            <h6 class="card-text overflow-hidden">
+                {{product.information}}
+                <p class="my-2">
+
+                    {% if product.promo_price %}
+                        <span class="me-3 text-reset lead text-decoration-line-through">${{product.price}}</span>
+                        <span class="me-3 lead text-danger">${{product.promo_price}}</span>
+                    {% else %}
+                        <span class="me-3 text-reset lead">${{product.price}}</span>
+                    {% endif %}
+
+                    <span class="d-inline-flex"> 
+                        <a href="#"><i class="bi bi-heart me-1"></i></a>
+                        <a href="#"><i class="bi bi-chat-square me-1"></i></a>
+                        <a href="#"><i class="bi bi-star me-1"></i></a>
+                    </span>
+                </p>
+            </h6>
+
+            <p class="card-footer d-flex bg-white">
+                <a href="#" class="uk-button-text my-2 a-important">ПОДРОБНЕЕ</a>
+                <a href="#" class="btn btn-dark text-white my-2 col-3 ms-auto background-colored"><i class="bi bi-cart"></i></a>
+            </p>
+        </div>
+    </div>
+</div>

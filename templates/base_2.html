@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}SAMPLE-SHOP.COM{% endblock title %}
+{% load static %}
+
+{% block content %}
+<!-- Sidebar -->
+    <div class="col-xl-3 col-12 pt-3">
+        <aside class="sidebar">
+
+            <!-- Sidebar-menu -->
+            <nav class="sidebar-border">
+                <p class="sidebar-menu-header text-center"><span class="ti-menu-alt fs-6"></span> Категории:</p>
+                <ul class="sidebar-menu-content list-unstiled">
+
+                     <!-- Category -->
+                    <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
+
+                    <!-- Subcategories -->
+                    <div class="uk-width-large " uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
+                        <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
+
+                            <div>
+                                <ul class="uk-nav uk-dropdown-nav p-0">    
+                                    <li><a href="#">Действие</a></li>
+                                    <li><a href="#">Другое действие</a></li>
+                                    <li><a href="#">Что-то еще здесь</a></li>
+                                    <li><a href="#">Что-то еще</a></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <ul class="uk-nav uk-dropdown-nav p-0">
+                                    <li class="uk-active"><a href="#">Активная ссылка</a></li>
+                                    <li><a href="#">Ссылка</a></li>
+                                    <li class="uk-nav-header">Заголовок</li>
+                                    <li><a href="#">Ссылка</a></li>
+                                    <li><a href="#">Ссылка</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Ссылка</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar menu element - Dropdown menu 2 TEST -->
+                    <!-- Category -->
+                    <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
+
+                    <!-- Subcategories -->
+                    <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;">
+                            <div>
+                                <ul class="uk-nav uk-dropdown-nav p-0">    
+                                    <li>
+                                        <a href="#">Действие</a>
+                                        <div uk-dropdown="pos: right-top">
+                                            <ul class="uk-nav uk-dropdown-nav">
+                                                <li class="uk-active"><a href="#">Активная ссылка</a></li>
+                                                <li><a href="#">Ссылка</a></li>
+                                                <li class="uk-nav-header">Заголовок</li>
+                                                <li><a href="#">Ссылка</a></li>
+                                                <li><a href="#">Ссылка</a></li>
+                                                <li class="uk-nav-divider"></li>
+                                                <li><a href="#">Ссылка</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="#">Другое действие</a></li>
+                                    <li><a href="#">Что-то еще здесь</a></li>
+                                    <li><a href="#">Что-то еще</a></li>
+                                </ul>
+                            </div>
+                    </div>
+
+                    {% for category in categories %}
+
+                        <!-- Sidebar menu element -->
+                        <li class="text-left">{{category}}<span class="ti-angle-right pe-1 float-end "></span></li>
+
+                        <!-- Sidebar menu element - Dropdown menu -->
+                        <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
+
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav p-0">  
+                                        {% for subcategory in subcategories %}
+                                            {% if subcategory.category == category %}
+                                                <li><a href="#">{{subcategory}}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </ul>
+            </nav>
+
+            <!-- Sidebar content -->
+            <section class="sidebar-border my-3">
+                <p class="sidebar-menu-header text-center"><span class="ti-thumb-up small"></span> Возможно вам понравится:</p>
+                
+                    <!-- Product card -->
+                    <div class="col-12">
+                        {% include "product_card.html" with product=random_product %}
+                    </div>
+          
+            </section>
+        </aside>
+    </div>
+
+    <!-- Content -->
+    <div class="col-xl-9 col-12 pt-3">
+        {% block content_2 %}{% endblock content_2 %}
+    </div>
+{% endblock content %}
