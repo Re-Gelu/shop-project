@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import *
@@ -14,7 +15,7 @@ def index(request):
     
     # Get N products per category in dict
     for category in categories:
-        latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:5]
+        latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:23]
         
     data = {
         "categories": categories, 
@@ -27,7 +28,7 @@ def index(request):
     return render(request, "index.html", context=data)
 
 
-def products(request, page=1, category=None, subcategory=None):
+def products(request, page=1):
     categories = Categories.objects.all()
     subcategories = Subcategories.objects.all()
     random_product = Products.objects.order_by('?').first()
@@ -41,9 +42,10 @@ def products(request, page=1, category=None, subcategory=None):
     else:
         products = Products.objects.all()
     
-    paginator = Paginator(products, 12)  # Show 12 products per page
-    products = paginator.get_page(request.GET.get("page", 1))
-    page_range = paginator.get_elided_page_range(number=1, on_each_side=3, on_ends=2)
+    paginator = Paginator(products, 12)  # Show N products per page
+    products = paginator.get_page(page)
+    #page_range = paginator.get_elided_page_range(on_each_side=2, on_ends=1)
+    page_range = paginator.page_range
     
     data = {
         "categories": categories,
@@ -52,7 +54,7 @@ def products(request, page=1, category=None, subcategory=None):
         "random_product": random_product,
         "page_range": page_range,
     }
-    
+
     return render(request, "shop_page.html", context=data)
 
 def contacts(request):
@@ -68,6 +70,17 @@ def promo(request):
 
 def about(request):
     return render(request, "about.html")
+
+# Auto DB fill
+def db_auto_fill(request, amount, model):
+    import sys
+
+    sys.path.append("..")
+
+    from DB_auto_fill import DB_AUTO_FILL
+    DB_AUTO_FILL(int(amount), model)
+    
+    return HttpResponse(f'Успешно добавлено {amount} записей в таблицу {model}!')
 
 # Registration page
 def registration(request):

@@ -94,7 +94,7 @@
 	}
 
 	.background-colored {
-		background-color: var(--a-text-active);
+		background-color: var(--a-text-active) !important;
 	}
 
 
@@ -160,7 +160,6 @@
 
 	#wrapper {
 		background-color: var(--wrapper-background-color);
-		min-height: 2000px;
 	}
 
 /* Sidebar */	

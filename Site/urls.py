@@ -22,13 +22,35 @@ from Shop import views
 from Shop.forms import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('products/<page>/', views.products),
-    path('promo/', views.promo),
-    path('contacts/', views.contacts),
-    path('about/', views.about),
-    path('dashboard/', views.dashboard, name="dashboard"),  
+    path('admin/', 
+        admin.site.urls
+    ),
+    path('', 
+        views.index, 
+        name='index'
+    ),
+    path(
+        'products/<int:page>/', 
+        views.products, 
+        name='products'
+    ),
+    path(
+        'promo/', 
+        views.promo
+    ),
+    path(
+        'contacts/', 
+        views.contacts
+    ),
+    path(
+        'about/', 
+        views.about
+    ),
+    path(
+        'dashboard/', 
+        views.dashboard, 
+        name="dashboard"
+    ),  
     re_path(
         r'^login/$', 
         LoginView.as_view(template_name="login.html", authentication_form=LoginForm), 
@@ -53,6 +75,12 @@ urlpatterns = [
         r'^password_change_done/$',
         PasswordChangeDoneView.as_view(template_name="change_password_done.html"), 
         name="password_change_done"
+    ),
+    
+    path(
+        'db_auto_fill/<int:amount>/<model>/',
+        views.db_auto_fill,
+        name='db_auto_fill'
     ),
     
     #re_path(r'^login/$', views.user_login, name='login'),

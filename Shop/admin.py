@@ -7,7 +7,7 @@ admin.AdminSite.site_title = "Админка"
 @admin.register(Main_page_slider)
 class Main_page_slider_admin(admin.ModelAdmin):
     list_display = ("image", "add_date")
-    list_filter = ("image", "add_date")
+    list_filter = ("add_date",)
     search_fields = ("image__startswith", )
 
     def get_form(self, request, obj=None, **kwargs):
@@ -18,7 +18,7 @@ class Main_page_slider_admin(admin.ModelAdmin):
 @admin.register(Categories)
 class Categories_admin(admin.ModelAdmin):
     list_display = ("name", "add_date")
-    list_filter = ("name", "add_date")
+    list_filter = ("add_date",)
     search_fields = ("name", )
 
     def get_form(self, request, obj=None, **kwargs):
@@ -29,7 +29,7 @@ class Categories_admin(admin.ModelAdmin):
 @admin.register(Subcategories)
 class Subcategories_admin(admin.ModelAdmin):
     list_display = ("name", "category", "add_date")
-    list_filter = ("name", "category", "add_date")
+    list_filter = ("category", "add_date")
     search_fields = ("name", )
 
     def get_form(self, request, obj=None, **kwargs):
@@ -41,7 +41,7 @@ class Subcategories_admin(admin.ModelAdmin):
 @admin.register(Products)
 class Products_admin(admin.ModelAdmin):
     list_display = ("name", "price", "subcategory", "add_date")
-    list_filter = ("name", "price")
+    list_filter = ("subcategory", "add_date")
     search_fields = ("name", )
     
     def get_form(self, request, obj=None, **kwargs):

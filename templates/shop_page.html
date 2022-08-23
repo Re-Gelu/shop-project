@@ -1,25 +1,24 @@
 {% extends "base_2.html" %}
-
-{% block title %}Товары стр.{{products.number}}{% endblock title %}
+{% block title %}Товары - стр.{{products.number}}{% endblock title %}
 {% load static %}
 {% block content_2 %}
 
-    <!-- Cards row -->
-        <div class="row mt-1 g-2">
+<!-- Cards row -->
+<div class="row mt-1 g-2">
 
-            {% for product in products %}
-                <div class="col-xl-4">
-                    {% include "product_card.html" %}
-                </div>
-            {% endfor %}
-        </div>
+    {% if products %}
+        {% for product in products %}
+            <div class="col-xl-3">
+                {% include "product_card.html" %}
+            </div>
+        {% endfor %}
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center flex-wrap mt-3 mb-4 fs-4">
 
             <!-- previous_page -->
             {% if products.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'products' products.previous_page_number %}{{request.get_full_path|cut:request.path}}">&laquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
             {% endif %}
@@ -27,22 +26,37 @@
             <!-- pagination -->
             {% for page in page_range %}
                 {% if products.number == page %}
-                    <li class="active page-item"><span class="page-link">{{ page }}</span></li>
+                    <li class="active page-item"><span class="page-link">{{page}}</span></li>
                 {% else %}
                     {% if page == products.paginator.ELLIPSIS %}
-                        <li class="page-item"><span class="page-link">{{ page }}</span></li>
+                        <li class="page-item"><span class="page-link">{{page}}</span></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{% url 'products' page %}{{request.get_full_path|cut:request.path}}">{{page}}</a></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
 
             <!-- next_page -->
             {% if products.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">&raquo;</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'products' products.next_page_number %}{{request.get_full_path|cut:request.path}}">&raquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
             {% endif %}
         </ul>
+
+    {% else %}
+
+        <!-- No products in category -->
+        <div class="container col-xl-5 col-12 p-5">
+            <div class="row g-3 text-center">
+                <p class="h2">Товаров пока нет!</p>
+                <hr>
+
+                <p>Возможно когда нибудь я их даже добавлю (но это не точно)</p>
+            </div>
+        </div>
+        
+    {% endif %}
+</div>
 
 {% endblock content_2 %}

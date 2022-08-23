@@ -8,11 +8,55 @@
         <aside class="sidebar">
 
             <!-- Sidebar-menu -->
-            <nav class="sidebar-border">
+            <nav class="border">
                 <p class="sidebar-menu-header text-center"><span class="ti-menu-alt fs-6"></span> Категории:</p>
                 <ul class="sidebar-menu-content list-unstiled">
 
-                     <!-- Category -->
+                    {% for category in categories %}
+
+                        <!-- Sidebar menu element -->
+                        <li class="text-left col-11 container"><a href="{% url 'products' 1 %}?category={{category.id}}">{{category}}</a><span class="ti-angle-right pe-1 float-end "></span></li>
+
+                        <!-- Sidebar menu element - Dropdown menu -->
+                        <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
+
+                                <div>
+                                    <ul class="uk-nav uk-dropdown-nav p-0">  
+                                        {% for subcategory in subcategories %}
+                                            {% if subcategory.category == category %}
+                                                <li><a href="{% url 'products' 1 %}?subcategory={{subcategory.id}}">{{subcategory}}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </ul>
+            </nav>
+
+            <!-- Sidebar content -->
+            <section class="border my-3">
+                <p class="sidebar-menu-header text-center"><span class="ti-thumb-up small"></span> Возможно вам понравится:</p>
+
+                    <!-- Product card -->
+                    <div class="col-12">
+                        {% include "product_card.html" with product=random_product %}
+                    </div>
+          
+            </section>
+        </aside>
+    </div>
+
+    <!-- Content -->
+    <div class="col-xl-9 col-12 pt-3">
+        {% block content_2 %}{% endblock content_2 %}
+    </div>
+{% endblock content %}
+
+                    <!-- Category -->
                     <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
 
                     <!-- Subcategories -->
@@ -70,47 +114,3 @@
                                 </ul>
                             </div>
                     </div>
-
-                    {% for category in categories %}
-
-                        <!-- Sidebar menu element -->
-                        <li class="text-left">{{category}}<span class="ti-angle-right pe-1 float-end "></span></li>
-
-                        <!-- Sidebar menu element - Dropdown menu -->
-                        <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
-
-                                <div>
-                                    <ul class="uk-nav uk-dropdown-nav p-0">  
-                                        {% for subcategory in subcategories %}
-                                            {% if subcategory.category == category %}
-                                                <li><a href="#">{{subcategory}}</a></li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-
-                        </div>
-
-                    {% endfor %}
-
-                </ul>
-            </nav>
-
-            <!-- Sidebar content -->
-            <section class="sidebar-border my-3">
-                <p class="sidebar-menu-header text-center"><span class="ti-thumb-up small"></span> Возможно вам понравится:</p>
-                
-                    <!-- Product card -->
-                    <div class="col-12">
-                        {% include "product_card.html" with product=random_product %}
-                    </div>
-          
-            </section>
-        </aside>
-    </div>
-
-    <!-- Content -->
-    <div class="col-xl-9 col-12 pt-3">
-        {% block content_2 %}{% endblock content_2 %}
-    </div>
-{% endblock content %}
