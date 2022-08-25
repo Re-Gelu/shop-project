@@ -1,5 +1,5 @@
 from Shop.models import *
-from art import tprint
+#from art import tprint
 import random
 
 def DB_AUTO_FILL(amount, model):
@@ -11,7 +11,7 @@ def DB_AUTO_FILL(amount, model):
                 category = Categories()
                 category.name=f"Категория №{i}"
                 
-                #category.save()
+                category.save()
                 print(category.name, "\n")
 
         case "Subcategories":
@@ -27,7 +27,7 @@ def DB_AUTO_FILL(amount, model):
                     subcategory.name = f"Подкатегория №{str(category).removeprefix('Категория №')}.{i}"
                     subcategory.category = category
                     
-                    #subcategory.save()
+                    subcategory.save()
                     print(subcategory.name, "\n")
                 print("\n")
                 
@@ -46,11 +46,11 @@ def DB_AUTO_FILL(amount, model):
                 product.subcategory = random.choice(subcategories)
                 product.information = f"Товар №{i}\nПодкатегория: {product.subcategory}\nКатегория: {product.subcategory.category}"
                 
-                #product.save()
+                product.save()
                 print(product.information, "\n")
 
 if __name__ == '__main__':
-    tprint("DB auto fill", font="Slant")
+    #tprint("DB auto fill", font="Slant")
     amount = int(input("Кол-во записей: "))
     model = input("Таблица: ")
     DB_AUTO_FILL(amount, model)

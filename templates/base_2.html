@@ -15,7 +15,7 @@
                     {% for category in categories %}
 
                         <!-- Sidebar menu element -->
-                        <li class="text-left col-11 container"><a href="{% url 'products' 1 %}?category={{category.id}}">{{category}}</a><span class="ti-angle-right pe-1 float-end "></span></li>
+                        <li class="text-left col-11 container"><a href="{% url 'products' 1 %}?category={{category}}">{{category}}</a><span class="ti-angle-right pe-1 float-end "></span></li>
 
                         <!-- Sidebar menu element - Dropdown menu -->
                         <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
@@ -24,7 +24,7 @@
                                     <ul class="uk-nav uk-dropdown-nav p-0">  
                                         {% for subcategory in subcategories %}
                                             {% if subcategory.category == category %}
-                                                <li><a href="{% url 'products' 1 %}?subcategory={{subcategory.id}}">{{subcategory}}</a></li>
+                                                <li><a href="{% url 'products' 1 %}?category={{category}}&subcategory={{subcategory}}">{{subcategory}}</a></li>
                                             {% endif %}
                                         {% endfor %}
                                     </ul>
@@ -55,62 +55,17 @@
         {% block content_2 %}{% endblock content_2 %}
     </div>
 {% endblock content %}
+ 
+{% block top_row %}
+    <div class="row mb-1 mx-0 px-0">
+        <nav class="col-8" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item lead"><a href="/">Главная</a></li>
+                {% block breadcrumbs %}{% endblock %}
+            </ol>
+        </nav>
 
-                    <!-- Category -->
-                    <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-
-                    <!-- Subcategories -->
-                    <div class="uk-width-large " uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
-                        <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
-
-                            <div>
-                                <ul class="uk-nav uk-dropdown-nav p-0">    
-                                    <li><a href="#">Действие</a></li>
-                                    <li><a href="#">Другое действие</a></li>
-                                    <li><a href="#">Что-то еще здесь</a></li>
-                                    <li><a href="#">Что-то еще</a></li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <ul class="uk-nav uk-dropdown-nav p-0">
-                                    <li class="uk-active"><a href="#">Активная ссылка</a></li>
-                                    <li><a href="#">Ссылка</a></li>
-                                    <li class="uk-nav-header">Заголовок</li>
-                                    <li><a href="#">Ссылка</a></li>
-                                    <li><a href="#">Ссылка</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#">Ссылка</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sidebar menu element - Dropdown menu 2 TEST -->
-                    <!-- Category -->
-                    <li class="text-left">TEST<span class="ti-angle-right pe-1 float-end"></span></li>
-
-                    <!-- Subcategories -->
-                    <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;">
-                            <div>
-                                <ul class="uk-nav uk-dropdown-nav p-0">    
-                                    <li>
-                                        <a href="#">Действие</a>
-                                        <div uk-dropdown="pos: right-top">
-                                            <ul class="uk-nav uk-dropdown-nav">
-                                                <li class="uk-active"><a href="#">Активная ссылка</a></li>
-                                                <li><a href="#">Ссылка</a></li>
-                                                <li class="uk-nav-header">Заголовок</li>
-                                                <li><a href="#">Ссылка</a></li>
-                                                <li><a href="#">Ссылка</a></li>
-                                                <li class="uk-nav-divider"></li>
-                                                <li><a href="#">Ссылка</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="#">Другое действие</a></li>
-                                    <li><a href="#">Что-то еще здесь</a></li>
-                                    <li><a href="#">Что-то еще</a></li>
-                                </ul>
-                            </div>
-                    </div>
+        <div class="col-4 pe-0">{% block top_row_content %}{% endblock %}</div>
+        
+    </div>
+{% endblock %}

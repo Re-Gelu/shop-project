@@ -6,7 +6,7 @@ v0.1 changes:
 
 v0.2 changes:
 
-    -   Фикс ссылок пагинации в shop_page.html теперь такая красота - 
+    -   Фикс ссылок пагинации в shop_page.html - 
         {% url 'products' page %}{{request.get_full_path|cut:request.path}}
         Передается чистый GET запрос в следущую страницу.
 
@@ -20,6 +20,11 @@ v0.2 changes:
     -   Страница с товарами с возможностью сортировки
 
     -   Скрипт генерации товаров DB_AUTO_FILL для демонстрации работы сайта
+        (Доступно только админам)
+
+        .../db_auto_fill/7/Categories/
+        .../db_auto_fill/10/Subcategories/
+        .../db_auto_fill/300/Products/
 
     -   Отдельная встраиваимая HTML карточка товара
 
@@ -30,4 +35,23 @@ v0.2 changes:
 
     -   Добавлен адекватный футер
 
-    -   "Докеризация" проекта!
+    -   "Докеризация" проекта
+
+        Команды:
+
+        # rm
+            $ docker-compose down -v
+
+        # Dev
+            $ docker-compose -f docker-compose.yml up -d --build
+
+        # Prod
+            $ docker-compose -f docker-compose.prod.yml up -d --build
+            $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+            $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input
+
+    -   Были добавлены хлебные крошки на основе наследования шаблонов
+
+    -   Обновлен title страницы по аналогии с хлебными крошками
+
+    -   Добавлена базовая сортировка товаров на странице

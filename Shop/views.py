@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from .models import *
 from .forms import *
@@ -32,15 +33,26 @@ def products(request, page=1):
     categories = Categories.objects.all()
     subcategories = Subcategories.objects.all()
     random_product = Products.objects.order_by('?').first()
-    
+            
     if request.GET.get('subcategory'):
         subcategory = request.GET['subcategory']
-        products = Products.objects.filter(subcategory = subcategory)
+        products = Products.objects.filter(subcategory__name = subcategory)
     elif request.GET.get('category'):
         category = request.GET['category']
-        products = Products.objects.filter(subcategory__category = category)
+        products = Products.objects.filter(subcategory__category__name = category)
     else:
         products = Products.objects.all()
+        
+    if request.POST.get('sort_by'):
+        match int(request.POST['sort_by']):
+            case 1:
+                pass
+            case 2:
+                products = products.order_by('price')
+            case 3:
+                products = products.order_by('-price')
+            case 4:
+                products = products.order_by('price', '-promo_price')
     
     paginator = Paginator(products, 12)  # Show N products per page
     products = paginator.get_page(page)
@@ -72,12 +84,12 @@ def about(request):
     return render(request, "about.html")
 
 # Auto DB fill
+@staff_member_required
 def db_auto_fill(request, amount, model):
     import sys
-
     sys.path.append("..")
-
     from DB_auto_fill import DB_AUTO_FILL
+    
     DB_AUTO_FILL(int(amount), model)
     
     return HttpResponse(f'Успешно добавлено {amount} записей в таблицу {model}!')
@@ -112,4 +124,4 @@ def registration(request):
 # Dashboard page
 @login_required
 def dashboard(request):
-    return render(request, "dashboard.html", {'section': 'dashboard'})
+    return render(request, "dashboard.html")

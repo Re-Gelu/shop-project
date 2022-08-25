@@ -1,12 +1,65 @@
 {% extends "base_2.html" %}
-{% block title %}Товары - стр.{{products.number}}{% endblock title %}
+
 {% load static %}
+
+{% block title %}
+    {{block.super}}
+    | Товары - стр.{{products.number}}
+    {% if request.GET.category %}
+        | {{request.GET.category}}
+    {% endif %}
+    {% if request.GET.subcategory %}
+        | {{request.GET.subcategory}}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item lead"><a href="{% url 'products' 1 %}">Товары</a></li>
+    {% if request.GET.category %}
+        <li class="breadcrumb-item lead"><a href="{% url 'products' 1 %}?category={{request.GET.category}}">{{request.GET.category}}</a></li>
+    {% endif %}
+    {% if request.GET.subcategory %}
+        <li class="breadcrumb-item lead"><a href="#">{{request.GET.subcategory}}</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block top_row_content %}
+    <div class="float-end">
+        <button class="btn btn-secondary dropdown-toggle m-0 me-1" type="button">
+            Сортировка
+        </button>
+
+        <div class="p-0 uk-border-rounded" uk-dropdown>
+            <form class="list-group uk-border-rounded" method="POST" action="#">
+                {% csrf_token %}
+
+                <input type="submit" class="btn-check" name="sort_by" id="btnradio1" autocomplete="off" value="1">
+                <label class="list-group-item list-group-item-action btn-outline-primary" for="btnradio1">Новинки</label>
+
+                <input type="submit" class="btn-check" name="sort_by" id="btnradio2" autocomplete="off" value="2">
+                <label class="list-group-item list-group-item-action btn-outline-primary" for="btnradio2">Сначала дешёвые</label>
+
+                <input type="submit" class="btn-check" name="sort_by" id="btnradio3" autocomplete="off" value="3">
+                <label class="list-group-item list-group-item-action btn-outline-primary" for="btnradio3">Сначала дорогие</label>
+
+                <input type="submit" class="btn-check" name="sort_by" id="btnradio3" autocomplete="off" value="4">
+                <label class="list-group-item list-group-item-action btn-outline-primary" for="btnradio3">По размеру скидки</label>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content_2 %}
 
 <!-- Cards row -->
 <div class="row mt-1 g-2">
-
     {% if products %}
+
+        <!-- Breadcrumbs -->
+        {% block top_row %}
+            {{ block.super }}
+        {% endblock %}
+
         {% for product in products %}
             <div class="col-xl-3">
                 {% include "product_card.html" %}
