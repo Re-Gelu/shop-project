@@ -15,76 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import *
-from django.urls import path, re_path, include
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from Shop import views
-from Shop.forms import *
 
 urlpatterns = [
-    path('admin/', 
+    
+    # Admin app urls
+    path(
+        'admin/', 
         admin.site.urls
     ),
-    path('', 
-        views.index, 
-        name='index'
-    ),
+    
+    # Shop app urls
     path(
-        'products/<int:page>/', 
-        views.products, 
-        name='products'
-    ),
-    path(
-        'promo/', 
-        views.promo
-    ),
-    path(
-        'contacts/', 
-        views.contacts
-    ),
-    path(
-        'about/', 
-        views.about
-    ),
-    path(
-        'dashboard/', 
-        views.dashboard, 
-        name="dashboard"
-    ),  
-    re_path(
-        r'^login/$', 
-        LoginView.as_view(template_name="login.html", authentication_form=LoginForm), 
-        name='login'
-    ),
-    re_path(
-        r'^logout/$', 
-        LogoutView.as_view(template_name="logout.html"), 
-        name='logout'
-    ),
-    re_path(
-        r'^registration/$', 
-        views.registration, 
-        name='registration'
-    ),
-    re_path(
-        r'^password_change/$',
-        PasswordChangeView.as_view(template_name="change_password.html", form_class=ChangePassword), 
-        name='password_change'
-    ),
-    re_path(
-        r'^password_change_done/$',
-        PasswordChangeDoneView.as_view(template_name="change_password_done.html"), 
-        name="password_change_done"
+        '', 
+        include('Shop.urls')
     ),
     
+    # Cart app urls
     path(
-        'db_auto_fill/<int:amount>/<model>/',
-        views.db_auto_fill,
-        name='db_auto_fill'
-    ),
-    
-    #re_path(r'^login/$', views.user_login, name='login'),
-    #re_path(r'^logout/$', views.user_logout, name='logout'),
+        '',
+        include('Cart.urls')
+    )
 ]
 
 if settings.DEBUG:

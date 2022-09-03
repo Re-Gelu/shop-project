@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Title -->
-        <title>{% block title %}BASE PAGE{% endblock title %}</title>
+        <title>{% block title %}SAMPLE-SHOP.COM{% endblock title %}</title>
 
         <!-- Site icon -->
         <link rel="icon" type="image/png" href="{% static 'images/favcon.png' %}">
@@ -33,7 +33,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
     </head>
     <body>
-    <!-- НАРКОМАНИЯ <body uk-spinner="ratio: 100"> -->
+    <!-- НАРКОМАНИЯ --> <!-- <body uk-spinner="ratio: 100"> -->
 
         <!-- Header --> 
         <header id="header" class="navbar navbar-expand-xl sticky-top">    
@@ -83,12 +83,13 @@
                     <div class="d-inline-flex">
                         <a class="header-element me-5 ms-3" href="#"><span class="ti-search"></span></a>
 
-                            <!-- Search field --> 
+                            <!-- Search form --> 
                             <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
-                                        <form class="uk-search uk-search-navbar uk-width-1-1">
-                                            <input class="uk-search-input" type="search" placeholder="Поиск..." autofocus>
+                                        <form class="uk-search uk-search-navbar uk-width-1-1" method="post" action="{% url 'search' %}">
+                                            {% csrf_token %}
+                                            <input class="uk-search-input" name="search_query" id="search_query" type="search" placeholder="Поиск..."  autocomplete="off" autofocus>
                                         </form>
                                     </div>
                                     <div class="uk-width-auto">
@@ -127,65 +128,70 @@
             <!-- Offcanvas body-->
             <div class="offcanvas-body">
 
-                <div class="p-2">
-                
-                    <!-- Product -->
-                    <div class="d-flex border p-3">
-                        <img src="{% static 'images/WIP.png' %}" alt="Product image"
-                        class="flex-shrink-0 me-3 my-auto rounded" width="60" height="60">
+                {% if cart %}
+                    <div class="p-2">
+                        {% for product in cart %}
+                            <!-- Product in cart-->
+                            <div class="uk-transition-toggle">
+                                <div class="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
+                                    
+                                    <img src="{{product.image}}" alt="Product image"
+                                    class="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <a href="{% url 'product' %}?category=Корзина&id={{product.id}}" class="lead uk-button-text">{{product.name}}</a>
+                                            <a type="button" class="btn-close btn-sm float-end" aria-label="Delete product" href="{% url 'cart_remove' product.id %}"></a>
+                                        </div><br>
 
-                        <div>
-                            <p class="lead">Product name</p><br>
-                            <p>Кол-во: <a href="#"> <span class="ti-minus"></span></a> <strong>1</strong> <a href="#"><span class="ti-plus"></span></a></p><br>
-                            <p>$25.49</p>
-                        </div>
-                    </div>
+                                        <div class="row col-12 mx-0 mt-2 px-2">
+                                            <span class="col-4 p-0">Кол-во: </span>
 
-                    <!-- Product -->
-                    <div class="uk-transition-toggle">
-                        <div class="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
-                            
-                            <img src="{% static 'images/WIP.png' %}" alt="Product image"
-                            class="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60">
+                                            <form class="col-1 p-0" method="post">
+                                                {% csrf_token %}
+                                                <button class="col-4 border-0 p-0 bg-transparent" formaction="{% url 'cart_action' product.id %}">{{cart_remove_one_form}}<span class="ti-minus"></span></button>
+                                            </form>
 
-                            <div>
-                                <p class="lead uk-button-text">Product name
-                                    <button type="button" class="btn-close btn-sm ms-3" aria-label="Close"></button>
-                                </p><br>
-                                <p>Кол-во: <a href="#"> <span class="ti-minus"></span></a> <strong>3</strong> <a href="#"><span class="ti-plus"></span></a></p><br>
-                                <p>$25.49</p>
+                                            <span class="col-1 p-0">{{product.product_amount}}</span> 
+                                            
+                                            <form class="col-1 p-0" method="post">
+                                                {% csrf_token %}
+                                                <button class="col-4 border-0 p-0 bg-transparent" formaction="{% url 'cart_action' product.id %}">{{cart_add_one_form}}<span class="ti-plus"></span></button>
+                                            </form>
+                                        </div><br>
+                                        
+                                        <div class="col-12">
+                                            {% if product.total_promo_price %}
+                                                <span class="text-decoration-line-through">${{product.total_price}}</span>
+                                                <span class="text-danger"> ${{product.total_promo_price}}</span>
+                                            {% else %}
+                                                <span>${{product.total_price}}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        {% endfor %}
                     </div>
+                    
+                    <!-- Decoration -->
+                    <hr class="text-black-50">
 
-                    <!-- Product in cart-->
-                    <div class="uk-transition-toggle">
-                        <div class="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
-                            
-                            <img src="{% static 'images/WIP.png' %}" alt="Product image"
-                            class="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60">
+                    <p class="h4">
+                        Итого: 
+                        {% if cart.get_total_promo_price < cart.get_total_price %}
+                            <span class="text-decoration-line-through h4">${{cart.get_total_price}}</span>
+                            <span class="text-danger h4"> ${{cart.get_total_promo_price}}</span>
+                        {% else %}
+                            <span class="h4">${{cart.get_total_price}}</span>
+                        {% endif %}
+                    </p>
 
-                            <div>
-                                <p class="lead uk-button-text">Product name
-                                    <button type="button" class="btn-close btn-sm ms-3" aria-label="Close"></button>
-                                </p><br>
-                                <p>Кол-во: <a href="#"> <span class="ti-minus"></span></a> <strong>3</strong> <a href="#"><span class="ti-plus"></span></a></p><br>
-                                <p>$25.49</p>
-                            </div>
-                        </div>
+                    <div class="d-grid gap-2">
+                        <a type="button" class="btn-lg offcanvas-submit-button uk-button-text" href="#">Перейти к оформлению заказа</a>
                     </div>
-
-                </div>
-                
-                <!-- Decoration -->
-                <hr class="text-black-50">
-
-                <p class="h4">Итого: $76.47</p>
-
-                <div class="d-grid gap-2">
-                    <!-- <button type="button" class="btn btn-outline-danger btn-lg uk-button-text">Перейти к оформлению заказа</button> -->
-                    <a type="button" class="btn-lg offcanvas-submit-button uk-button-text" href="#">Перейти к оформлению заказа</a>
-                </div>
+                {% else %}
+                    <div class="lead fs-3 text-colored my-5 py-5 text-center">Корзина пуста</div>
+                {% endif %}
             </div>
 
             <!-- Decoration -->

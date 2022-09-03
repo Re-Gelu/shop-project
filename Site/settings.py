@@ -17,7 +17,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -29,14 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-if os.environ.get("DEBUG"):
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    DEBUG = int(os.environ.get("DEBUG", default=0))
-
-    # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
-    # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-    ALLOWED_HOSTS = str(os.environ.get("DJANGO_ALLOWED_HOSTS")).split(" ")
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'rest_framework',
+    
     'Shop',
+    'Cart',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'Site.urls'
@@ -153,7 +150,32 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Prod settings
+
+if os.environ.get("DEBUG"):
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    DEBUG = int(os.environ.get("DEBUG", default=0))
+
+    # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
+    # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+    ALLOWED_HOSTS = str(os.environ.get("DJANGO_ALLOWED_HOSTS")).split(" ")
+
 # Login settings
+
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
+
+# Session settings
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+CART_SESSION_ID = 'cart'
+
+# Cart settings
+
+MAX_PRODUCT_AMOUNT_IN_CART = 10
+MIN_PRODUCT_AMOUNT_IN_CART = 1
+
+MAX_PRODUCTS_IN_CART = 5
+MIN_PRODUCTS_IN_CART = 1

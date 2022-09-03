@@ -1,5 +1,5 @@
 from Shop.models import *
-#from art import tprint
+from art import tprint
 import random
 
 def DB_AUTO_FILL(amount, model):
@@ -50,7 +50,7 @@ def DB_AUTO_FILL(amount, model):
                 print(product.information, "\n")
 
 if __name__ == '__main__':
-    #tprint("DB auto fill", font="Slant")
+    tprint("DB auto fill", font="Slant")
     amount = int(input("Кол-во записей: "))
     model = input("Таблица: ")
     DB_AUTO_FILL(amount, model)

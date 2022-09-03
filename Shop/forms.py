@@ -1,9 +1,6 @@
+from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
-from django.core.exceptions import ValidationError
-from django.contrib.auth import password_validation
-from django import forms
-
 
 class LoginForm(AuthenticationForm):
 
@@ -34,3 +31,6 @@ class ChangePassword(PasswordChangeForm):
         
         for key in self.fields.keys():
             self.fields[key].widget.attrs['class'] = 'form-control'
+class SearchForm(forms.Form):
+    search_query = forms.CharField(max_length=100)
+    required_css_class = "uk-search-input"

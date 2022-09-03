@@ -48,10 +48,18 @@ v0.2 changes:
         # Prod
             $ docker-compose -f docker-compose.prod.yml up -d --build
             $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
-            $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input
+            $с
 
     -   Были добавлены хлебные крошки на основе наследования шаблонов
 
     -   Обновлен title страницы по аналогии с хлебными крошками
 
     -   Добавлена базовая сортировка товаров на странице
+
+    -   Переделаны модели и представление админки
+    
+    -   Создана страница товара
+
+    -   Добавлен REST framework
+
+    -   Создана корзина. Базируется на сессии пользователя. Хранится в cookies.
