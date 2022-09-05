@@ -2,7 +2,7 @@
 > Проект создается в целях изучения Django для портфолио :shipit:
 
 ## :white_circle: Стек проекта: 
-- Python (Django)
+- Python (Django, Django REST)
 - HTML5
 - CSS (Bootstrap 5, UIkit)
 - NGNIX, Gunicorn
