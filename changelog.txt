@@ -48,7 +48,7 @@ v0.2 changes:
         # Prod
             $ docker-compose -f docker-compose.prod.yml up -d --build
             $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
-            $с
+            $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
 
     -   Были добавлены хлебные крошки на основе наследования шаблонов
 
