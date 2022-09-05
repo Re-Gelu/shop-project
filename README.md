@@ -14,7 +14,7 @@
 - Логин: *admin*
 - Пароль: *1234*
 
-> Либо python manage.py createsuperuser admin 1234 --noinput
+> Либо `$ python manage.py createsuperuser admin 1234 --noinput`
 
 ## :white_circle: Авто-заполнение магазина для быстрого тестирования
 
