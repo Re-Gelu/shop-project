@@ -1,114 +1,59 @@
-<p align="center">
-  <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
-</p>
+# :poop: Интернет-маркетплейс на Django
+> Проект создается в целях изучения Django для портфолио :shipit:
 
-<h3 align="center">Project Title</h3>
+## :white_circle: Стек проекта: 
+- Python (Django, Django REST)
+- HTML5
+- CSS (Bootstrap 5, UIkit)
+- NGNIX, Gunicorn
 
-<div align="center">
+## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
 
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+## :closed_lock_with_key: Админка
 
-</div>
+- Логин: *admin*
+- Пароль: *1234*
 
----
+> Либо `$ python manage.py createsuperuser --username admin --email admin@email.com`
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
-
-## 📝 Table of Contents
-
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Deployment](#deployment)
-- [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
-
-## 🧐 About <a name = "about"></a>
-
-Write about 1-2 paragraphs describing the purpose of your project.
-
-## 🏁 Getting Started <a name = "getting_started"></a>
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them.
+## :white_circle: Авто-заполнение магазина для быстрого тестирования
 
 ```
-Give examples
+.../db_auto_fill/7/Categories/
+```
+```
+.../db_auto_fill/10/Subcategories/
+```
+```
+.../db_auto_fill/300/Products/
 ```
 
-### Installing
+> Необходимы права администратора
 
-A step by step series of examples that tell you how to get a development env running.
+## :whale: Работа с Docker
 
-Say what the step will be
+- rm containers
 
-```
-Give the example
-```
+  ```
+  $ docker-compose down -v
+  ```
 
-And repeat
+- Dev
+  ```
+  $ docker-compose -f docker-compose.yml up -d --build
+  ```
 
-```
-until finished
-```
+- Prod
+  ```
+  $ docker-compose -f docker-compose.prod.yml up -d --build
+  $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+  $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+  ```
+  
+## :camera: Скрины проекта
 
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## 🎈 Usage <a name="usage"></a>
-
-Add notes about how to use the system.
-
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
-## ⛏️ Built Using <a name = "built_using"></a>
-
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
-
-## ✍️ Authors <a name = "authors"></a>
-
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+![Изображение №1](https://user-images.githubusercontent.com/75813517/188868325-ccd04c10-ce03-4f4e-953d-585486d8c895.png)
+![Изображение №2](https://user-images.githubusercontent.com/75813517/188868290-8b498777-60ec-4122-b541-f212753966cc.png)
+![Изображение №3](https://user-images.githubusercontent.com/75813517/188868272-d8536fb7-d3bc-4877-baf1-665ba7183fcd.png)
+![Изображение №4](https://user-images.githubusercontent.com/75813517/188868235-59a80095-d2be-474e-849c-b36b1562ce31.png)
+![Изображение №5](https://user-images.githubusercontent.com/75813517/188868163-d8e8793e-85f7-467a-9378-000430b886c1.png)
