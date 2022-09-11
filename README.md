@@ -1,59 +1,98 @@
-# :poop: Интернет-маркетплейс на Django
-> Проект создается в целях изучения Django для портфолио :shipit:
+<div align="center" id="top"> 
+  <img src="./.github/app.gif" alt="Sample_shop" />
 
-## :white_circle: Стек проекта: 
-- Python (Django, Django REST)
-- HTML5
-- CSS (Bootstrap 5, UIkit)
-- NGNIX, Gunicorn
+  &#xa0;
 
-## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
+  <!-- <a href="https://sample_shop.netlify.app">Demo</a> -->
+</div>
 
-## :closed_lock_with_key: Админка
+<h1 align="center">Sample_shop</h1>
 
-- Логин: *admin*
-- Пароль: *1234*
+<p align="center">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8">
 
-> Либо `$ python manage.py createsuperuser --username admin --email admin@email.com`
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8">
 
-## :white_circle: Авто-заполнение магазина для быстрого тестирования
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8">
 
+  <img alt="License" src="https://img.shields.io/github/license/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8">
+
+  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8" /> -->
+
+  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8" /> -->
+
+  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/{{YOUR_GITHUB_USERNAME}}/sample_shop?color=56BEB8" /> -->
+</p>
+
+<!-- Status -->
+
+<!-- <h4 align="center"> 
+	🚧  Sample_shop 🚀 Under construction...  🚧
+</h4> 
+
+<hr> -->
+
+<p align="center">
+  <a href="#dart-about">About</a> &#xa0; | &#xa0; 
+  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
+  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
+  <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
+  <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
+  <a href="#memo-license">License</a> &#xa0; | &#xa0;
+  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
+</p>
+
+<br>
+
+## :dart: About ##
+
+Describe your project
+
+## :sparkles: Features ##
+
+:heavy_check_mark: Feature 1;\
+:heavy_check_mark: Feature 2;\
+:heavy_check_mark: Feature 3;
+
+## :rocket: Technologies ##
+
+The following tools were used in this project:
+
+- [Expo](https://expo.io/)
+- [Node.js](https://nodejs.org/en/)
+- [React](https://pt-br.reactjs.org/)
+- [React Native](https://reactnative.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+## :white_check_mark: Requirements ##
+
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+
+## :checkered_flag: Starting ##
+
+```bash
+# Clone this project
+$ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/sample_shop
+
+# Access
+$ cd sample_shop
+
+# Install dependencies
+$ yarn
+
+# Run the project
+$ yarn start
+
+# The server will initialize in the <http://localhost:3000>
 ```
-.../db_auto_fill/7/Categories/
-```
-```
-.../db_auto_fill/10/Subcategories/
-```
-```
-.../db_auto_fill/300/Products/
-```
 
-> Необходимы права администратора
+## :memo: License ##
 
-## :whale: Работа с Docker
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
-- rm containers
 
-  ```
-  $ docker-compose down -v
-  ```
+Made with :heart: by <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">{{YOUR_NAME}}</a>
 
-- Dev
-  ```
-  $ docker-compose -f docker-compose.yml up -d --build
-  ```
+&#xa0;
 
-- Prod
-  ```
-  $ docker-compose -f docker-compose.prod.yml up -d --build
-  $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
-  $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
-  ```
-  
-## :camera: Скрины проекта
-
-![Изображение №1](https://user-images.githubusercontent.com/75813517/188868325-ccd04c10-ce03-4f4e-953d-585486d8c895.png)
-![Изображение №2](https://user-images.githubusercontent.com/75813517/188868290-8b498777-60ec-4122-b541-f212753966cc.png)
-![Изображение №3](https://user-images.githubusercontent.com/75813517/188868272-d8536fb7-d3bc-4877-baf1-665ba7183fcd.png)
-![Изображение №4](https://user-images.githubusercontent.com/75813517/188868235-59a80095-d2be-474e-849c-b36b1562ce31.png)
-![Изображение №5](https://user-images.githubusercontent.com/75813517/188868163-d8e8793e-85f7-467a-9378-000430b886c1.png)
+<a href="#top">Back to top</a>
