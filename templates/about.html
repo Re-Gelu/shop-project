@@ -1,130 +1,22 @@
 {% extends "base.html" %}
-{% block title %}О нас{% endblock title %}
+{% block title %}
+    {{block.super}}
+    | О нас
+{% endblock title %}
 {% load static %}
 {% block content %}
-    Учу тут Python, Django, HTML, CSS и JS
 
-        <!-- Header --> 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-5">
-            <div class="container-fluid">
+    <div class="container pt-3">
+        <div class="fs-4">О нас</div>
+        <div class="my-3">
+            {% lorem 4 %}
+        </div>
+        <div class="lead text-center my-3" >
+            Мы находимся:
+        </div>
+        <div class="container mt-3">
+            <iframe class="container" src="https://yandex.ru/map-widget/v1/?um=constructor%3A0721b580c31c57c268e03b5d4b604da1a3b20effbbec676c8b5d2b2dce368ffb&amp;source=constructor" width="916" height="678" frameborder="0"></iframe>
+        </div>
+    </div>
 
-                <a class="navbar-brand" href="#">PageTitle</a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
-                    </ul>
-
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-light" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Header --> 
-        <header id="header" class="navbar navbar-expand-lg mt-5">
-            <nav class="container-fluid">
-
-                <!-- Left header block - Logo -->
-                <a href="#" class="navbar-brand logo">SAMPLE-SHOP.COM</a>
-
-                <!-- Navbar toggler -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                        data-bs-target="#navbar-menu" aria-controls="navbar-menu" 
-                        aria-expanded="false" aria-label="Переключатель навигации">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Navigation menu -->
-                <div id="navbar-menu" class="navbar-collapse collapse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Домой</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Акции</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/contacts">Контакты</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Доставка</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/about">О нас</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Right header block -->
-                <div class="d-flex text-center">
-                    <a class="header-element me-5" href=""><span class="ti-search"></span></a>
-                    <a class="header-element" href="/admin"><span class="ti-shopping-cart"></span></a>
-                </div>
-            </nav>
-        </header>
-
-        <!-- Header --> 
-        <header id="header" class="container-fluid sticky-top mt-5">
-            <div class="row align-items-center">
-
-                <!-- Left header block - logo -->
-                <div class="col-xl-2 col-6 text-center">
-                    <a class="logo" href="">SAMPLE-SHOP.COM</a>
-                </div> 
-
-                <!-- Header site navigation menu -->
-                <div class="col-xl-8 d-none d-lg-block text-center">
-                    <nav class="navbar-nav justify-content-center">
-                        <ul class="list-inline top-menu">  
-                            <a href="/"><li class="list-inline-item">Домой</li></a>
-                            <a href=""><li class="list-inline-item">Акции</li></a>
-                            <a href="/contacts"><li class="list-inline-item">Контакты</li></a>
-                            <a href=""><li class="list-inline-item">Доставка</li></a>
-                            <a href="/about"><li class="list-inline-item"   >О нас</li></a>
-                        </ul>       
-                    </nav>
-                </div>
-
-                <!-- Right header block -->
-                <div class="col-xl-2 col-6 text-center">
-                    <a class="header-element me-5" href=""><span class="ti-search"></span></a>
-                    <a class="header-element" href="/admin"><span class="ti-shopping-cart"></span></a>
-                </div>
-            </div>
-        </header>
 {% endblock content %}
