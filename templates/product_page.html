@@ -48,7 +48,7 @@
                         
                             <form action="{% url 'cart_action' product.id %}" method="post">
                                 {% csrf_token %}
-                                <div class="m-2">{{cart_product_form}} </div>
+                                <div class="m-2">{{cart_add_one_form}} </div>
                                 <button type="submit" class="btn-lg offcanvas-submit-button uk-button-text">Добавить в корзину <i class="bi bi-cart"></i></button>
                             </form>
                         {% endif %}
