@@ -131,40 +131,6 @@ def search(request):
 
         return products_page(request, 1, products)
 
-# Registration page
-def registration(request):
-    if request.method == "POST":
-        registration_form = RegistrationForm(request.POST)
-
-        if registration_form.is_valid():
-
-            # Create a new user object but avoid saving it yet
-            new_user = registration_form.save(commit=False)
-
-            # Set email like username
-            new_user.username = (registration_form.cleaned_data['email'])
-
-            # Set the chosen password
-            new_user.set_password(registration_form.cleaned_data['password1'])
-
-            # Save the User object
-            new_user.save()
-            return render(request, "registration_done.html", {"new_user": new_user})
-        else:
-            registration_form = RegistrationForm(request.POST)
-            return render(request, "registration.html", {"registration_form": registration_form})
-
-    else:
-        registration_form = RegistrationForm()
-        
-        context = {
-            "registration_form": registration_form
-        }
-        
-        context.update(get_base_context_data(request))
-        
-        return render(request, "registration.html", context = context)
-
 # Dashboard page
 @login_required
 def dashboard(request):

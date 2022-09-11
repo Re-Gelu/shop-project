@@ -37,7 +37,13 @@ urlpatterns = [
     path(
         '',
         include('Cart.urls')
-    )
+    ),
+    
+    # Login app urls
+    path(
+        '', 
+        include('Login.urls')
+    ),
 ]
 
 if settings.DEBUG:
