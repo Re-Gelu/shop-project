@@ -60,19 +60,19 @@
                         </li>
 
                         <li class="nav-item px-4">
-                            <a class="nav-link text-reset uk-button-text " href="/promo">Акции</a>
+                            <a class="nav-link text-reset uk-button-text " href="{% url 'promo' %}">Акции</a>
                         </li>
 
                         <li class="nav-item px-4">
-                            <a class="nav-link text-reset uk-button-text " href="/contacts">Контакты</a>
+                            <a class="nav-link text-reset uk-button-text " href="{% url 'contacts' %}">Контакты</a>
                         </li>
 
                         <li class="nav-item px-4">
-                            <a class="nav-link text-reset uk-button-text " href="#">Доставка</a>
+                            <a class="nav-link text-reset uk-button-text " href="{% url 'delievery' %}">Доставка</a>
                         </li>
 
                         <li class="nav-item px-4">
-                            <a class="nav-link text-reset uk-button-text " href="/about">О нас</a>
+                            <a class="nav-link text-reset uk-button-text " href="{% url 'about' %}">О нас</a>
                         </li>
                 
                     </ul>
@@ -211,26 +211,7 @@
 
         </div>
         
-        <!-- Footer -->
-        <footer class="container text-center my-5">
-
-			<div class="row justify-content-center h-100">
-				<div class="col-5 my-auto p-0">
-					<hr class="text-black-50 my-0">
-				</div>
-
-				<div class="col-auto my-auto">
-                    <span class="ti-control-record fs-3 opacity-25 my-0"></span>
-                </div>
-
-				<div class="col-5 my-auto p-0">
-					<hr class="text-black-50 my-0">
-				</div>	
-			</div>
-
-            <div class="mt-4">© 2022 МИРЭА - Российский технологический университет</div>
-            
-        </footer>
+        {% include "footer.html" %}
 
         <!-- JS -->
         <script src="{% static 'js/scripts.js' %}"></script>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    {{block.super}}
+    | Доставка
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container row pt-3">
+        <div class="col-5 ps-5">
+            <div class="fs-4 text-center my-3"><span class="uk-button-text a-important">Доставка</span></div>
+            <div class="my-3">
+                <p class=" fw-bold my-3"><span class="fs-4 a-important uk-button-text">Самовывоз</span></p>
+                <p class="my-3 lead">Самовывоз происходит по адресу: Московская область, Балашиха, микрорайон Железнодорожный,Саввинское шоссе, 4к1, подъезд 4</p>
+                <p class=" fw-bold my-3"><span class="fs-4 a-important uk-button-text">Доставка по Москве и Московской области</span></p>
+                <p class="my-3"><span class=" fw-bold ">От n рублей</span> — доставляем 24 часа в сутки, 7 дней в неделю.</p>
+                <p class="my-3">Мы предлагаем Вам несколько вариантов доставки до адреса по линиям метро Москвы и Московской области:</p>
+
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">СТАНДАРТНАЯ ДОСТАВКА</div>
+                        — в течение сегодняшнего дня.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">СРОЧНАЯ/ЭКСПРЕСС ДОСТАВКА</div>
+                        — всего за несколько часов.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">НОЧНАЯ ДОСТАВКА</div>
+                        — для тех, кто не спит.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">VIP БЕЗВОЗМЕЗДНАЯ ДОСТАВКА</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <p class="lead my-3">Самый лучший, надежный, качественный, экономичный и моментальный способ 
+                    оформления заказа — это позвонить нам по <span class=" uk-text-danger">8 (999) 999-99-99</span> или <span class=" uk-text-danger">8 (888) 888-88-88</span> с 9:00 до 20:00.</p>
+
+                <p>Для Московской области действует ограничение по удаленности — не более 10 минут от метро, 
+                    а далее с разумной доплатой (стоимость рассматривается индивидуально в каждом конкретном случае 
+                    и зависит от дальности расположения и удобства проезда).</p>
+
+                <p class=" fw-bold my-3"><span class="fs-4 a-important uk-button-text">Доставка в регионы РФ</span></p>
+
+                <a class="a-important btn btn-outline-dark">Вся информация на этой странице</a>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="lead text-center my-3" >
+            Самовывоз находится:
+            </div>
+            <div class="container m-3">
+                <iframe class="container" src="https://yandex.ru/map-widget/v1/?um=constructor%3A0721b580c31c57c268e03b5d4b604da1a3b20effbbec676c8b5d2b2dce368ffb&amp;source=constructor" width="670" height="670" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

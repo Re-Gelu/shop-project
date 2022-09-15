@@ -105,12 +105,14 @@ def product(request):
     context.update(get_base_context_data(request))
     
     return render(request, "product_page.html", context=context)
+def promo(request):
+    return render(request, "base.html", context=get_base_context_data(request))
 
 def contacts(request):
     return render(request, "contacts.html", context=get_base_context_data(request))
 
-def promo(request):
-    return render(request, "base.html", context=get_base_context_data(request))
+def delivery(request):
+    return render(request, "delivery.html", context=get_base_context_data(request))
 
 def about(request):
     return render(request, "about.html", context=get_base_context_data(request))

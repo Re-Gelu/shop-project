@@ -21,15 +21,23 @@ urlpatterns = [
     ),
     path(
         'promo/',
-        views.promo
+        views.promo,
+        name='promo'
     ),
     path(
         'contacts/',
-        views.contacts
+        views.contacts,
+        name='contacts'
     ),
     path(
         'about/',
-        views.about
+        views.about,
+        name='about'
+    ),
+    path(
+        'delivery/',
+        views.delivery,
+        name='delievery'
     ),
     path(
         'dashboard/',
