@@ -27,11 +27,6 @@ def get_base_context_data(request):
 
 # Registration page
 def registration(request):
-    categories = Categories.objects.all()
-    subcategories = Subcategories.objects.all()
-    random_product = Products.objects.order_by('?').first()
-    cart = Cart(request)
-    
     if request.method == "POST":
         registration_form = RegistrationForm(request.POST)
 
