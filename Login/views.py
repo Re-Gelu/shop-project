@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from Shop.forms import RegistrationForm
+from .forms import RegistrationForm
 from Shop.models import *
 from Cart.cart import Cart
 from Cart.forms import *

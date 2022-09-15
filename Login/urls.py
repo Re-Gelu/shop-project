@@ -1,13 +1,12 @@
 from django.urls import re_path
 from django.contrib.auth.views import *
-from Shop.forms import *
+from .forms import *
 from . import views
 
 urlpatterns = [
     re_path(
         r'^login/$',
-        LoginView.as_view(template_name="login.html",
-                          authentication_form=LoginForm),
+        LoginView.as_view(template_name="login.html", authentication_form=LoginForm),
         name='login'
     ),
     re_path(
