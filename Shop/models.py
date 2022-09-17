@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.utils import timezone
 from django.db import models
 from django.urls import reverse
@@ -112,3 +113,39 @@ class Products(models.Model):
         if self.stock == 0:
             self.available = False
         super(Products, self).save(*args, **kwargs)
+
+class current_orders(models.Model):
+    
+    order_UUID =  models.UUIDField(auto_created=True)
+    
+    product_list = models.TextField(
+        blank=True, null=True,
+        verbose_name="Список товаров",
+        editable=False
+    )
+    
+    adress = models.TextField(
+        blank=True, null=True,
+        verbose_name="Адрес клиента",
+        editable=False
+    )
+    
+    contacts = models.TextField(
+        blank=True, null=True,
+        verbose_name="Контакты клиента",
+        editable=False
+    )
+    
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name="Дата создания заказа"
+    )
+
+    def expire_time(self):
+        return self.created >= timezone.now() - datetime.timedelta(days=7)
+    
+    def __str__(self):
+        return self.adress
+    
+    class Meta:
+        verbose_name = 'текущий заказ'
+        verbose_name_plural = 'Текущие заказы'

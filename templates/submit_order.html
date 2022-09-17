@@ -2,25 +2,22 @@
 
 {% block title %}
     {{block.super}}
-    | Личный кабинет
+    | Оформление заказа
 {% endblock title %}
 
 {% load static %}
 
 {% block content %}
+
     <div class="container col-xl-6 col-lg-8 col-md-8 col-12 p-5">
-        <div class="row g-3 text-center">
-            <!-- Dashboard -->
-            <p class="h2">Личный кабинет</p>
+        <form class="row g-4 needs-validation" method="post" novalidate>
+            {% csrf_token %}
+            
+            <p class="h3 text-center">Оформление заказа</p>
 
             <hr>
 
-            <p class="lead">Привет, {{ request.user.first_name }}</p>
-
-            <!-- Cart -->
-            {% if cart %}
-                <p class="h3">Корзина</p>
-                <table class="uk-table uk-table-middle uk-table-divider">
+            <table class="uk-table uk-table-divider uk-table-middle text-center">
                     <thead>
                         <tr>
                             <th class="text-center">Товар</th>
@@ -43,16 +40,9 @@
                                     <td>
                                         <div class="row col-12 m-0">
                                         <form class="col-4 p-0 pe-3" method="post">
-                                            {% csrf_token %}
-                                            <button class="col-4 border-0 p-0 bg-transparent" formaction="{% url 'cart_action' product.id %}">{{cart_remove_one_form}}<span class="ti-minus"></span></button>
-                                        </form>
 
                                         <span class="col-4 p-0">{{product.product_amount}}</span>
 
-                                        <form class="col-4 p-0" method="post">
-                                            {% csrf_token %}
-                                            <button class="col-4 border-0 p-0 bg-transparent" formaction="{% url 'cart_action' product.id %}">{{cart_add_one_form}}<span class="ti-plus"></span></button>
-                                        </form>
                                         </div>
                                     </td>
 
@@ -73,10 +63,6 @@
                                             ${{product.total_price}}
                                         {% endif %}
                                     </td>
-
-                                    <td class="uk-table-shrink ps-0">
-                                        <a type="button" class="btn-close btn-sm btn-lg float-end" aria-label="Delete product" href="{% url 'cart_remove' product.id %}"></a>
-                                    </td>
                                 
                                 </tr>
                         {% endfor %}
@@ -96,17 +82,77 @@
 
                     </tbody>
                 </table>
-                <div class="d-grid gap-2">
-                    <a type="button" class="btn-lg offcanvas-submit-button uk-button-text" href="{% url 'submit_order' %}">Перейти к оформлению заказа</a>
+
+            {% for field in submit_form %}
+                {% if forloop.first %}
+                
+                    <!-- Email form -->
+                    <div class="col-12">
+
+                        <!-- Form label -->
+                        <label class="form-label">{{field.label_tag}}</label>
+
+                        <!-- Form input -->
+                        <div class="input-group">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            {{field}}
+                        </div>
+
+                        <!-- Optional form errors -->
+                        {% if field.errors %}
+                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
+                                {{field.errors}}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                {% else %}
+
+                    <!-- Standart form -->
+                    <div class="col-12">
+
+                        <!-- Form label -->
+                        <label class="form-label">{{field.label_tag}}</label>
+
+                        <!-- Form input -->
+                        {{field}}
+
+                        <!-- Optional form errors -->
+                        {% if field.errors %}
+                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
+                                {{field.errors}}
+                            </div>
+                        {% endif %}
+                
+                    </div>  
+                {% endif %}
+            {% endfor %}
+
+            <!-- Terms and conditions -->
+            <div class="col-12">
+                <div class="form-check" href="#">
+                    <input class="form-check-input" type="checkbox" value="1" id="invalidCheck" required checked>
+                    <label class="form-check-label" for="invalidCheck">
+                        <a class="text-reset uk-button-text a-important" href="#">Согласен с правилами и условиями</a>
+                    </label> 
                 </div>
+            </div>
+
+            <hr>
+
+            {% if registration_form.non_field_errors %}
+                <div class="text-reset uk-button-text text-center offcanvas-submit-button my-3 py-2">
+                    {{registration_form.non_field_errors}}
+                </div>
+                <hr>
             {% endif %}
 
-            <!-- Dashboard func -->
-            {% if request.user.is_superuser %}
-                <p><a class="text-reset uk-button-text a-important lead" href="/admin">Админ-панель</a></p>
-            {% endif %}
-            <p><a class="text-reset uk-button-text a-important lead" href="{% url 'password_change' %}">Сменить пароль</a></p>
-            <p><a class="text-reset uk-button-text a-important lead" href="{% url 'logout' %}">Выйти</a></p>
-        </div>
+            <!-- Submit form -->
+            <div class="col-12 text-center">
+                <button class="btn btn-primary btn-lg m-2" type="submit">Перейти к покупкам!</button>
+            </div>
+        </form>
+
     </div>
+
 {% endblock content %}
