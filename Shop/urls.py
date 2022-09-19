@@ -49,6 +49,12 @@ urlpatterns = [
         views.search,
         name="search"
     ),
+    
+    path(
+        'submit_order/',
+        views.submit_order,
+        name = 'submit_order'
+    ),
 
     path(
         'db_auto_fill/<int:amount>/<model>/',

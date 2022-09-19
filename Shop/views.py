@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -145,9 +145,44 @@ def dashboard(request):
         request.session.delete_test_cookie()
     
     # Get cart data
-    print('\n')
+    """ print('\n')
     for item in get_base_context_data(request)['cart']:
         print(item)
-    print('\n')
+    print('\n') """
     
     return render(request, "dashboard.html", context=get_base_context_data(request))
+
+
+@login_required
+def submit_order(request):
+    cart = Cart(request)
+    form = Submit_order(request.POST)
+    if request.method == "POST" and form.is_valid():
+        cd = form.cleaned_data
+        new_order = current_orders()
+        
+        new_order.adress = f"Адрес: {cd['adress']}"
+        new_order.contacts = f"Номер телефона: {cd['phone_number']}"
+        
+        new_order.product_list = f""
+        for key, item in enumerate(cart):
+            new_order.product_list += f"\nНомер товара в заказе: {key + 1}, ID товара: {item['id']}, Наименование товара: {item['name']}"
+            new_order.product_list += f", Общая стоимость товара: {item['total_promo_price']}$" if 'total_promo_price' in item else f", Общая стоимость товара: {item['total_price']}$"
+
+        new_order.product_list += f"\n\nИТОГО: {cart.get_total_promo_price()}$"
+        
+        print(new_order.product_list)        
+        print(new_order.adress)        
+        print(new_order.contacts)        
+        
+        new_order.save()
+        
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        submit_form = Submit_order()
+        context = {
+            "submit_form": submit_form
+        }
+        
+        context.update(get_base_context_data(request))
+        return render(request, "submit_order.html", context=context)

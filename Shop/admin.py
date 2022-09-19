@@ -42,5 +42,9 @@ class Products_admin(admin.ModelAdmin):
 
         form.base_fields["subcategory"].required = False
         return form
-
-# Register your models here.
+    
+@admin.register(current_orders)
+class Current_orders_admin(admin.ModelAdmin):
+    list_display = ("created",)
+    list_filter = ("created",)
+    search_fields = ("adress", )
