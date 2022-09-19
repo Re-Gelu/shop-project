@@ -88,7 +88,10 @@
 
                 <div class="col-xl-10">
                     {% if product.full_information %}
-                        <pre>{{product.full_information}}</pre>
+                        <div id="full_information"></div>
+                        <script>
+                            document.getElementById("full_information").outerHTML = "{{product.full_information|escapejs}}"
+                        </script>
                     {% else %}
                         {% lorem 3 %}
                     {% endif %}
