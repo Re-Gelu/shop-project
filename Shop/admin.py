@@ -34,7 +34,9 @@ class Products_admin(admin.ModelAdmin):
         form.base_fields["promo_price"].help_text = "(Опционально)"
         form.base_fields["promo_price"].required = False
 
-        form.base_fields["information"].required = False
+        form.base_fields["information"].required = False    
+        
+        form.base_fields["full_information"].help_text = "(Имеется поддержка вставки HTML кода)"
 
         form.base_fields["stock"].required = False
 
