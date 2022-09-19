@@ -79,7 +79,7 @@ class Products(models.Model):
         verbose_name="Краткая информация о товаре"
     )
     full_information = models.TextField(
-        max_length=1000, blank=True, null=True,
+        max_length=10000, blank=True, null=True,
         verbose_name="Полная информация о товаре"
     )
     stock = models.PositiveIntegerField(
