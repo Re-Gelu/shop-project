@@ -44,6 +44,12 @@ urlpatterns = [
         '', 
         include('Login.urls')
     ),
+    
+    # Orders app urls
+    path(
+        '', 
+        include('Orders.urls')
+    ),
 ]
 
 if settings.DEBUG:
