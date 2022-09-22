@@ -1,5 +1,7 @@
 Django>=3.0,<4.0
 djangorestframework
+celery
+rabbitmq
 shortuuid
 markdown
 django-filter

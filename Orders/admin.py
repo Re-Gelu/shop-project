@@ -6,4 +6,4 @@ from .models import *
 class Orders_admin(admin.ModelAdmin):
     list_display = ("UUID", "created",)
     list_filter = ("created",)
-    search_fields = ("adress", )
+    search_fields = ("UUID", "adress",)
