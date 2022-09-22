@@ -54,9 +54,9 @@ def order(request):
 
         new_order.product_list += f"\n\nИТОГО: {cart.get_total_promo_price()}$"
 
-        print(new_order.product_list)
+        """ print(new_order.product_list)
         print(new_order.adress)
-        print(new_order.contacts)
+        print(new_order.contacts) """
 
         new_order.save()
         cart.clear()
