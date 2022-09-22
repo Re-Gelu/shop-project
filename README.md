@@ -6,6 +6,7 @@
 - HTML5
 - CSS (Bootstrap 5, UIkit)
 - NGNIX, Gunicorn
+- Celery, RabbitMQ
 
 ## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
 
