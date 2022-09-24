@@ -26,6 +26,10 @@ COPY . .
 COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
+# RabbitMQ
+FROM rabbitmq:management
+CMD ["rabbitmq-server"]
+
 #########
 # FINAL #
 #########
