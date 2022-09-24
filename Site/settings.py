@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'rest_framework',
+    'django_celery_results',
     
     'Shop',
     'Cart',
@@ -180,3 +181,16 @@ MIN_PRODUCT_AMOUNT_IN_CART = 1
 
 MAX_PRODUCTS_IN_CART = 5
 MIN_PRODUCTS_IN_CART = 1
+
+# Cache settings
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+    }
+}
+
+# Celery settings
+CELERY_CACHE_BACKEND = 'default'
+
+

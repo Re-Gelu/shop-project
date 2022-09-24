@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from Site.celery_tasks import app
+from Site.celery import app
 
 from .models import *
 from .forms import *
@@ -12,9 +12,6 @@ from Cart.cart import Cart
 from Cart.forms import *
 
 # Get base context values
-
-
-@app.task
 def get_base_context_data(request):
     categories = Categories.objects.all()
     subcategories = Subcategories.objects.all()
@@ -33,7 +30,6 @@ def get_base_context_data(request):
     }
 
     return base_context
-
 
 @app.task
 @login_required
