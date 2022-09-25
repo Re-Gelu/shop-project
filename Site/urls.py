@@ -21,31 +21,37 @@ from django.conf import settings
 
 urlpatterns = [
     
-    # Admin app urls
+    # Admin app URLS
     path(
         'admin/', 
         admin.site.urls
     ),
     
-    # Shop app urls
+    # Grappelli URLS
+    path(
+        'grappelli/', 
+        include('grappelli.urls')
+    ),
+    
+    # Shop app URLS
     path(
         '', 
         include('Shop.urls')
     ),
     
-    # Cart app urls
+    # Cart app URLS
     path(
         '',
         include('Cart.urls')
     ),
     
-    # Login app urls
+    # Login app URLS
     path(
         '', 
         include('Login.urls')
     ),
     
-    # Orders app urls
+    # Orders app URLS
     path(
         '', 
         include('Orders.urls')
