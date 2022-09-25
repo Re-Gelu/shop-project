@@ -7,6 +7,7 @@ services:
       context: ./
       dockerfile: Dockerfile.prod
     command: gunicorn Site.wsgi:application --bind 0.0.0.0:8000
+    container_name: 'gunicorn web'
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
@@ -19,6 +20,7 @@ services:
 
   db:
     image: postgres:13.0-alpine
+    container_name: 'database'
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -26,6 +28,7 @@ services:
 
   nginx:
     build: ./nginx
+    container_name: 'nginx'
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
