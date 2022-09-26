@@ -31,11 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.contenttypes',
+    'grappelli.dashboard',
     'grappelli',
+    'filebrowser',
     
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
+    #'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -167,7 +170,9 @@ if os.environ.get("DEBUG"):
 # Login settings
 
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
+
 LOGIN_URL = reverse_lazy('login')
+
 LOGOUT_URL = reverse_lazy('logout')
 
 # Session settings
@@ -179,9 +184,11 @@ CART_SESSION_ID = 'cart'
 # Cart settings
 
 MAX_PRODUCT_AMOUNT_IN_CART = 10
+
 MIN_PRODUCT_AMOUNT_IN_CART = 1
 
 MAX_PRODUCTS_IN_CART = 5
+
 MIN_PRODUCTS_IN_CART = 1
 
 # Cache settings
@@ -195,4 +202,23 @@ CACHES = {
 # Celery settings
 CELERY_CACHE_BACKEND = 'default'
 
+# Grappelli settings
 
+GRAPPELLI_ADMIN_TITLE = 'Админка'
+
+GRAPPELLI_SWITCH_USER = True
+
+GRAPPELLI_INDEX_DASHBOARD = 'Site.dashboard.CustomIndexDashboard'
+
+# Grappelli filebrowser settings
+
+FILEBROWSER_DIRECTORY = ''
+
+FILEBROWSER_VERSIONS = {
+    'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'thumbnail': {'verbose_name': 'Миниатюра (1 кол.)', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'small': {'verbose_name': 'Маленькая (2 кол.)', 'width': 140, 'height': '', 'opts': ''},
+    'medium': {'verbose_name': 'Средняя (4 кол.)', 'width': 300, 'height': '', 'opts': ''},
+    'big': {'verbose_name': 'Большая (6 кол.)', 'width': 460, 'height': '', 'opts': ''},
+    'large': {'verbose_name': 'Огромная (8 кол.)', 'width': 680, 'height': '', 'opts': ''},
+}

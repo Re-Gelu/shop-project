@@ -18,19 +18,26 @@ from django.contrib.auth.views import *
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from filebrowser.sites import site
 
 urlpatterns = [
+    
+    # Grappelli filebrowser URLS
+    path(
+        'admin/filebrowser/', 
+        site.urls
+    ),
+    
+    # Grappelli URLS
+    path(
+        'grappelli/',
+        include('grappelli.urls')
+    ),
     
     # Admin app URLS
     path(
         'admin/', 
         admin.site.urls
-    ),
-    
-    # Grappelli URLS
-    path(
-        'grappelli/', 
-        include('grappelli.urls')
     ),
     
     # Shop app URLS

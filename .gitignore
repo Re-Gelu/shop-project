@@ -4,6 +4,7 @@
 *.pyc
 __pycache__
 db.sqlite3
+media/_versions/
 
 # Backup files # 
 *.bak 

@@ -1,9 +1,15 @@
 from django.contrib import admin
 from .models import *
 
-admin.AdminSite.site_header = "Админка"
-admin.AdminSite.site_title = "Админка"
+#admin.AdminSite.site_header = "Админка"
+#admin.AdminSite.site_title = "Админка"
 
+class MyModelOptions(admin.ModelAdmin):
+    change_list_filter_template = "admin/filter_listing.html"
+    
+
+
+    
 @admin.register(Main_page_slider)
 class Main_page_slider_admin(admin.ModelAdmin):
     list_display = ("image", "updated", "created")
