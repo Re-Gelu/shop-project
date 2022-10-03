@@ -14,6 +14,7 @@
 ```
 Django
 djangorestframework
+django-filter
 django-filebrowser-no-grappelli
 django-tinymce
 django-admin-interface
@@ -23,7 +24,6 @@ django-celery-results
 rabbitmq
 shortuuid
 markdown
-django-filter
 psycopg2-binary
 pillow
 gunicorn
