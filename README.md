@@ -1,23 +1,41 @@
 # :poop: Интернет-маркетплейс на Django
 > Проект создается в целях изучения Django для портфолио :shipit:
 
-## :white_circle: Стек проекта: 
+## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
+
+## :triangular_ruler: Стек проекта: 
 - Python (Django, Django REST)
 - HTML5
 - CSS (Bootstrap 5, UIkit)
 - NGNIX, Gunicorn
 - Celery, RabbitMQ
 
-## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
+## :package: Зависимости проекта
+```
+Django
+djangorestframework
+django-filter
+django-filebrowser-no-grappelli
+django-tinymce
+django-admin-interface
+django-extra-settings
+celery
+django-celery-results
+rabbitmq
+shortuuid
+markdown
+psycopg2-binary
+pillow
+gunicorn
+art
+```
 
-## :closed_lock_with_key: Админка
+## :closed_lock_with_key: Настройка входа в админку
 
-- Логин: *admin*
-- Пароль: *1234*
+- `$ python manage.py createsuperuser --username admin --email admin@email.com`
+- `$ docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser --username admin --email admin@email.com`
 
-> Либо `$ python manage.py createsuperuser --username admin --email admin@email.com`
-
-## :white_circle: Авто-заполнение магазина для быстрого тестирования
+## :black_nib: Авто-заполнение магазина для быстрого тестирования
 
 ```
 .../db_auto_fill/7/Categories/
