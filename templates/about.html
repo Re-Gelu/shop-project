@@ -1,15 +1,19 @@
 {% extends "base.html" %}
+
 {% block title %}
     {{block.super}}
     | О нас
 {% endblock title %}
+
 {% load static %}
+{% load extra_settings %}
+
 {% block content %}
 
     <div class="container pt-3">
         <div class="fs-4">О нас</div>
         <div class="my-3">
-            {% lorem 4 %}
+            {% get_setting 'ABOUT_PAGE_INFORMATION' default='Настройте параметр ABOUT_PAGE_INFORMATION' %}
         </div>
         <div class="lead text-center my-3" >
             Мы находимся:

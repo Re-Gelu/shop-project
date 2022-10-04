@@ -21,30 +21,9 @@ class CustomIndexDashboard(Dashboard):
     def init_with_context(self, context):
         site_name = get_admin_site_name(context)
 
-        """ # append a group for "Administration" & "Applications"
-        self.children.append(modules.Group(
-            _('Group: Administration & Applications'),
-            column=1,
-            collapsible=True,
-            children = [
-                modules.AppList(
-                    _('Administration'),
-                    column=1,
-                    collapsible=False,
-                    models=('django.contrib.*',),
-                ),
-                modules.AppList(
-                    _('Applications'),
-                    column=1,
-                    css_classes=('collapse closed',),
-                    exclude=('django.contrib.*',),
-                )
-            ]
-        )) """
-
         # append an app list module for "Applications"
         self.children.append(modules.AppList(
-            _('Список приложений'),
+            _('Список таблиц базы данных'),
             collapsible=True,
             css_classes=('collapse closed',),
             column=1,
@@ -59,37 +38,6 @@ class CustomIndexDashboard(Dashboard):
             css_classes=('collapse closed',),
             models=('django.contrib.*',),
         ))
-
-        """ # append another link list module for "support".
-        self.children.append(modules.LinkList(
-            _('Support'),
-            column=2,
-            children=[
-                {
-                    'title': _('Django Documentation'),
-                    'url': 'http://docs.djangoproject.com/',
-                    'external': True,
-                },
-                {
-                    'title': _('Grappelli Documentation'),
-                    'url': 'http://packages.python.org/django-grappelli/',
-                    'external': True,
-                },
-                {
-                    'title': _('Grappelli Google-Code'),
-                    'url': 'http://code.google.com/p/django-grappelli/',
-                    'external': True,
-                },
-            ]
-        )) """
-
-        """ # append a feed module
-        self.children.append(modules.Feed(
-            _('Latest Django News'),
-            column=2,
-            feed_url='http://www.djangoproject.com/rss/weblog/',
-            limit=5
-        )) """
 
         # append a recent actions module
         self.children.append(modules.RecentActions(
@@ -110,4 +58,10 @@ class CustomIndexDashboard(Dashboard):
                     'external': False,
                 },
             ]
+        ))
+        
+        self.children.append(modules.ModelList(
+            title='Настройки сайта',
+            column=3,
+            models=('Shop.models.Categories',)
         ))

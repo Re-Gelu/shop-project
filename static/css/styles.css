@@ -54,13 +54,15 @@
 	:root {
 		--body-background-color: white;
 		--header-background-color: rgba(255, 255, 255, 94%);
+		--shadow-color: rgba(220, 20, 60, 0.5);
 		--wrapper-background-color: white;
 		--footer-background-color: rgb(226, 226, 226);
+		--main-color: #dc143c;
 		--color-1: black;
 		--color-2: white;
 		--color-3: #444;
-		--color-4: #dc143c;
-		--color-4-o: rgba(220, 20, 60, 0.9);
+		--second-main-color: #dc143c;
+		--second-main-color-o: rgba(220, 20, 60, 0.9);
 		--color-5: rgb(226, 226, 226);
 		--logo-color: #444;
 		--a-text: #444;
@@ -110,7 +112,7 @@
 
 	#header {
 		background: var(--header-background-color);
-		box-shadow: 0 0.2em 5px rgba(220, 20, 60, 0.5);
+		box-shadow: 0 0.2em 5px var(--shadow-color);
 	}
 
 	a.logo {
@@ -132,18 +134,18 @@
 	}
 
 	.header-element:active, .header-element:hover {
-		color: var(--color-4)
+		color: var(--second-main-color)
 	}	
 
 
 /* Offcanvas */
 
 	.offcanvas {
-		box-shadow: 0 0 5px 0.1em rgba(220, 20, 60, 0.5);
+		box-shadow: 0 0 5px 0.1em var(--shadow-color);
 	}
 
 	.offcanvas-submit-button {
-		border: 1px var(--color-4) solid;
+		border: 1px var(--main-color) solid;
 	}
 
 /* btn-back-to-top */
@@ -152,8 +154,8 @@
 		bottom: 20px;
 		right: 20px;
 		display: none;
-		border-color: var(--color-4);
-		color: var(--color-4)
+		border-color: var(--main-color);
+		color: var(--main-color)
 	}
 
 /* Wrapper */
@@ -183,7 +185,7 @@
 	}
 
 	.sidebar-menu-header:hover {
-		color: var(--color-4);
+		color: var(--main-color);
 	}
 
 	.sidebar-menu-content li {

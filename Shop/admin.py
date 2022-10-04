@@ -1,15 +1,12 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from extra_settings.models import Setting
+from filebrowser.base import FileObject
+from django.conf import settings    
 from .models import *
 
 #admin.AdminSite.site_header = "Админка"
 #admin.AdminSite.site_title = "Админка"
-
-class MyModelOptions(admin.ModelAdmin):
-    change_list_filter_template = "admin/filter_listing.html"
-    
-
-
-    
 @admin.register(Main_page_slider)
 class Main_page_slider_admin(admin.ModelAdmin):
     list_display = ("image", "updated", "created")
@@ -29,7 +26,7 @@ class Subcategories_admin(admin.ModelAdmin):
 
 @admin.register(Products)
 class Products_admin(admin.ModelAdmin):
-    list_display = ("name", "price", "subcategory", "stock","available", "updated", "created")
+    list_display = ("image_tag", "name", "price", "subcategory", "stock","available", "updated", "created")
     list_filter = ("subcategory", "updated", "created")
     search_fields = ("name", )
     list_editable = ('stock', 'available')
@@ -48,3 +45,12 @@ class Products_admin(admin.ModelAdmin):
 
         form.base_fields["subcategory"].required = False
         return form
+    
+    def image_tag(self, obj):          
+        obj = FileObject(f"{settings.BASE_DIR}{obj.image.url}")
+        return format_html(f'<img src="{obj.version_generate("admin_thumbnail").url}"/>')
+    
+    image_tag.short_description = "Изображение товара"
+    Setting._meta.verbose_name = "настройку"
+    Setting._meta.verbose_name_plural = "Настройки"
+    

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load extra_settings %}
 
 {% block title %}
     {{block.super}}
@@ -14,7 +15,7 @@
             <div class="fs-4 text-center my-3"><span class="uk-button-text a-important">Доставка</span></div>
             <div class="my-3">
                 <p class=" fw-bold my-3"><span class="fs-4 a-important uk-button-text">Самовывоз</span></p>
-                <p class="my-3 lead">Самовывоз происходит по адресу: Московская область, Балашиха, микрорайон Железнодорожный,Саввинское шоссе, 4к1, подъезд 4</p>
+                <p class="my-3 lead">Самовывоз происходит по адресу: {% get_setting 'LOCATION' default='Настройте параметр LOCATION' %}</p>
                 <p class=" fw-bold my-3"><span class="fs-4 a-important uk-button-text">Доставка по Москве и Московской области</span></p>
                 <p class="my-3"><span class=" fw-bold ">От n рублей</span> — доставляем 24 часа в сутки, 7 дней в неделю.</p>
                 <p class="my-3">Мы предлагаем Вам несколько вариантов доставки до адреса по линиям метро Москвы и Московской области:</p>
@@ -46,7 +47,7 @@
                 </ol>
 
                 <p class="lead my-3">Самый лучший, надежный, качественный, экономичный и моментальный способ 
-                    оформления заказа — это позвонить нам по <span class=" uk-text-danger">8 (999) 999-99-99</span> или <span class=" uk-text-danger">8 (888) 888-88-88</span> с 9:00 до 20:00.</p>
+                    оформления заказа — это позвонить нам по <span class=" uk-text-danger">{% get_setting 'PHONE_NUMBER_1' default='Настройте параметр PHONE_NUMBER_1' %}</span> или <span class=" uk-text-danger">{% get_setting 'PHONE_NUMBER_2' default='Настройте параметр PHONE_NUMBER_2' %}</span> с 9:00 до 20:00.</p>
 
                 <p>Для Московской области действует ограничение по удаленности — не более 10 минут от метро, 
                     а далее с разумной доплатой (стоимость рассматривается индивидуально в каждом конкретном случае 
@@ -62,7 +63,7 @@
             Самовывоз находится:
             </div>
             <div class="container m-3">
-                <iframe class="container" src="https://yandex.ru/map-widget/v1/?um=constructor%3A0721b580c31c57c268e03b5d4b604da1a3b20effbbec676c8b5d2b2dce368ffb&amp;source=constructor" width="670" height="670" frameborder="0"></iframe>
+                {% autoescape off %}{% get_setting 'LOCATION_MAP' default='Настройте параметр LOCATION_MAP' %}{% endautoescape %}
             </div>
         </div>
     </div>

@@ -1,7 +1,9 @@
 Django>=4.0
 djangorestframework
-django-grappelli
-django-filebrowser
+django-filebrowser-no-grappelli
+django-tinymce
+django-admin-interface
+django-extra-settings
 celery
 django-celery-results
 rabbitmq

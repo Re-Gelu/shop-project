@@ -14,6 +14,11 @@ from pathlib import Path
 from django.urls import reverse_lazy
 import os
 
+# Base admin settings
+ADMIN_SETTINGS = {
+    'SITE_NAME': 'SAMPLE-SHOP.COM',
+}
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,13 +37,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
-    'grappelli.dashboard',
-    'grappelli',
+    'admin_interface',
+    'colorfield',
     'filebrowser',
+    'tinymce',
+    'extra_settings',
     
     'django.contrib.admin',
     'django.contrib.auth',
-    #'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -78,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Site.context_processors.admin_settings',
             ],
         },
     },
@@ -202,15 +209,15 @@ CACHES = {
 # Celery settings
 CELERY_CACHE_BACKEND = 'default'
 
-# Grappelli settings
+""" # Grappelli settings
 
-GRAPPELLI_ADMIN_TITLE = 'Админка'
+GRAPPELLI_ADMIN_TITLE = 'Админка сайта ' + ADMIN_SETTINGS['SITE_NAME']
 
 GRAPPELLI_SWITCH_USER = True
 
-GRAPPELLI_INDEX_DASHBOARD = 'Site.dashboard.CustomIndexDashboard'
+GRAPPELLI_INDEX_DASHBOARD = 'Site.dashboard.CustomIndexDashboard' """
 
-# Grappelli filebrowser settings
+# Filebrowser settings
 
 FILEBROWSER_DIRECTORY = ''
 
@@ -222,3 +229,112 @@ FILEBROWSER_VERSIONS = {
     'big': {'verbose_name': 'Большая (6 кол.)', 'width': 460, 'height': '', 'opts': ''},
     'large': {'verbose_name': 'Огромная (8 кол.)', 'width': 680, 'height': '', 'opts': ''},
 }
+
+# 'Extra settings' settings
+
+EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
+
+EXTRA_SETTINGS_CACHE_NAME = 'default'
+
+EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = True
+
+EXTRA_SETTINGS_SHOW_NAME_PREFIX_LIST_FILTER = True
+
+EXTRA_SETTINGS_FILE_UPLOAD_TO = "media/files/"
+
+EXTRA_SETTINGS_IMAGE_UPLOAD_TO = "media/files/"
+
+EXTRA_SETTINGS_VERBOSE_NAME = "Настройки проекта"
+
+EXTRA_SETTINGS_DEFAULTS = [
+    {
+        "name": "SITE_NAME",
+        "type": "string",
+        "value": "Настройте параметр SITE_NAME",
+        "description": "Название сайта",
+    },
+    {
+        "name": "EMAIL_1",
+        "type": "string",
+        "value": "Настройте параметр EMAIL_1",
+        "description": "Email 1 для контактов",
+    },
+    {
+        "name": "EMAIL_2",
+        "type": "string",
+        "value": "Настройте параметр EMAIL_2",
+        "description": "Email 2 для контактов",
+    },
+    {
+        "name": "PHONE_NUMBER_1",
+        "type": "string",
+        "value": "Настройте параметр PHONE_NUMBER_1",
+        "description": "Номер телефона 1 для контактов",
+    },
+    {
+        "name": "PHONE_NUMBER_2",
+        "type": "string",
+        "value": "Настройте параметр PHONE_NUMBER_2",
+        "description": "Номер телефона 2 для контактов",
+    },
+    {
+        "name": "CONTACTS_PAGE_INFORMATION",
+        "type": "text",
+        "value": "Настройте параметр CONTACTS_PAGE_INFORMATION",
+        "description": "Информация на странице 'Контакты'",
+    },
+    {
+        "name": "LOCATION",
+        "type": "text",
+        "value": "Настройте параметр LOCATION",
+        "description": "Местоположение организации",
+    },
+    {
+        "name": "LOCATION_MAP",
+        "type": "text",
+        "value": "Настройте параметр LOCATION_MAP",
+        "description": "HTML код карты. Получить код можно по ссылкам: https://yandex.ru/map-constructor/ , https://makemap.2gis.ru/ , https://www.google.com/intl/ru/maps/about/mymaps/",
+    },
+    {
+        "name": "ABOUT_PAGE_INFORMATION",
+        "type": "text",
+        "value": "Настройте параметр ABOUT_PAGE_INFORMATION",
+        "description": "Информация на странице 'О нас'",
+    },
+    {
+        "name": "MAIN_COLOR",
+        "type": "string",
+        "value": "#dc143c",
+        "description": "Основной цвет в дизайне сайта",
+    },
+    {
+        "name": "SECOND_MAIN_COLOR",
+        "type": "string",
+        "value": "#dc143c",
+        "description": "Второй основной цвет в дизайне сайта",
+    },
+    {
+        "name": "SECOND_MAIN_COLOR_O",
+        "type": "string",
+        "value": "rgba(220, 20, 60, 0.9)",
+        "description": "Второй основной цвет в дизайне сайта с прозрачностью (рекомендуется 0.9)",
+    },
+    {
+        "name": "SHADOW_COLOR",
+        "type": "string",
+        "value": "rgba(220, 20, 60, 0.5)",
+        "description": "Цвет теней в дизайне сайта с прозрачностью (рекомендуется 0.5)",
+    },
+    {
+        "name": "A_TEXT_COLOR",
+        "type": "string",
+        "value": "#dc143c",
+        "description": "Основной цвет ссылок в дизайне сайта",
+    },
+]
+
+# Django-admin-interface settings
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
+SILENCED_SYSTEM_CHECKS = ["security.W019"]

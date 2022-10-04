@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load extra_settings %}
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -9,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Title -->
-        <title>{% block title %}SAMPLE-SHOP.COM{% endblock title %}</title>
+        <title>{% block title %}{% get_setting 'SITE_NAME' default='Настройте параметр SITE_NAME...' %}{% endblock title %}</title>
 
         <!-- Site icon -->
         <link rel="icon" type="image/png" href="{% static 'images/favcon.png' %}">
@@ -31,6 +32,22 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+        
+        {% get_setting "MAIN_COLOR" default='#dc143c' as main_color %}
+        {% get_setting "SECOND_MAIN_COLOR" default='#dc143c' as second_main_color %}
+        {% get_setting "A_TEXT_COLOR" default='#dc143c' as a_text_active_color %}
+        {% get_setting "SECOND_MAIN_COLOR_O" default='rgba(220, 20, 60, 0.9)' as second_main_color_o %}
+        {% get_setting "SHADOW_COLOR" default='rgba(220, 20, 60, 0.5)' as shadow_color %}
+
+        <style>
+            :root {
+                --main-color: {{main_color}} !important;
+                --second-main-color: {{second_main_color}} !important;
+                --second-main-color-o: {{second_main_color_o}} !important;
+                --shadow-color: {{shadow_color}} !important;
+                --a-text-active: {{main_color}} !important;
+            }
+        </style>
     </head>
     <body>
     <!-- НАРКОМАНИЯ --> <!-- <body uk-spinner="ratio: 100"> -->
@@ -40,7 +57,7 @@
             <nav class="container-fluid">
 
                 <!-- Left header block - Logo -->
-                <a href="/" class="navbar-brand logo">SAMPLE-SHOP.COM</a>
+                <a href="/" class="navbar-brand logo">{% get_setting 'SITE_NAME' default='Настройте параметр SITE_NAME...' %}</a>
 
                 <!-- Navbar toggler -->
                 <button type="button" class="navbar-toggler text-black" data-bs-toggle="collapse"

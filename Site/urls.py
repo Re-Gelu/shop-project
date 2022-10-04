@@ -22,16 +22,16 @@ from filebrowser.sites import site
 
 urlpatterns = [
     
-    # Grappelli filebrowser URLS
+    # Filebrowser URLS
     path(
-        'admin/filebrowser/', 
+        'admin/filebrowser/',
         site.urls
     ),
     
-    # Grappelli URLS
+    # TinyMCE URLS
     path(
-        'grappelli/',
-        include('grappelli.urls')
+        'tinymce/', 
+        include('tinymce.urls')
     ),
     
     # Admin app URLS

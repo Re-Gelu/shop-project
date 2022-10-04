@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% load static %}
+{% load extra_settings %}
 
 {% block content %}
 
@@ -13,21 +14,20 @@
         <div class="col-5">
             <div class="fs-4 text-center my-3"><span class="uk-button-text a-important">Контакты</span></div>
             <div class="my-3">
-                {% lorem 2 %}
+                {% get_setting 'CONTACTS_PAGE_INFORMATION' default='Настройте параметр CONTACTS_PAGE_INFORMATION' %}
             </div>
             <div class="row my-5 lead text-center">
                 <div class="my-3">
-                    Телефон 1: +7 (999) 999-99-99
+                    Телефон 1: {% get_setting 'PHONE_NUMBER_1' default='Настройте параметр PHONE_NUMBER_1' %}
                 </div>
                 <div class="my-3">
-                    Телефон 2: +7 (888) 888-88-88
+                    Телефон 2: {% get_setting 'PHONE_NUMBER_2' default='Настройте параметр PHONE_NUMBER_2' %}
                 </div>
                 <div class="my-3">
-                    Электронная почта : sample-shop@email.com
+                    Электронная почта : {% get_setting 'EMAIL_1' default='Настройте параметр EMAIL_1' %}
                 </div>
                 <div class="my-3 px-5">
-                    Местонахождение : Московская область, Балашиха, микрорайон Железнодорожный,
-                    Саввинское шоссе, 4к1, подъезд 4
+                    Местонахождение : {% get_setting 'LOCATION' default='Настройте параметр LOCATION' %}
                 </div>
                 <div class="my-3 row justify-content-center">
                     <a class="col-1"><i class="bi bi-instagram"></i></a>
@@ -41,7 +41,7 @@
             Мы находимся:
             </div>
             <div class="container m-3">
-                <iframe class="container" src="https://yandex.ru/map-widget/v1/?um=constructor%3A0721b580c31c57c268e03b5d4b604da1a3b20effbbec676c8b5d2b2dce368ffb&amp;source=constructor" width="670" height="670" frameborder="0"></iframe>
+                {% autoescape off %}{% get_setting 'LOCATION_MAP' default='Настройте параметр LOCATION_MAP' %}{% endautoescape %}
             </div>
         </div>
     </div>

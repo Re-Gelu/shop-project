@@ -1,3 +1,5 @@
+{% load extra_settings %}
+
 <!-- Footer -->
 <footer class="container text-center my-5">
 
@@ -15,6 +17,6 @@
         </div>	
     </div>
 
-    <div class="mt-4">© 2022 SAMPLE-SHOP.COM - Интернет-маркетплейс на Django</div>
+    <div class="mt-4">© 2022 {% get_setting 'SITE_NAME' default='Название сайта' %} - Интернет-маркетплейс на Django</div>
     
 </footer>

@@ -1,5 +1,7 @@
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.db import models
+from tinymce import models as tinymce_models
 import datetime
 
 class Categories(models.Model):
@@ -76,9 +78,9 @@ class Products(models.Model):
         max_length=100, blank=True, null=True, 
         verbose_name="Краткая информация о товаре"
     )
-    full_information = models.TextField(
-        max_length=10000, blank=True, null=True,
-        verbose_name="Полная информация о товаре"
+    full_information = tinymce_models.HTMLField(
+        blank=True, null=True,
+        verbose_name="Полная информация о товаре",
     )
     stock = models.PositiveIntegerField(
         verbose_name="Остаток товара"
@@ -111,3 +113,11 @@ class Products(models.Model):
         if self.stock == 0:
             self.available = False
         super(Products, self).save(*args, **kwargs)
+        
+    def admin_image(self):
+        if self.image:
+            return mark_safe(f'< img src="{self.image.url}"/>')
+        else:
+            return 'No Image Found'
+        
+    admin_image.short_description = 'Image'
