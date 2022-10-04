@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% block title %}{{block.super}}{% endblock title %}
+
 {% load static %}
 
 {% block content %}
@@ -26,7 +28,7 @@
                                     <hr class="text-black-50">
                                     {% for subcategory in subcategories %}
                                         {% if subcategory.category == category %}
-                                            <li ><a href="{% url 'products' 1 %}?category={{category}}&subcategory={{subcategory}}" class="text-black">{{subcategory}}</a></li>
+                                            <li ><a href="{% url 'products' 1 %}?category={{category}}&subcategory={{subcategory}}" class="a-important">{{subcategory}}</a></li>
                                             <hr class="text-black-50">
                                         {% endif %}
                                     {% endfor %}

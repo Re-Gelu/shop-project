@@ -18,14 +18,27 @@
             </div>
             <div class="row my-5 lead text-center">
                 <div class="my-3">
-                    Телефон 1: {% get_setting 'PHONE_NUMBER_1' default='Настройте параметр PHONE_NUMBER_1' %}
+                    Телефон: {% get_setting 'PHONE_NUMBER_1' default='Настройте параметр PHONE_NUMBER_1' %}
                 </div>
-                <div class="my-3">
-                    Телефон 2: {% get_setting 'PHONE_NUMBER_2' default='Настройте параметр PHONE_NUMBER_2' %}
-                </div>
+
+                {% get_setting 'PHONE_NUMBER_2' default='Настройте параметр PHONE_NUMBER_2' as phone_number_2 %}
+                {% if phone_number_2 != 'Настройте параметр PHONE_NUMBER_2' and phone_number_2 != '' %}
+                    <div class="my-3">
+                        Второй телефон: {{phone_number_2}}
+                    </div>
+                {% endif %}
+
                 <div class="my-3">
                     Электронная почта : {% get_setting 'EMAIL_1' default='Настройте параметр EMAIL_1' %}
                 </div>
+
+                {% get_setting 'EMAIL_2' default='Настройте параметр EMAIL_2' as email_2 %}
+                {% if email_2 != 'Настройте параметр EMAIL_2' and email_2 != '' %}
+                    <div class="my-3">
+                        Вторая электронная почта: {{email_2}}
+                    </div>
+                {% endif %}
+
                 <div class="my-3 px-5">
                     Местонахождение : {% get_setting 'LOCATION' default='Настройте параметр LOCATION' %}
                 </div>
@@ -41,7 +54,7 @@
             Мы находимся:
             </div>
             <div class="container m-3">
-                {% autoescape off %}{% get_setting 'LOCATION_MAP' default='Настройте параметр LOCATION_MAP' %}{% endautoescape %}
+                {% autoescape off %}{% get_setting 'LOCATION_MAP_HTML' default='Настройте параметр LOCATION_MAP_HTML' %}{% endautoescape %}
             </div>
         </div>
     </div>

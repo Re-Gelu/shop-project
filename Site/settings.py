@@ -263,7 +263,7 @@ EXTRA_SETTINGS_DEFAULTS = [
         "name": "EMAIL_2",
         "type": "string",
         "value": "Настройте параметр EMAIL_2",
-        "description": "Email 2 для контактов",
+        "description": "Email 2 для контактов (опционально)",
     },
     {
         "name": "PHONE_NUMBER_1",
@@ -275,7 +275,7 @@ EXTRA_SETTINGS_DEFAULTS = [
         "name": "PHONE_NUMBER_2",
         "type": "string",
         "value": "Настройте параметр PHONE_NUMBER_2",
-        "description": "Номер телефона 2 для контактов",
+        "description": "Номер телефона 2 для контактов (опционально)",
     },
     {
         "name": "CONTACTS_PAGE_INFORMATION",
@@ -290,9 +290,9 @@ EXTRA_SETTINGS_DEFAULTS = [
         "description": "Местоположение организации",
     },
     {
-        "name": "LOCATION_MAP",
+        "name": "LOCATION_MAP_HTML",
         "type": "text",
-        "value": "Настройте параметр LOCATION_MAP",
+        "value": "Настройте параметр LOCATION_MAP_HTML",
         "description": "HTML код карты. Получить код можно по ссылкам: https://yandex.ru/map-constructor/ , https://makemap.2gis.ru/ , https://www.google.com/intl/ru/maps/about/mymaps/",
     },
     {
