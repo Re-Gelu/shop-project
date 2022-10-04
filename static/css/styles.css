@@ -166,40 +166,37 @@
 
 /* Sidebar */	
 
-	.sidebar {
+	/* .sidebar {
 		background: var(--color-2);
 	}
 
 	.sidebar-border {
 		border: 1px var(--border-color) solid;
-	}
+	} */
 
 	.sidebar-menu-header {
-		font-size: 20px;
+		font-size: 24px;
 		font-family: 'Source Sans Pro' , sans-serif;
 		font-weight: 300;
-		padding: 15px 10px;
-		border-bottom: 1px var(--border-color) solid;
-		background: var(--color-3);
-		color: var(--color-2)
+		color: var(--a-text-active)
 	}
 
-	.sidebar-menu-header:hover {
+	/* .sidebar-menu-header:hover {
 		color: var(--main-color);
 	}
 
 	.sidebar-menu-content li {
 		padding: 15px 10px;
 		border-top: 1px var(--border-color) solid;
-	}
+	} 
 
 	.sidebar-menu-content li:first-child {
 		border-top: 0px;
 	}
-
-	.sidebar-menu-content span.ti-angle-right {
+ */
+	/* .sidebar-menu-content span.ti-angle-right {
 		font-size: 14px;
-	}
+	} */
 
 /* Forms */
 
