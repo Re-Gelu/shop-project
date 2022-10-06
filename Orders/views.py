@@ -40,10 +40,12 @@ def order(request):
         cd = form.cleaned_data
         new_order = Orders()
 
+        new_order.user_id = request.user.id
         new_order.adress = f"Адрес: {cd['adress']}"
         new_order.contacts = f"Номер телефона: {cd['phone_number']}"
 
-        new_order.product_list = f"Короткий UUID заказа: {new_order.UUID}\n"
+        #new_order.product_list = f"Короткий UUID заказа: {new_order.UUID}\n"
+        new_order.product_list = ""
         for key, item in enumerate(cart):
             new_order.product_list += f"\n{key + 1}) ID товара: {item['id']}, Наименование товара: {item['name']}"
             new_order.product_list += f", Общая стоимость товара: {item['total_promo_price']}$" if 'total_promo_price' in item else f", Общая стоимость товара: {item['total_price']}$"

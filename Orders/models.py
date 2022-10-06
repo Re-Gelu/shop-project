@@ -1,10 +1,13 @@
 from django.db import models
 from django.utils import timezone
 import datetime
-import uuid
 from shortuuid.django_fields import ShortUUIDField
 
 class Orders(models.Model):
+    
+    user_id = models.PositiveIntegerField(
+        editable=False,
+    )
 
     UUID = ShortUUIDField(
         auto_created=True, 

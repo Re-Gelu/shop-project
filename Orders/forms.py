@@ -1,11 +1,10 @@
 from django import forms
+from phonenumber_field.formfields import PhoneNumberField
 
 class Submit_order(forms.Form):
     email = forms.EmailField(max_length=40, required=True)
     adress = forms.CharField(max_length=500, required=True, label="Адрес")
-    #phoneNumberRegex = RegexValidator(regex=r"^\+?1?\d{8,15}$")
-    phone_number = forms.CharField(max_length=16, label="Номер телефона")
-    #required_css_class = 'form-control'
+    phone_number = PhoneNumberField(label="Номер телефона", region="RU")
 
     def __init__(self, *args, **kwargs):
         super(forms.Form, self).__init__(*args, **kwargs)
