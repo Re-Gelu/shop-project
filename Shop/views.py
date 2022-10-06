@@ -1,3 +1,4 @@
+from cgi import print_arguments
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -11,6 +12,8 @@ from django.core.cache import cache
 from .db_auto_fill import DB_AUTO_FILL
 from .models import *
 from .forms import *
+
+from Orders.models import *
 
 from Cart.cart import Cart
 from Cart.forms import *
@@ -62,7 +65,9 @@ def products_page(request):
         cache.delete_many(['category', 'subcategory', 'sort_by'])
     elif 'category' or 'subcategory' in request.GET:
         cache.delete_many(['search_query', 'sort_by'])
-    
+    if len(request.GET) == 1 and 'page' in request.GET:
+        cache.clear()
+        
     # Caching
     GET = {}
     GET['search_query'] = request.GET.get('search_query', cache.get('search_query'))
@@ -80,13 +85,12 @@ def products_page(request):
     
     # Getting and sorting products from DB
     if search_query:
-        products = Products.objects.filter(name__icontains=search_query)    
+        products = Products.objects.filter(name__icontains=search_query)
     elif subcategory:
-        products = Products.objects.filter(subcategory__category__name=category)
+        products = Products.objects.filter(subcategory__name=subcategory)
     elif category:
-        products = Products.objects.filter(subcategory__name=subcategory)  
+        products = Products.objects.filter(subcategory__category__name=category)
     else:
-        cache.clear()
         products = Products.objects.all()
         
     if sort_by:
@@ -112,9 +116,6 @@ def products_page(request):
     }
     
     context.update(get_base_context_data(request))
-    
-    print("CACHE IS: ", cache.get_many(['search_query', 'sort_by', 'subcategory', 'category']))
-    print(f"VARS IS: search_query - {search_query},  sort_by - {sort_by}, subcategory - {subcategory}, category - {category}")
 
     return render(request, "shop_page.html", context=context)
 
@@ -169,4 +170,12 @@ def dashboard(request):
         print(item)
     print('\n') """
     
-    return render(request, "dashboard.html", context=get_base_context_data(request))
+    current_orders = Orders.objects.filter(user_id=request.user.id)
+    
+    context = {
+        'current_orders': current_orders
+    }
+    
+    context.update(get_base_context_data(request))
+    
+    return render(request, "dashboard.html", context=context)
