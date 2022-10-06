@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item lead"><a href="{% url 'products' %}">Товары</a></li>
+    <li class="breadcrumb-item lead"><a href="{% url 'products' %}?page=1">Товары</a></li>
     {% if request.GET.category %}
         <li class="breadcrumb-item lead"><a href="{% url 'products' %}?category={{request.GET.category}}">{{request.GET.category}}</a></li>
     {% endif %}
