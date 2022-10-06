@@ -15,12 +15,12 @@
                     <div class="uk-card-badge uk-label">Новинка!</div>
                 {% endif %}
 
-                <h5 class="card-title h5">
+                <div class="card-title h5">
                     {{product.name}}
-                </h5>
+                </div>
 
-                <h6 class="card-text overflow-hidden">
-                    {{product.information}}
+                <div class="card-text overflow-hidden">
+                    <span>{{product.information}}</span>
     
                     <p class="my-2">
 
@@ -37,7 +37,7 @@
                             <a href="#"><i class="bi bi-star me-1"></i></a>
                         </span>
                     </p>
-                </h6>
+                </div>
 
                 <div class="card-footer d-flex bg-white row">
                     <div class="my-2 col-9"><a href="{% url 'product' %}?category={{product.subcategory.category}}&subcategory={{product.subcategory}}&id={{product.id}}" class="uk-button-text a-important">ПОДРОБНЕЕ</a></div>

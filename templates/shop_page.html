@@ -13,15 +13,21 @@
     {% if request.GET.subcategory %}
         | {{request.GET.subcategory}}
     {% endif %}
+    {% if request.GET.search_query %}
+        | Поиск - {{request.GET.search_query}}
+    {% endif %}
 {% endblock %}
 
 {% block breadcrumbs %}
-    <li class="breadcrumb-item lead"><a href="{% url 'products' 1 %}">Товары</a></li>
+    <li class="breadcrumb-item lead"><a href="{% url 'products' %}">Товары</a></li>
     {% if request.GET.category %}
-        <li class="breadcrumb-item lead"><a href="{% url 'products' 1 %}?category={{request.GET.category}}">{{request.GET.category}}</a></li>
+        <li class="breadcrumb-item lead"><a href="{% url 'products' %}?category={{request.GET.category}}">{{request.GET.category}}</a></li>
     {% endif %}
     {% if request.GET.subcategory %}
-        <li class="breadcrumb-item lead"><a href="{% url 'products' 1 %}?category={{request.GET.category}}&subcategory={{request.GET.subcategory}}">{{request.GET.subcategory}}</a></li>
+        <li class="breadcrumb-item lead"><a href="{% url 'products' %}?category={{request.GET.category}}&subcategory={{request.GET.subcategory}}">{{request.GET.subcategory}}</a></li>
+    {% endif %}
+    {% if request.GET.search_query %}
+        <li class="breadcrumb-item lead"><a href="{% url 'products' %}?search_query={{request.GET.search_query}}">Поиск - {{request.GET.search_query}}</a></li>
     {% endif %}
 {% endblock %}
 
@@ -33,9 +39,7 @@
             </button>
 
             <div class="p-0 uk-border-rounded" uk-dropdown>
-                <form class="list-group uk-border-rounded" method="POST" action="#">
-                    {% csrf_token %}
-
+                <form class="list-group uk-border-rounded" method="GET">
                     <input type="submit" class="btn-check" name="sort_by" id="btnradio1" autocomplete="off" value="1">
                     <label class="list-group-item list-group-item-action btn-outline-primary" for="btnradio1">Новинки</label>
 
@@ -75,7 +79,7 @@
 
             <!-- previous_page -->
             {% if products.has_previous %}
-                <li class="page-item"><a class="page-link" href="{% url 'products' products.previous_page_number %}{{request.get_full_path|cut:request.path}}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.previous_page_number}}">&laquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
             {% endif %}
@@ -88,14 +92,14 @@
                     {% if page == products.paginator.ELLIPSIS %}
                         <li class="page-item"><span class="page-link">{{page}}</span></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="{% url 'products' page %}{{request.get_full_path|cut:request.path}}">{{page}}</a></li>
+                        <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{page}}">{{page}}</a></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
 
             <!-- next_page -->
             {% if products.has_next %}
-                <li class="page-item"><a class="page-link" href="{% url 'products' products.next_page_number %}{{request.get_full_path|cut:request.path}}">&raquo;</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.next_page_number}}">&raquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
             {% endif %}

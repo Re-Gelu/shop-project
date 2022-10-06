@@ -90,7 +90,7 @@
                     {% if product.full_information %}
                         {% autoescape off %}{{product.full_information}}{% endautoescape %}
                     {% else %}
-                        {% lorem 3 %}
+                        <div class="lead">Описание отсутвует</div>
                     {% endif %}
                   
                 </div>

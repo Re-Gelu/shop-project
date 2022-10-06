@@ -10,16 +10,15 @@
         <aside class="sidebar">
 
             <!-- Sidebar-menu -->
-
-            <nav class="m-1 card">
+            <nav class="ms-1 mb-1 card">
                 <div class="card-header">
                     <p class="text-center lead sidebar-menu-header my-2"><span class="ti-menu-alt fs-6"></span> Категории:</p>
                 </div>
-                <ul class="card-body">
+                <ul class="card-body list-unstyled">
                     {% for category in categories %}
 
                         <!-- Sidebar menu element -->
-                        <li class="my-3 px-0 text-left container"><a href="{% url 'products' 1 %}?category={{category}}">{{category}}<span class="ti-angle-right pe-1 float-end "></span></a></li>
+                        <li class="my-3 px-0 text-left container"><a href="{% url 'products' %}?category={{category}}">{{category}}<span class="ti-angle-right pe-1 float-end "></span></a></li>
                         
                         <!-- Sidebar menu element - Dropdown menu -->
                         <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
@@ -28,7 +27,7 @@
                                     <hr class="text-black-50">
                                     {% for subcategory in subcategories %}
                                         {% if subcategory.category == category %}
-                                            <li ><a href="{% url 'products' 1 %}?category={{category}}&subcategory={{subcategory}}" class="a-important">{{subcategory}}</a></li>
+                                            <li ><a href="{% url 'products' %}?category={{category}}&subcategory={{subcategory}}" class="a-important">{{subcategory}}</a></li>
                                             <hr class="text-black-50">
                                         {% endif %}
                                     {% endfor %}
@@ -45,7 +44,7 @@
             </nav>
 
             <!-- Sidebar content -->
-            <section class="m-1 mt-3 card">
+            <section class="ms-1 mb-1 mt-3 card">
                 <div class="card-header">
                     <p class="text-center lead sidebar-menu-header my-2"><span class="ti-thumb-up small"></span> Возможно вам понравится:</p>
                 </div>
