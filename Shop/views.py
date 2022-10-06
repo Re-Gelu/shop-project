@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.decorators.http import require_POST
+from extra_settings.models import Setting
+from django.views.decorators.http import require_POST, require_GET
+from django.core.cache import cache
 
 from .db_auto_fill import DB_AUTO_FILL
 from .models import *
@@ -53,21 +55,42 @@ def index(request):
 
     return render(request, "index.html", context=context)
 
-
-def products_page(request, page=1, search_query=False):
+def products_page(request):
+    
+    # Check GET and delete cache vars to correct render
+    if 'search_query' in request.GET:
+        cache.delete_many(['category', 'subcategory', 'sort_by'])
+    elif 'category' or 'subcategory' in request.GET:
+        cache.delete_many(['search_query', 'sort_by'])
+    
+    # Caching
+    GET = {}
+    GET['search_query'] = request.GET.get('search_query', cache.get('search_query'))
+    GET['sort_by'] = request.GET.get('sort_by', cache.get('sort_by'))
+    GET['subcategory'] = request.GET.get('subcategory', cache.get('subcategory'))
+    GET['category'] = request.GET.get('category', cache.get('category'))
+    cache.set_many(GET)
+    
+    # Main vars getted from GET or cache
+    page = request.GET.get('page', 1)
+    search_query = request.GET.get('search_query', cache.get('search_query'))
+    sort_by = request.GET.get('sort_by', cache.get('sort_by'))
+    subcategory = request.GET.get('subcategory', cache.get('subcategory'))
+    category = request.GET.get('category', cache.get('category'))
+    
+    # Getting and sorting products from DB
     if search_query:
-        products = search_query
-    elif request.GET.get('subcategory'):
-        subcategory = request.GET['subcategory']
-        products = Products.objects.filter(subcategory__name = subcategory)
-    elif request.GET.get('category'):
-        category = request.GET['category']
-        products = Products.objects.filter(subcategory__category__name = category)
+        products = Products.objects.filter(name__icontains=search_query)    
+    elif subcategory:
+        products = Products.objects.filter(subcategory__category__name=category)
+    elif category:
+        products = Products.objects.filter(subcategory__name=subcategory)  
     else:
+        cache.clear()
         products = Products.objects.all()
         
-    if request.POST.get('sort_by'):
-        match int(request.POST['sort_by']):
+    if sort_by:
+        match int(sort_by):
             case 1:
                 pass
             case 2:
@@ -77,7 +100,8 @@ def products_page(request, page=1, search_query=False):
             case 4:
                 products = products.order_by('price', '-promo_price')
     
-    paginator = Paginator(products, 12)  # Show N products per page
+    # Pagination with N products per page
+    paginator = Paginator(products, Setting.get("PRODUCTS_PER_PAGE", default=12))
     products = paginator.get_page(page)
     #page_range = paginator.get_elided_page_range(on_each_side=2, on_ends=1)
     page_range = paginator.page_range
@@ -88,6 +112,9 @@ def products_page(request, page=1, search_query=False):
     }
     
     context.update(get_base_context_data(request))
+    
+    print("CACHE IS: ", cache.get_many(['search_query', 'sort_by', 'subcategory', 'category']))
+    print(f"VARS IS: search_query - {search_query},  sort_by - {sort_by}, subcategory - {subcategory}, category - {category}")
 
     return render(request, "shop_page.html", context=context)
 
@@ -124,14 +151,6 @@ def db_auto_fill(request, amount, model):
     DB_AUTO_FILL(int(amount), model)
     
     return HttpResponse(f'Успешно добавлено {amount} записей в таблицу {model}!')
-
-@require_POST
-def search(request):
-    if request.POST.get('search_query'):
-        search_query = request.POST['search_query']
-        products = Products.objects.filter(name__icontains=search_query)
-
-        return products_page(request, 1, products)
 
 # Dashboard page
 @login_required

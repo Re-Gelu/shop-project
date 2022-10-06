@@ -1,5 +1,6 @@
 from django.urls import path, re_path
 from django.contrib.auth.views import *
+from django.views.generic import RedirectView
 from .forms import *
 from . import views
 
@@ -10,7 +11,7 @@ urlpatterns = [
         name='index'
     ),
     path(
-        'products/<int:page>/',
+        'products/',
         views.products_page,
         name='products'
     ),
@@ -43,11 +44,6 @@ urlpatterns = [
         'dashboard/',
         views.dashboard,
         name="dashboard"
-    ),
-    path(
-        'search/',
-        views.search,
-        name="search"
     ),
 
     path(
