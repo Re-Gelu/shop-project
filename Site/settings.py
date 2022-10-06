@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'filebrowser',
     'tinymce',
     'extra_settings',
+    'phonenumber_field',
     
     'django.contrib.admin',
     'django.contrib.auth',

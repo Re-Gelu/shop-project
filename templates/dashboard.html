@@ -17,6 +17,45 @@
 
             <p class="lead">Привет, {{ request.user.first_name }}</p>
 
+            <!-- current orders -->
+            {% if current_orders %}
+                <p class="h3">Ваши текущие заказы</p>
+                <table class="uk-table uk-table-middle uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th class="text-center">UUID заказа</th>
+                            <th class="text-center">Список товаров</th> 
+                            <th class="text-center">Адрес</th>
+                            <th class="text-center">Контакты</th>
+                            <th class="text-center">Дата создания заказа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in current_orders %}
+                            <tr>
+                                <td>
+                                    {{order.UUID}}
+                                </td>
+                                <td>
+                                    <pre>
+                                        {{order.product_list}}
+                                    </pre>
+                                </td>
+                                <td>
+                                    {{order.adress}}
+                                </td>
+                                <td>
+                                    {{order.contacts}}
+                                </td>
+                                <td>
+                                    {{order.created}}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+            {% endif %}
+
             <!-- Cart -->
             {% if cart %}
                 <p class="h3">Корзина</p>
