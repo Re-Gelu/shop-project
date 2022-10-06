@@ -1,6 +1,6 @@
 /* CSS reset*/
 
-	html, body, div, span, applet, object, iframe,
+	/* html, body, div, span, applet, object, iframe,
 	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 	a, abbr, acronym, address, big, cite, code,
 	del, dfn, em, img, ins, kbd, q, s, samp,
@@ -19,22 +19,22 @@
 		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
-	}
+	} */
 
-	article, aside, details, figcaption, figure, 
+	/* article, aside, details, figcaption, figure, 
 	footer, header, hgroup, menu, nav, section {
 		display: block;
-	}
+	} */
 
-	body {
+	/* body {
 		line-height: 1;
-	}
+	} */
 
-	ol, ul {
+	/* ol, ul {
 		list-style: none;
-	}
+	} */
 
-	blockquote, q {
+	/* blockquote, q {
 		quotes: none;
 	}
 
@@ -47,7 +47,7 @@
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
-	}	
+	} */	
 
 /* Colors */
 
@@ -104,7 +104,7 @@
 		color: var(--a-text);
 	}
 
-	li:hover, li:active {
+	li:hover:not(#scroller-item), li:active:not(#scroller-item) {
 		color: var(--a-text-active);
 	}
 
