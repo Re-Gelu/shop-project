@@ -43,8 +43,6 @@ def index(request):
     slider_images = Main_page_slider.objects.all()
     latest_products_per_category = {}
     
-    #Cart(request).clear()
-    
     # Get N products per category in dict
     for category in get_base_context_data(request)["categories"]:
         latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:10]

@@ -34,6 +34,12 @@ urlpatterns = [
         include('tinymce.urls')
     ),
     
+    # Payments URLS
+    path(
+        'payments/', 
+        include('payments.urls')
+    ),
+    
     # Admin app URLS
     path(
         'admin/', 

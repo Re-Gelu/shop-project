@@ -43,15 +43,15 @@ INSTALLED_APPS = [
     'tinymce',
     'extra_settings',
     'phonenumber_field',
+    'rest_framework',
+    'django_celery_results',
+    'payments',
     
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'rest_framework',
-    'django_celery_results',
     
     'Shop',
     'Cart',
@@ -324,31 +324,31 @@ EXTRA_SETTINGS_DEFAULTS = [
         "name": "MAIN_COLOR",
         "type": "string",
         "value": "#dc143c",
-        "description": "Основной цвет в дизайне сайта",
+        "description": "Основной CSS цвет в дизайне сайта",
     },
     {
         "name": "SECOND_MAIN_COLOR",
         "type": "string",
         "value": "#dc143c",
-        "description": "Второй основной цвет в дизайне сайта",
+        "description": "Второй основной CSS цвет в дизайне сайта",
     },
     {
         "name": "SECOND_MAIN_COLOR_O",
         "type": "string",
         "value": "rgba(220, 20, 60, 0.9)",
-        "description": "Второй основной цвет в дизайне сайта с прозрачностью (рекомендуется 0.9)",
+        "description": "Второй основной CSS цвет в дизайне сайта с прозрачностью (рекомендуется 0.9)",
     },
     {
         "name": "SHADOW_COLOR",
         "type": "string",
         "value": "rgba(220, 20, 60, 0.5)",
-        "description": "Цвет теней в дизайне сайта с прозрачностью (рекомендуется 0.5)",
+        "description": "CSS цвет теней в дизайне сайта с прозрачностью (рекомендуется 0.5)",
     },
     {
         "name": "A_TEXT_COLOR",
         "type": "string",
         "value": "#dc143c",
-        "description": "Основной цвет ссылок в дизайне сайта",
+        "description": "Основной CSS цвет ссылок в дизайне сайта",
     },
     {
         "name": "PRODUCTS_PER_PAGE",
@@ -363,3 +363,13 @@ EXTRA_SETTINGS_DEFAULTS = [
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+# Payment settings
+
+PAYMENT_HOST = 'localhost:8000'
+
+PAYMENT_MODEL = 'Orders.Payment'
+
+PAYMENT_VARIANTS = {
+    'default': ('payments.dummy.DummyProvider', {})
+}

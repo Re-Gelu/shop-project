@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{block.super}}
+    | Оплата заказа
+{% endblock title %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container col-xl-5 col-12 p-5">
+        <div class="row">
+            <form action="{{ form.action }}" method="{{ form.method }}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><input type="submit" value="Proceed" /></p>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
