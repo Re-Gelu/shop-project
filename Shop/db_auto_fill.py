@@ -43,10 +43,13 @@ def DB_AUTO_FILL(amount, model):
             for i in range(1, amount + 1):
                 product = Products()
                 product.name = f"Товар №{i}"
-                product.price = round(random.random() * 100, 2)
+                product.price = round(random.random() * 100, 2) 
+                if random.random() <= 0.33: product.promo_price = product.price * 0.9
                 product.image = "product_images/WIP.png"
                 product.subcategory = random.choice(subcategories)
                 product.information = f"Товар №{i}\nПодкатегория: {product.subcategory}\nКатегория: {product.subcategory.category}"
+                product.stock = int(random.random() * 50)
+                product.available = True
                 
                 product.save()
                 print(product.information, "\n")
