@@ -19,6 +19,7 @@ django-tinymce
 django-admin-interface
 django-extra-settings
 django-phonenumber-field[phonenumbers]
+django-payments[stripe]
 celery
 django-celery-results
 rabbitmq
