@@ -1,5 +1,6 @@
 Django==4.1.1
 djangorestframework
+filebrowser
 django-filebrowser-no-grappelli
 django-tinymce
 django-admin-interface
