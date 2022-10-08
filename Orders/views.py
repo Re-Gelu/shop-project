@@ -59,9 +59,6 @@ def order(request):
         new_order.product_info += f"\n\nИТОГО: {cart.get_total_promo_price()}$"
         new_order.order_cart = product_list
         
-        #new_order.save()
-        #cart.clear()
-        
         context = {
             'UUID': new_order.UUID,
         }
@@ -98,6 +95,9 @@ def order(request):
             form = payment.get_form(data=request.POST or None)
         except RedirectNeeded as redirect_to:
             return redirect(str(redirect_to))
+        
+        #new_order.save()
+        #cart.clear()
 
         context = {
             'form': form,
