@@ -19,7 +19,7 @@
             Мы находимся:
         </div>
         <div class="container mt-3">
-            <iframe class="container" src="https://yandex.ru/map-widget/v1/?um=constructor%3A0721b580c31c57c268e03b5d4b604da1a3b20effbbec676c8b5d2b2dce368ffb&amp;source=constructor" width="916" height="678" frameborder="0"></iframe>
+            {% autoescape off %}{% get_setting 'LOCATION_MAP_HTML' default='Настройте параметр LOCATION_MAP_HTML' %}{% endautoescape %}
         </div>
     </div>
 
