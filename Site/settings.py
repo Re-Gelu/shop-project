@@ -14,11 +14,6 @@ from pathlib import Path
 from django.urls import reverse_lazy
 import os
 
-# Base admin settings
-ADMIN_SETTINGS = {
-    'SITE_NAME': 'SAMPLE-SHOP.COM',
-}
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -90,7 +85,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'Site.context_processors.admin_settings',
             ],
         },
     },
@@ -204,9 +198,18 @@ MAX_PRODUCTS_IN_CART = 5
 
 MIN_PRODUCTS_IN_CART = 1
 
+""" 'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+    }, """
+
 # Cache settings
 CACHES = {
     'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+    },
+    'cache_table': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'cache_table',
     }
@@ -258,7 +261,7 @@ TINYMCE_DEFAULT_CONFIG = {
 
 EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
 
-EXTRA_SETTINGS_CACHE_NAME = 'default'
+EXTRA_SETTINGS_CACHE_NAME = 'cache_table'
 
 EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = True
 

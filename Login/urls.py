@@ -27,8 +27,7 @@ urlpatterns = [
     ),
     re_path(
         r'^password_change_done/$',
-        PasswordChangeDoneView.as_view(
-            template_name="change_password_done.html"),
+        PasswordChangeDoneView.as_view(template_name="change_password_done.html"),
         name="password_change_done"
     ),
 ]
