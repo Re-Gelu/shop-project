@@ -26,9 +26,9 @@
 
                         {% if product.promo_price %}
                             <span class="me-3 text-reset lead text-decoration-line-through">${{product.price}}</span>
-                            <span class="me-3 lead text-danger">${{product.promo_price}}</span>
+                            <span class="me-3 lead text-danger">{{product.promo_price}} RUB</span>
                         {% else %}
-                            <span class="me-3 text-reset lead">${{product.price}}</span>
+                            <span class="me-3 text-reset lead">{{product.price}} RUB</span>
                         {% endif %}
 
                         <span class="d-inline-flex"> 

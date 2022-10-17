@@ -97,19 +97,19 @@
 
                                     <td>
                                         {% if product.promo_price %}
-                                            <div class="text-decoration-line-through">${{product.price}}</div>
-                                            <div class="text-danger">${{product.promo_price}}</div>
+                                            <div class="text-decoration-line-through">{{product.price}} RUB</div>
+                                            <div class="text-danger">{{product.promo_price}} RUB</div>
                                         {% else %}
-                                            ${{product.price}}
+                                            {{product.price}} RUB
                                         {% endif %}
                                     </td>
 
                                     <td>
                                         {% if product.total_promo_price %}
-                                            <div class="text-decoration-line-through">${{product.total_price}}</div>
-                                            <div class="text-danger">${{product.total_promo_price}}</div>
+                                            <div class="text-decoration-line-through">{{product.total_price}} RUB</div>
+                                            <div class="text-danger">{{product.total_promo_price}} RUB</div>
                                         {% else %}
-                                            ${{product.total_price}}
+                                            {{product.total_price}} RUB
                                         {% endif %}
                                     </td>
 
@@ -125,10 +125,10 @@
                             <td colspan="2"></td>
                             <td>
                                 {% if cart.get_total_promo_price < cart.get_total_price %}
-                                    <span class="text-decoration-line-through">${{cart.get_total_price}}</span>
-                                    <span class="text-danger"> ${{cart.get_total_promo_price}}</span>
+                                    <span class="text-decoration-line-through">{{cart.get_total_price}} RUB</span>
+                                    <span class="text-danger">{{cart.get_total_promo_price}} RUB</span>
                                 {% else %}
-                                    ${{cart.get_total_price}}
+                                    {{cart.get_total_price}} RUB
                                 {% endif %}
                             </td>
                         </tr>

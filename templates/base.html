@@ -151,8 +151,7 @@
                             <div class="uk-transition-toggle">
                                 <div class="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
                                     
-                                    <img src="{{product.image}}" alt="Product image"
-                                    class="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60">
+                                    <img src="{{product.image}}" alt="Product image" class="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60">
                                     <div class="row g-3">
                                         <div class="col-12">
                                             <a href="{% url 'product' %}?category=Корзина&id={{product.id}}" class="lead uk-button-text">{{product.name}}</a>
@@ -177,10 +176,10 @@
                                         
                                         <div class="col-12">
                                             {% if product.total_promo_price %}
-                                                <span class="text-decoration-line-through">${{product.total_price}}</span>
-                                                <span class="text-danger"> ${{product.total_promo_price}}</span>
+                                                <span class="text-decoration-line-through">{{product.total_price}} RUB</span>
+                                                <span class="text-danger">{{product.total_promo_price}} RUB</span>
                                             {% else %}
-                                                <span>${{product.total_price}}</span>
+                                                <span>{{product.total_price}} RUB</span>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -195,10 +194,10 @@
                     <p class="h4">
                         Итого: 
                         {% if cart.get_total_promo_price < cart.get_total_price %}
-                            <span class="text-decoration-line-through h4">${{cart.get_total_price}}</span>
-                            <span class="text-danger h4"> ${{cart.get_total_promo_price}}</span>
+                            <span class="text-decoration-line-through h4">{{cart.get_total_price}} RUB</span>
+                            <span class="text-danger h4">{{cart.get_total_promo_price}} RUB</span>
                         {% else %}
-                            <span class="h4">${{cart.get_total_price}}</span>
+                            <span class="h4">{{cart.get_total_price}} RUB</span>
                         {% endif %}
                     </p>
 
