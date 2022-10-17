@@ -206,8 +206,8 @@ MIN_PRODUCTS_IN_CART = 1
 # Cache settings
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_table',
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
     },
     'cache_table': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
