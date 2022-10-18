@@ -10,6 +10,7 @@ django-payments[stripe]
 celery
 django-celery-results
 rabbitmq
+redis
 shortuuid
 markdown
 django-filter

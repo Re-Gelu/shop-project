@@ -58,7 +58,7 @@ class Orders(models.Model):
         ordering = ('-created',)
         
 
-class Payment(BasePayment):
+""" class Payment(BasePayment):
     
     order_UUID = ShortUUIDField()
 
@@ -81,4 +81,4 @@ class Payment(BasePayment):
                     quantity=item['product_amount'],
                     price=Decimal(item['total_price']),
                     currency='USD',
-                )
+                ) """
