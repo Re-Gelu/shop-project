@@ -1,9 +1,7 @@
 from Shop.models import *
-from Site.celery import app
 from art import tprint
 import random
 
-@app.task
 def DB_AUTO_FILL(amount, model):
     match model:
         case "Categories":

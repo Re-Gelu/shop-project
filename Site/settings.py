@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'rest_framework',
     'django_celery_results',
-    'payments',
+    'django_celery_beat',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -198,16 +198,16 @@ MAX_PRODUCTS_IN_CART = 5
 
 MIN_PRODUCTS_IN_CART = 1
 
-""" 'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379',
-    }, """
+# Redis settings
+
+REDIS_URL = 'redis://localhost:6379'
 
 # Cache settings
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379',
+        'LOCATION': REDIS_URL,
     },
     'cache_table': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
@@ -216,15 +216,29 @@ CACHES = {
 }
 
 # Celery settings
-CELERY_CACHE_BACKEND = 'default'
 
-""" # Grappelli settings
+CELERY_CACHE_BACKEND = 'cache_table'
 
-GRAPPELLI_ADMIN_TITLE = 'Админка сайта ' + ADMIN_SETTINGS['SITE_NAME']
+CELERY_TIMEZONE = 'Europe/Moscow'
 
-GRAPPELLI_SWITCH_USER = True
+CELERY_TASK_TRACK_STARTED = True
 
-GRAPPELLI_INDEX_DASHBOARD = 'Site.dashboard.CustomIndexDashboard' """
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_CACHE_BACKEND = 'django-cache'
+
+""" CELERY_BROKER_URL = "redis://localhost:6379"
+
+CELERY_RESULT_BACKEND = "redis://localhost:6379" """
+
+CELERYBEAT_SCHEDULE = {
+    'payment_check_every_60_s': {
+        'task': 'Orders.tasks.payment_handler',
+        'schedule': 10.0,
+    }
+}
 
 # Filebrowser settings
 
@@ -245,7 +259,7 @@ TINYMCE_FILEBROWSER = True
 
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
-    "height": 800,
+    "height": 600,
     "menubar": "file edit view insert format tools table help",
     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
         "fullscreen insertdatetime media table paste code help wordcount spellchecker",
@@ -363,7 +377,19 @@ EXTRA_SETTINGS_DEFAULTS = [
         "type": "int",
         "value": "12",
         "description": "Кол-во карточек товаров на страницу",
-    }
+    },
+    {
+        "name": "QIWI_PRIVATE_KEY",
+        "type": "text",
+        "value": "",
+        "description": "Приватный QIWI ключ. Получить можно тут: https://qiwi.com/p2p-admin/api. ОБЯЗАТЕЛЬНО К ИЗМЕНЕНИЮ!",
+    },
+    {
+        "name": "QIWI_PAYMENTS_LIFETIME",
+        "type": "int",
+        "value": "30",
+        "description": "Срок жизни QIWI счета на оплату (в мин)",
+    },
 ]
 
 # Django-admin-interface settings
@@ -374,10 +400,6 @@ SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 # Payment settings
 
-PAYMENT_HOST = 'localhost:8000'
+QIWI_PRIVATE_KEY = "eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6InlqYnloaC0wMCIsInVzZXJfaWQiOiI3OTY4NDcyNzQ4OCIsInNlY3JldCI6ImQ1NDJmY2NkYTBkMzBhNzhiYTkyYzA3ZWYyNGYyY2M5N2JkYjAxNmUxNmM4MTQ0NzdlZGZkNTU1YTAxY2I0MzcifX0="
 
-PAYMENT_MODEL = 'Orders.Payment'
-
-PAYMENT_VARIANTS = {
-    'default': ('payments.dummy.DummyProvider', {})
-}
+QIWI_PAYMENTS_LIFETIME = 30

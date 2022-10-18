@@ -1,7 +1,5 @@
 import os
 
-from django.conf import settings
-
 from celery import Celery
 
 from django_celery_results.apps import CeleryResultConfig
@@ -13,6 +11,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Site.settings')
 app = Celery('Site')
 
 app.config_from_object('django.conf:settings')
-app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+app.autodiscover_tasks()
 
 CeleryResultConfig.verbose_name = "Результаты Celery"
+
+app.conf.timezone = 'Europe/Moscow'
