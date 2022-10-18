@@ -8,7 +8,7 @@
 - HTML5
 - CSS (Bootstrap 5, UIkit)
 - NGNIX, Gunicorn
-- Celery, RabbitMQ
+- Celery, Redis
 
 ## :package: Зависимости проекта
 ```
