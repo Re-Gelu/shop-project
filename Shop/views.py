@@ -56,30 +56,12 @@ def index(request):
 
     return render(request, "index.html", context=context)
 
-def products_page(request):
-    
-    # Check GET and delete cache vars to correct render
-    if 'search_query' in request.GET:
-        cache.delete_many(['category', 'subcategory', 'sort_by'])
-    elif 'category' or 'subcategory' in request.GET:
-        cache.delete_many(['search_query', 'sort_by'])
-    if len(request.GET) == 1 and 'page' in request.GET:
-        cache.clear()
-        
-    # Caching
-    GET = {}
-    GET['search_query'] = request.GET.get('search_query', cache.get('search_query'))
-    GET['sort_by'] = request.GET.get('sort_by', cache.get('sort_by'))
-    GET['subcategory'] = request.GET.get('subcategory', cache.get('subcategory'))
-    GET['category'] = request.GET.get('category', cache.get('category'))
-    cache.set_many(GET)
+def products_page(request, category = None, subcategory = None):
     
     # Main vars getted from GET or cache
     page = request.GET.get('page', 1)
     search_query = request.GET.get('search_query', cache.get('search_query'))
     sort_by = request.GET.get('sort_by', cache.get('sort_by'))
-    subcategory = request.GET.get('subcategory', cache.get('subcategory'))
-    category = request.GET.get('category', cache.get('category'))
     
     # Getting and sorting products from DB
     if search_query:
@@ -111,6 +93,8 @@ def products_page(request):
     context = {
         "products": products,
         "page_range": page_range,
+        "category": category,
+        "subcategory": subcategory,
     }
     
     context.update(get_base_context_data(request))

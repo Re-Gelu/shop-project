@@ -5,12 +5,24 @@
 {% block title %}
     {{block.super}}
     {% if product %}
+        {% if product.subcategory.category %}
+            | {{product.subcategory.category}}
+        {% endif %}
+        {% if product.subcategory %}
+            | {{product.subcategory}}
+        {% endif %}
         | {{product.name}}
     {% endif %}
 {% endblock title %}
 
 {% block breadcrumbs %}
     {{block.super}}
+    {% if product.subcategory.category %}
+        <li class="breadcrumb-item lead"><a href="{% url 'products' category=product.subcategory.category %}">{{product.subcategory.category}}</a></li>
+    {% endif %}
+    {% if product.subcategory %}
+        <li class="breadcrumb-item lead"><a href="{% url 'products' category=product.subcategory.category subcategory=product.subcategory %}">{{product.subcategory}}</a></li>
+    {% endif %}
     <li class="breadcrumb-item lead"><a href="#">{{product.name}}</a></li>
 {% endblock breadcrumbs %}
 
