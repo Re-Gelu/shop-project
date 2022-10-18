@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% load static %}
+{% load extra_settings %}
 
 {% block content %}
 
@@ -150,6 +151,7 @@
             <!-- Submit form -->
             <div class="col-12 text-center">
                 <button class="btn-lg offcanvas-submit-button uk-button-text m-2 px-5" type="submit">Оформить заказ!</button>
+                <p class="small a-important">Время на оплату: {% get_setting 'QIWI_PAYMENTS_LIFETIME' default='30' %} мин   </p>
             </div>
         </form>
 
