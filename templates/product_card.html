@@ -4,7 +4,7 @@
         <div class="card h-100 uk-card-hover uk-transition-opaque {{card_animation_class|default:'uk-transition-scale-up'}}" aria-hidden="true">
             
             <!-- Product card image-->
-            <img src="{{product.image.url}}" class="card-img-top h-100 uk-object-scale-down p-2 uk-transition-opaque uk-transition-scale-up" alt="Product">
+            <img src="{{product.image.url}}" class="card-img-top img-rounded h-100 uk-object-scale-down p-2 uk-transition-opaque" alt="Product">
 
             <!-- Product card body -->
             <div class="card-body">
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="card-footer d-flex bg-white row">
-                    <div class="my-2 col-9"><a href="{% url 'product' %}?category={{product.subcategory.category}}&subcategory={{product.subcategory}}&id={{product.id}}" class="uk-button-text a-important">ПОДРОБНЕЕ</a></div>
+                    <div class="my-2 col-9"><a href="{% url 'product' %}?id={{product.id}}" class="uk-button-text a-important">ПОДРОБНЕЕ</a></div>
                     <form action="{% url 'cart_action' product.id %}" method="post" class="my-2 p-0 col-3">
                         {% csrf_token %}
                         <div class="col-0 uk-hidden">{{cart_add_one_form}}</div>

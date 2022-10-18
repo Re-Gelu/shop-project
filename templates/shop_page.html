@@ -79,7 +79,7 @@
 
             <!-- previous_page -->
             {% if products.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link text-colored" href="?page={{products.previous_page_number}}">&laquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
             {% endif %}
@@ -87,14 +87,14 @@
             <!-- pagination -->
             {% for page in page_range %}
                 {% if products.number == page %}
-                    <li class="active page-item"><span class="page-link">{{page}}</span></li>
+                    <li class="active page-item"><span class="page-link background-colored border-colored">{{page}}</span></li>
                 {% else %}
                     {% if page == products.paginator.ELLIPSIS %}
-                        <li class="page-item"><span class="page-link">{{page}}</span></li>
+                        <li class="page-item"><span class="page-link text-colored">{{page}}</span></li>
                     {% else %}
                         
                        <!--  <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{page}}">{{page}}</a></li> -->
-                    <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                    <li class="page-item"><a class="page-link text-colored" href="?page={{page}}">{{page}}</a></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
@@ -102,7 +102,7 @@
             <!-- next_page -->
             {% if products.has_next %}
                 <!-- <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.next_page_number}}">&raquo;</a></li> -->
-                <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}}">&raquo;</a></li>
+                <li class="page-item"><a class="page-link text-colored" href="?page={{products.next_page_number}}}">&raquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
             {% endif %}

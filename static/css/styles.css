@@ -99,6 +99,17 @@
 		background-color: var(--a-text-active) !important;
 	}
 
+	.border-colored {
+		border: 1px var(--a-text-active) solid !important;
+	}
+
+	.border-top-colored {
+		border-top: 1px var(--a-text-active) solid !important;
+	}
+
+	.img-rounded {
+		border-radius: 5% !important;
+	}
 
 	li {
 		color: var(--a-text);

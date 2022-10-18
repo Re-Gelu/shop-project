@@ -38,7 +38,7 @@
             <div class="row mt-1">
                 <!-- Product image-->
                 <div class="col-xl-7 uk-transition-toggle text-center ">
-                    <img src="{{product.image.url}}" class="h-100 uk-object-scale-down p-2 uk-transition-opaque uk-transition-scale-up" alt="Product">
+                    <img src="{{product.image.url}}" class="h-100 uk-object-scale-down p-2 uk-transition-opaque uk-transition-scale-up img-rounded" alt="Product">
                 </div>
 
                 <!-- Product price-->
@@ -61,7 +61,7 @@
                             <form action="{% url 'cart_action' product.id %}" method="post">
                                 {% csrf_token %}
                                 <div class="m-2">{{cart_add_one_form}} </div>
-                                <button type="submit" class="btn-lg offcanvas-submit-button uk-button-text">Добавить в корзину <i class="bi bi-cart"></i></button>
+                                <button type="submit" class="btn-lg uk-button-text border-colored">Добавить в корзину <i class="bi bi-cart"></i></button>
                             </form>
                         {% endif %}
                     </p>
