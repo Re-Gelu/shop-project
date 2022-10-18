@@ -12,24 +12,28 @@
 
 ## :package: Зависимости проекта
 ```
-Django
-djangorestframework
-django-filebrowser-no-grappelli
-django-tinymce
-django-admin-interface
-django-extra-settings
-django-phonenumber-field[phonenumbers]
-django-payments[stripe]
-celery
-django-celery-results
-rabbitmq
-shortuuid
-markdown
-django-filter
-psycopg2-binary
-pillow
-gunicorn
-art
+Django==4.0.8
+djangorestframework==3.13.1
+django-filter==22.1
+FileBrowser==1.1.3
+django-filebrowser-no-grappelli==4.0.1
+django-tinymce==3.5.0
+django-admin-interface==0.20.0
+django-extra-settings==0.6.1
+django-phonenumber-field[phonenumbers]==7.0.0
+celery==5.2.7
+django-celery-results==2.4.0
+django-celery-beat==2.3.0
+redis==4.3.4
+pyQiwiP2P==2.0.6
+shortuuid==1.0.9
+Markdown==3.4.1
+psycopg2-binary==2.9.3
+Pillow==9.2.0
+gunicorn==20.1.0
+art==5.7
+pytz==2022.4
+tzdata==2022.5
 ```
 
 ## :closed_lock_with_key: Настройка входа в админку
