@@ -1,11 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from typing import Iterable
 from shortuuid.django_fields import ShortUUIDField
-from payments import PurchasedItem
-from payments.models import BasePayment
-from decimal import Decimal
 import datetime
+
 class Orders(models.Model):
     
     user_id = models.PositiveIntegerField(
@@ -42,10 +39,23 @@ class Orders(models.Model):
         verbose_name="Дата создания заказа"
     )
     
-    order_cart = models.JSONField(
+    cart = models.JSONField(
         editable=False,
     )
-
+    
+    class Payment_statuses(models.TextChoices):
+        CREATED = "CREATED", "Платеж создан"
+        WAITING = "WAITING", "Платёж в обработке / ожидает оплаты"
+        PAID = "PAID", "Платёж оплачен"
+        EXPIRED = "EXPIRED", "Время жизни счета истекло. Счет не оплачен."
+        REJECTED = "REJECTED", "Платёж отклонен"
+    
+    status = models.TextField(     
+        choices=Payment_statuses.choices,
+        default=Payment_statuses.CREATED,
+        verbose_name="Статус заказа"
+    )
+    
     def expire_time(self):
         return self.created >= timezone.now() - datetime.timedelta(days=7)
 
@@ -56,29 +66,3 @@ class Orders(models.Model):
         verbose_name = 'текущий заказ'
         verbose_name_plural = 'Текущие заказы'
         ordering = ('-created',)
-        
-
-""" class Payment(BasePayment):
-    
-    order_UUID = ShortUUIDField()
-
-    # Return a URL where users are redirected after they fail to complete a payment:
-    def get_failure_url(self) -> str:
-        return f"payments/{self.pk}/failure"
-
-    # Return a URL where users are redirected after they successfully complete a payment:
-    def get_success_url(self) -> str:
-        return f"payments/{self.pk}/success"
-
-    # Return items that will be included in this payment.
-    def get_purchased_items(self) -> Iterable[PurchasedItem]:
-        order = Orders.objects.get(UUID=self.order_UUID)
-        if order:
-            for item in order.order_cart.values():
-                yield PurchasedItem(
-                    name=item['name'],
-                    sku='BSKV',
-                    quantity=item['product_amount'],
-                    price=Decimal(item['total_price']),
-                    currency='USD',
-                ) """
