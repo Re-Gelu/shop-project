@@ -7,11 +7,11 @@
     {% if products.number %}
         | Товары - стр.{{products.number}}
     {% endif %}
-    {% if request.GET.category %}
-        | {{request.GET.category}}
+    {% if category %}
+        | {{category}}
     {% endif %}
-    {% if request.GET.subcategory %}
-        | {{request.GET.subcategory}}
+    {% if subcategory %}
+        | {{subcategory}}
     {% endif %}
     {% if request.GET.search_query %}
         | Поиск - {{request.GET.search_query}}
@@ -20,11 +20,11 @@
 
 {% block breadcrumbs %}
     <li class="breadcrumb-item lead"><a href="{% url 'products' %}?page=1">Товары</a></li>
-    {% if request.GET.category %}
-        <li class="breadcrumb-item lead"><a href="{% url 'products' %}?category={{request.GET.category}}">{{request.GET.category}}</a></li>
+    {% if category %}
+        <li class="breadcrumb-item lead"><a href="{% url 'products' category=category %}">{{category}}</a></li>
     {% endif %}
-    {% if request.GET.subcategory %}
-        <li class="breadcrumb-item lead"><a href="{% url 'products' %}?category={{request.GET.category}}&subcategory={{request.GET.subcategory}}">{{request.GET.subcategory}}</a></li>
+    {% if subcategory %}
+        <li class="breadcrumb-item lead"><a href="{% url 'products' category=category subcategory=subcategory %}">{{subcategory}}</a></li>
     {% endif %}
     {% if request.GET.search_query %}
         <li class="breadcrumb-item lead"><a href="{% url 'products' %}?search_query={{request.GET.search_query}}">Поиск - {{request.GET.search_query}}</a></li>
@@ -79,7 +79,7 @@
 
             <!-- previous_page -->
             {% if products.has_previous %}
-                <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.previous_page_number}}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">&laquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
             {% endif %}
@@ -92,14 +92,17 @@
                     {% if page == products.paginator.ELLIPSIS %}
                         <li class="page-item"><span class="page-link">{{page}}</span></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{page}}">{{page}}</a></li>
+                        
+                       <!--  <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{page}}">{{page}}</a></li> -->
+                    <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
 
             <!-- next_page -->
             {% if products.has_next %}
-                <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.next_page_number}}">&raquo;</a></li>
+                <!-- <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.next_page_number}}">&raquo;</a></li> -->
+                <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}}">&raquo;</a></li>
             {% else %}
                 <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
             {% endif %}

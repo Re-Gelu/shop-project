@@ -18,7 +18,7 @@
                     {% for category in categories %}
 
                         <!-- Sidebar menu element -->
-                        <li class="my-3 px-0 text-left container"><a href="{% url 'products' %}?category={{category}}">{{category}}<span class="ti-angle-right pe-1 float-end "></span></a></li>
+                        <li class="my-3 px-0 text-left container"><a href="{% url 'products' category=category %}">{{category}}<span class="ti-angle-right pe-1 float-end "></span></a></li>
                         
                         <!-- Sidebar menu element - Dropdown menu -->
                         <div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;" >
@@ -27,7 +27,7 @@
                                     <hr class="text-black-50">
                                     {% for subcategory in subcategories %}
                                         {% if subcategory.category == category %}
-                                            <li ><a href="{% url 'products' %}?category={{category}}&subcategory={{subcategory}}" class="a-important">{{subcategory}}</a></li>
+                                            <li ><a href="{% url 'products' category=category subcategory=subcategory %}" class="a-important">{{subcategory}}</a></li>
                                             <hr class="text-black-50">
                                         {% endif %}
                                     {% endfor %}

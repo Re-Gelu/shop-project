@@ -43,6 +43,8 @@ def index(request):
     slider_images = Main_page_slider.objects.all()
     latest_products_per_category = {}
     
+    cache.clear()
+    
     # Get N products per category in dict
     for category in get_base_context_data(request)["categories"]:
         latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:10]
@@ -56,30 +58,12 @@ def index(request):
 
     return render(request, "index.html", context=context)
 
-def products_page(request):
-    
-    # Check GET and delete cache vars to correct render
-    if 'search_query' in request.GET:
-        cache.delete_many(['category', 'subcategory', 'sort_by'])
-    elif 'category' or 'subcategory' in request.GET:
-        cache.delete_many(['search_query', 'sort_by'])
-    if len(request.GET) == 1 and 'page' in request.GET:
-        cache.clear()
-        
-    # Caching
-    GET = {}
-    GET['search_query'] = request.GET.get('search_query', cache.get('search_query'))
-    GET['sort_by'] = request.GET.get('sort_by', cache.get('sort_by'))
-    GET['subcategory'] = request.GET.get('subcategory', cache.get('subcategory'))
-    GET['category'] = request.GET.get('category', cache.get('category'))
-    cache.set_many(GET)
+def products_page(request, category = None, subcategory = None):
     
     # Main vars getted from GET or cache
     page = request.GET.get('page', 1)
     search_query = request.GET.get('search_query', cache.get('search_query'))
     sort_by = request.GET.get('sort_by', cache.get('sort_by'))
-    subcategory = request.GET.get('subcategory', cache.get('subcategory'))
-    category = request.GET.get('category', cache.get('category'))
     
     # Getting and sorting products from DB
     if search_query:
@@ -111,6 +95,8 @@ def products_page(request):
     context = {
         "products": products,
         "page_range": page_range,
+        "category": category,
+        "subcategory": subcategory,
     }
     
     context.update(get_base_context_data(request))
@@ -177,3 +163,65 @@ def dashboard(request):
     context.update(get_base_context_data(request))
     
     return render(request, "dashboard.html", context=context)
+
+
+""" def products_page(request):
+    
+    # Check GET and delete cache vars to correct render
+    if 'search_query' in request.GET:
+        cache.delete_many(['category', 'subcategory', 'sort_by'])
+    elif 'category' or 'subcategory' in request.GET:
+        cache.delete_many(['search_query', 'sort_by'])
+    if len(request.GET) == 1 and 'page' in request.GET:
+        cache.clear()
+        
+    # Caching
+    GET = {}
+    GET['search_query'] = request.GET.get('search_query', cache.get('search_query'))
+    GET['sort_by'] = request.GET.get('sort_by', cache.get('sort_by'))
+    GET['subcategory'] = request.GET.get('subcategory', cache.get('subcategory'))
+    GET['category'] = request.GET.get('category', cache.get('category'))
+    cache.set_many(GET)
+    
+    # Main vars getted from GET or cache
+    page = request.GET.get('page', 1)
+    search_query = request.GET.get('search_query', cache.get('search_query'))
+    sort_by = request.GET.get('sort_by', cache.get('sort_by'))
+    subcategory = request.GET.get('subcategory', cache.get('subcategory'))
+    category = request.GET.get('category', cache.get('category'))
+    
+    # Getting and sorting products from DB
+    if search_query:
+        products = Products.objects.filter(name__icontains=search_query)
+    elif subcategory:
+        products = Products.objects.filter(subcategory__name=subcategory)
+    elif category:
+        products = Products.objects.filter(subcategory__category__name=category)
+    else:
+        products = Products.objects.all()
+        
+    if sort_by:
+        match int(sort_by):
+            case 1:
+                pass
+            case 2:
+                products = products.order_by('price')
+            case 3:
+                products = products.order_by('-price')
+            case 4:
+                products = products.order_by('price', '-promo_price')
+    
+    # Pagination with N products per page
+    paginator = Paginator(products, Setting.get("PRODUCTS_PER_PAGE", default=12))
+    products = paginator.get_page(page)
+    #page_range = paginator.get_elided_page_range(on_each_side=2, on_ends=1)
+    page_range = paginator.page_range
+    
+    context = {
+        "products": products,
+        "page_range": page_range,
+    }
+    
+    context.update(get_base_context_data(request))
+
+    return render(request, "shop_page.html", context=context) """

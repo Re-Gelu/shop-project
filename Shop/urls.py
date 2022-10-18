@@ -11,6 +11,16 @@ urlpatterns = [
         name='index'
     ),
     path(
+        'products/<str:category>/<str:subcategory>/',
+        views.products_page,
+        name='products'
+    ),
+    path(
+        'products/<str:category>/',
+        views.products_page,
+        name='products'
+    ),
+    path(
         'products/',
         views.products_page,
         name='products'

@@ -204,10 +204,11 @@ MIN_PRODUCTS_IN_CART = 1
     }, """
 
 # Cache settings
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_table',
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
     },
     'cache_table': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
@@ -216,15 +217,8 @@ CACHES = {
 }
 
 # Celery settings
+
 CELERY_CACHE_BACKEND = 'default'
-
-""" # Grappelli settings
-
-GRAPPELLI_ADMIN_TITLE = 'Админка сайта ' + ADMIN_SETTINGS['SITE_NAME']
-
-GRAPPELLI_SWITCH_USER = True
-
-GRAPPELLI_INDEX_DASHBOARD = 'Site.dashboard.CustomIndexDashboard' """
 
 # Filebrowser settings
 
@@ -245,7 +239,7 @@ TINYMCE_FILEBROWSER = True
 
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
-    "height": 800,
+    "height": 600,
     "menubar": "file edit view insert format tools table help",
     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
         "fullscreen insertdatetime media table paste code help wordcount spellchecker",

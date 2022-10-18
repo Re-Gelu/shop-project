@@ -60,7 +60,7 @@
                     
                     <!-- Category card body-->
                     <div>
-                        <a href="{% url 'products' %}?category={{category}}" class="row my-2 ms-2 lead text-colored d-inline-block"><i class="bi bi-caret-right"></i>{{category}}</a><hr>
+                        <a href="{% url 'products' category=category %}" class="row my-2 ms-2 lead text-colored d-inline-block"><i class="bi bi-caret-right"></i>{{category}}</a><hr>
 
                         <!-- Product slider -->
                         <div class="row uk-position-relative uk-visible-toggle px-3" tabindex="-1" uk-slider="sets: true, finite: true, draggable: true">
@@ -75,7 +75,7 @@
                                         <div class="card-body">
                                             {% for subcategory in subcategories %}
                                                 {% if subcategory.category == category %}
-                                                        <p class="my-3"><a href="{% url 'products' %}?category={{category}}&subcategory={{subcategory}}" class="uk-button-text my-2 a-important">{{subcategory}}</a></p>
+                                                        <p class="my-3"><a href="{% url 'products' category=category subcategory=subcategory %}" class="uk-button-text my-2 a-important">{{subcategory}}</a></p>
                                                         {% if not forloop.last %}
                                                             <hr class="text-black-50">
                                                         {% endif %}
@@ -96,7 +96,7 @@
                                 {% if products %}
                                     <li class="uk-transition-toggle me-3">
                                         <div class="h-100 card uk-card-hover uk-transition-opaque uk-transition-slide-left-small py-5">
-                                            <a class="card-body lead fs-3 text-colored my-5 py-5 text-center" href="{% url 'products' %}?category={{category}}">
+                                            <a class="card-body lead fs-3 text-colored my-5 py-5 text-center" href="{% url 'products' category=category %}">
                                                 Больше товаров...
                                             </a>
                                         </div>
