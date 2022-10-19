@@ -17,7 +17,7 @@ def payment_handler():
             order.status = payment_status
             order.save()
         if payment_status == Orders.Payment_statuses.REJECTED or payment_status == Orders.Payment_statuses.EXPIRED:
-            result1 = f'Order with id: {order.UUID} have been deleted!'
+            result1 = f'\nOrder with id: {order.UUID} have been deleted!'
             p2p.reject(order.UUID)
             return result + result1
         return result

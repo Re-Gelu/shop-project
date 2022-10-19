@@ -164,10 +164,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Redis settings
-
-REDIS_URL = 'redis://localhost:6379/0'
-
 # Payment settings
 
 QIWI_PRIVATE_KEY = "eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6InlqYnloaC0wMCIsInVzZXJfaWQiOiI3OTY4NDcyNzQ4OCIsInNlY3JldCI6ImQ1NDJmY2NkYTBkMzBhNzhiYTkyYzA3ZWYyNGYyY2M5N2JkYjAxNmUxNmM4MTQ0NzdlZGZkNTU1YTAxY2I0MzcifX0="
@@ -187,6 +183,12 @@ if os.environ.get("DEBUG") == '0':
     REDIS_URL = os.environ.get("REDIS_URL")
     
     QIWI_PRIVATE_KEY = os.environ.get("QIWI_PRIVATE_KEY")
+
+else:
+    
+    # Redis settings
+
+    REDIS_URL = 'redis://localhost:6379/0'
 
 # Login settings
 

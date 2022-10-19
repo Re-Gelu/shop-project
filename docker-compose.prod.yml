@@ -46,6 +46,8 @@ services:
     build: ./
     command: celery -A Site worker --beat --loglevel=info
     container_name: 'celery'
+    env_file:
+      - ./.env.prod
     depends_on:
       - web
       - redis
@@ -55,13 +57,12 @@ services:
     container_name: 'redis'
     restart: always
     expose:
-      - '6379'
+      - 6379
     ports:
-      - '6379:6379'
+      - 6379:6379
 
 volumes:
 
   postgres_data:
   static_volume:
   media_volume:
-  celery:
