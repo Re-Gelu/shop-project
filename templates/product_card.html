@@ -41,11 +41,17 @@
 
                 <div class="card-footer d-flex bg-white row">
                     <div class="my-2 col-9"><a href="{% url 'product' %}?id={{product.id}}" class="uk-button-text a-important">ПОДРОБНЕЕ</a></div>
-                    <form action="{% url 'cart_action' product.id %}" method="post" class="my-2 p-0 col-3">
-                        {% csrf_token %}
-                        <div class="col-0 uk-hidden">{{cart_add_one_form}}</div>
-                        <button type="submit" class="btn btn-dark text-white background-colored col-12"><i class="bi bi-cart"></i></button>
-                    </form>
+                    {% if product.stock == 0 or product.avaliable == False %}
+                        <div class="my-2 p-0 col-3">
+                            <button type="submit" class="btn btn-outline-secondary uk-button-text text-decoration-line-through col-12"><i class="bi bi-cart-x"></i></button>
+                        </div>
+                    {% else %}
+                        <form action="{% url 'cart_action' product.id %}" method="post" class="my-2 p-0 col-3">
+                            {% csrf_token %}
+                            <div class="col-0 uk-hidden">{{cart_add_one_form}}</div>
+                            <button type="submit" class="btn btn-dark text-white background-colored col-12"><i class="bi bi-cart"></i></button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
