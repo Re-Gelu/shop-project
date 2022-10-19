@@ -33,6 +33,7 @@ services:
   nginx:
     build: ./nginx
     container_name: 'nginx'
+    restart: always
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/media
@@ -41,25 +42,26 @@ services:
     depends_on:
       - web
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+  celery:
+    build: ./
+    command: celery -A Site worker --beat --loglevel=info
+    container_name: 'celery'
+    depends_on:
+      - web
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    container_name: 'redis'
+    restart: always
+    expose:
+      - '6379'
     ports:
-        - 5672:5672
-        - 15672:15672
-    volumes:
-        - rabbitmq:/data/var/lib/rabbitmq/
-        - rabbitmq:/log/var/log/rabbitmq
-    networks:
-        - rabbitmq_go_net
+      - '6379:6379'
 
 volumes:
 
   postgres_data:
   static_volume:
   media_volume:
-  rabbitmq:
-
-networks:
-  rabbitmq_go_net:
-    driver: bridge
+  celery:
