@@ -15,7 +15,7 @@ from Cart.cart import Cart
 from Cart.forms import *
 
 # QIWI payments
-p2p = QiwiP2P(auth_key=settings.QIWI_PRIVATE_KEY if Setting.get("QIWI_PRIVATE_KEY") == "" else Setting.get("QIWI_PRIVATE_KEY"))
+p2p = QiwiP2P(auth_key=settings.QIWI_PRIVATE_KEY if Setting.get("QIWI_PRIVATE_KEY") and Setting.get("QIWI_PRIVATE_KEY") == "" else Setting.get("QIWI_PRIVATE_KEY"))
 
 # Get base context values
 def get_base_context_data(request):

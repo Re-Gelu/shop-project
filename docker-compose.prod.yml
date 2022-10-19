@@ -42,6 +42,11 @@ services:
     depends_on:
       - web
 
+  redis:
+    image: redis:7-alpine
+    container_name: 'redis'
+    restart: always
+    
   celery:
     build: ./
     command: celery -A Site worker --beat --loglevel=info
@@ -51,15 +56,6 @@ services:
     depends_on:
       - web
       - redis
-
-  redis:
-    image: redis:7-alpine
-    container_name: 'redis'
-    restart: always
-    expose:
-      - 6379
-    ports:
-      - 6379:6379
 
 volumes:
 
