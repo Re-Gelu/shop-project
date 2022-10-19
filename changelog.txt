@@ -60,7 +60,7 @@ v0.2 changes:
     
     -   Создана страница товара
 
-    -   Добавлен REST framework
+    -   Добавлен REST framework. чето надо было сеарилизировать хз уже что :)
 
     -   Создана корзина. Базируется на сессии пользователя. Хранится в cookies.
 
@@ -76,9 +76,11 @@ v0.2 changes:
 
             celery flower -A Site --port=5555
 
-            celery -A Site beat
+            celery -A Site beat --loglevel=info
             
-            celery -A Site worker --pool=solo -l info
+            celery -A Site worker --pool=solo --loglevel=info
+
+            celery -A Site worker --beat --loglevel=info
 
     -   При помощи библиотеки filebrower добавлена возможность использования разных заранее определённых размеров изображений и редактирования изображений в админке
 
