@@ -164,15 +164,29 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Redis settings
+
+REDIS_URL = 'redis://localhost:6379/0'
+
+# Payment settings
+
+QIWI_PRIVATE_KEY = "eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6InlqYnloaC0wMCIsInVzZXJfaWQiOiI3OTY4NDcyNzQ4OCIsInNlY3JldCI6ImQ1NDJmY2NkYTBkMzBhNzhiYTkyYzA3ZWYyNGYyY2M5N2JkYjAxNmUxNmM4MTQ0NzdlZGZkNTU1YTAxY2I0MzcifX0="
+
+QIWI_PAYMENTS_LIFETIME = 30
+
 # Prod settings
 
-if os.environ.get("DEBUG"):
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    DEBUG = int(os.environ.get("DEBUG", default=0))
-
-    # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
-    # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+if os.environ.get("DEBUG") == '0':
+    
+    DEBUG = int(os.environ.get("DEBUG"))
+    
     ALLOWED_HOSTS = str(os.environ.get("DJANGO_ALLOWED_HOSTS")).split(" ")
+    
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    
+    REDIS_URL = os.environ.get("REDIS_URL")
+    
+    QIWI_PRIVATE_KEY = os.environ.get("QIWI_PRIVATE_KEY")
 
 # Login settings
 
@@ -198,10 +212,6 @@ MAX_PRODUCTS_IN_CART = 5
 
 MIN_PRODUCTS_IN_CART = 1
 
-# Redis settings
-
-REDIS_URL = 'redis://localhost:6379'
-
 # Cache settings
 
 CACHES = {
@@ -217,7 +227,11 @@ CACHES = {
 
 # Celery settings
 
-CELERY_CACHE_BACKEND = 'cache_table'
+CELERY_APP = 'Site'
+
+CELERYD_USER = "celery"
+
+CELERYD_GROUP = "celery"
 
 CELERY_TIMEZONE = 'Europe/Moscow'
 
@@ -225,18 +239,17 @@ CELERY_TASK_TRACK_STARTED = True
 
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
+#CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_CACHE_BACKEND = 'django-cache'
 
-""" CELERY_BROKER_URL = "redis://localhost:6379"
-
-CELERY_RESULT_BACKEND = "redis://localhost:6379" """
+CELERY_BROKER_URL = REDIS_URL
 
 CELERYBEAT_SCHEDULE = {
     'payment_check_every_60_s': {
         'task': 'Orders.tasks.payment_handler',
-        'schedule': 10.0,
+        'schedule': 60.0,
     }
 }
 
@@ -397,9 +410,3 @@ EXTRA_SETTINGS_DEFAULTS = [
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
-
-# Payment settings
-
-QIWI_PRIVATE_KEY = "eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6InlqYnloaC0wMCIsInVzZXJfaWQiOiI3OTY4NDcyNzQ4OCIsInNlY3JldCI6ImQ1NDJmY2NkYTBkMzBhNzhiYTkyYzA3ZWYyNGYyY2M5N2JkYjAxNmUxNmM4MTQ0NzdlZGZkNTU1YTAxY2I0MzcifX0="
-
-QIWI_PAYMENTS_LIFETIME = 30

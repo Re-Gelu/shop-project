@@ -58,7 +58,7 @@ def index(request):
 
     return render(request, "index.html", context=context)
 
-def products_page(request, category = None, subcategory = None):
+def products_page(request, category: str = None, subcategory: str = None):
     
     # Main vars getted from GET or cache
     page = request.GET.get('page', 1)

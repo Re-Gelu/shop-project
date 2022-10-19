@@ -45,7 +45,8 @@ def order(request):
     if request.method == "POST" and form.is_valid():
         cd = form.cleaned_data
         new_order = Orders()
-
+        
+        # Создание объекта нового заказа
         new_order.user_id = request.user.id
         new_order.adress = f"Адрес: {cd['adress']}"
         new_order.contacts = f"Номер телефона: {cd['phone_number']}"
@@ -62,10 +63,11 @@ def order(request):
 
         # Создание QIWI платежа
         site_name = Setting.get("SITE_NAME")
+        successUrl = "https://vk.com/re_gelu"
         bill = p2p.bill(
             bill_id=new_order.UUID,
             #amount=cart.get_total_promo_price(), 
-            amount=0.1, 
+            amount=1, 
             lifetime=Setting.get("QIWI_PAYMENTS_LIFETIME"),
             comment=f"{site_name} - Заказ №{new_order.UUID}"
         )
@@ -73,14 +75,14 @@ def order(request):
         new_order.save()
         #cart.clear()
         
-        return redirect(bill.pay_url)
+        return redirect(bill.pay_url + f"&successUrl={successUrl}")
         
-        context = {
+        """ context = {
             'UUID': new_order.UUID,
         }
         
         context.update(get_base_context_data(request))
-        return render(request, "submit_order.html", context=context)
+        return render(request, "submit_order.html", context=context) """
     
     else:
         submit_form = Submit_order()

@@ -4,6 +4,6 @@ from .models import *
 
 @admin.register(Orders)
 class Orders_admin(admin.ModelAdmin):
-    list_display = ("UUID", "created",)
-    list_filter = ("created",)
-    search_fields = ("UUID", "adress",)
+    list_display = ("UUID", "created", "status")
+    list_filter = ("created", "status")
+    search_fields = ("UUID", "adress", "status")
