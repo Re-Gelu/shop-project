@@ -1,5 +1,5 @@
 # :poop: Интернет-маркетплейс на Django
-> Pet-проект создается в целях более лучшего изучения Django :shipit:
+> Pet-проект. Создается в целях более лучшего изучения Django :shipit:
 
 ## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
 
