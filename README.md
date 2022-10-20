@@ -55,20 +55,38 @@ tzdata==2022.5
 
 > Необходимы права администратора
 
+## :moneybag: Оплата
+
+Реализована при помощи QIWI, проверка оплаты происходит при помощи задач Celery по расписанию.
+
+Требуется обязательно установить приватный ключ QIWI в админке или файле settings.py / .env файлах.
+Получить можно тут: https://qiwi.com/p2p-admin/api
+
+- Команды Celery 
+
+  ```
+  $ celery -A Site beat --loglevel=info
+  $ celery -A Site worker --loglevel=info
+  
+  либо
+  
+  $ celery -A Site worker --beat --loglevel=info
+  ```
+
 ## :whale: Работа с Docker
 
-- rm containers
+- Удаление контейнеров
 
   ```
   $ docker-compose down -v
   ```
 
-- Dev
+- Поднять Dev контейнер
   ```
   $ docker-compose -f docker-compose.yml up -d --build
   ```
 
-- Prod
+- Поднять Prod контейнер
   ```
   $ docker-compose -f docker-compose.prod.yml up -d --build
   $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
