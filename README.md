@@ -65,11 +65,11 @@ tzdata==2022.5
 - Команды Celery 
 
   ```
+    Windows:
   $ celery -A Site beat --loglevel=info
   $ celery -A Site worker --loglevel=info
   
-  либо
-  
+    Linux:
   $ celery -A Site worker --beat --loglevel=info
   ```
 
