@@ -166,13 +166,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Payment settings
 
-QIWI_PRIVATE_KEY = "eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6InlqYnloaC0wMCIsInVzZXJfaWQiOiI3OTY4NDcyNzQ4OCIsInNlY3JldCI6ImQ1NDJmY2NkYTBkMzBhNzhiYTkyYzA3ZWYyNGYyY2M5N2JkYjAxNmUxNmM4MTQ0NzdlZGZkNTU1YTAxY2I0MzcifX0="
+QIWI_PRIVATE_KEY = ""
 
 QIWI_PAYMENTS_LIFETIME = 30
 
 # Prod settings
 
-if os.environ.get("DEBUG") == '0':
+if os.environ.get("DEBUG") == '1':
     
     DEBUG = int(os.environ.get("DEBUG"))
     
