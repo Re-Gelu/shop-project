@@ -1,5 +1,5 @@
 # :poop: Интернет-маркетплейс на Django
-> Проект создается в целях изучения Django для портфолио :shipit:
+> Pet-проект. Создается в целях более лучшего изучения Django :shipit:
 
 ## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
 
@@ -21,7 +21,7 @@ django-tinymce==3.5.0
 django-admin-interface==0.20.0
 django-extra-settings==0.6.1
 django-phonenumber-field[phonenumbers]==7.0.0
-celery==5.2.7
+celery[redis]==5.2.7
 django-celery-results==2.4.0
 django-celery-beat==2.3.0
 redis==4.3.4
@@ -55,20 +55,38 @@ tzdata==2022.5
 
 > Необходимы права администратора
 
+## :moneybag: Оплата
+
+Реализована при помощи QIWI, проверка оплаты происходит при помощи задач Celery по расписанию.
+
+Требуется обязательно установить приватный ключ QIWI в админке или settings.py / .env файлах.
+Получить можно тут: https://qiwi.com/p2p-admin/api
+
+- Команды Celery 
+
+  ```
+  $ celery -A Site beat --loglevel=info
+  $ celery -A Site worker --loglevel=info
+  
+  либо
+  
+  $ celery -A Site worker --beat --loglevel=info
+  ```
+
 ## :whale: Работа с Docker
 
-- rm containers
+- Удаление контейнеров
 
   ```
   $ docker-compose down -v
   ```
 
-- Dev
+- Поднять Dev контейнер
   ```
   $ docker-compose -f docker-compose.yml up -d --build
   ```
 
-- Prod
+- Поднять Prod контейнер
   ```
   $ docker-compose -f docker-compose.prod.yml up -d --build
   $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
