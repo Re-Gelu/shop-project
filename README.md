@@ -67,10 +67,7 @@ tzdata==2022.5
   ```
     Windows:
   $ celery -A Site beat --loglevel=info
-  $ celery -A Site worker --loglevel=info
-    или
-  $ celery -A Site worker --pool=solo --loglevel=info
-   
+  $ celery -A Site worker --loglevel=info /  $ celery -A Site worker --pool=solo --loglevel=info
   
     Linux:
   $ celery -A Site worker --beat --loglevel=info
