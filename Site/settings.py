@@ -172,7 +172,7 @@ QIWI_PAYMENTS_LIFETIME = 30
 
 # Prod settings
 
-if os.environ.get("DEBUG") == '1':
+if os.environ.get("DEBUG") == '0':
     
     DEBUG = int(os.environ.get("DEBUG"))
     
@@ -238,11 +238,11 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 #CELERY_RESULT_BACKEND = REDIS_URL
-RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'django-db'
 
-CACHE_BACKEND = 'django-cache'
+CELERY_CACHE_BACKEND = 'django-cache'
 
-BEAT_SCHEDULE = {
+CELERYBEAT_SCHEDULE = {
     'payment_check_every_60_s': {
         'task': 'Orders.tasks.payment_handler',
         'schedule': 60.0,
