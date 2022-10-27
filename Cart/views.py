@@ -1,6 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import redirect, get_object_or_404
-from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import RedirectView
 from django.http import HttpResponseRedirect
 
