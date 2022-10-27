@@ -6,6 +6,7 @@ from celery.result import AsyncResult
 import datetime
 from .QIWI import get_QIWI_p2p
 
+# Задача обработчика платежей
 @shared_task
 def payment_handler():
     result = ""
@@ -24,6 +25,7 @@ def payment_handler():
     else:
         return "No orders to handle for now..."
 
+# Задача для удаления ВСЕХ старых результатов платежей
 @shared_task
 def delete_old_payment_handler_results(days=7):
     count = 0
@@ -31,7 +33,8 @@ def delete_old_payment_handler_results(days=7):
         result.delete()
         count += 1
     return f"Clear done! {count} results older {days} days has been deleted!"
-    
+
+# Задача для удаления всех заказов старше N дней
 @shared_task
 def delete_all_old_orders(days=7):
     count = 0
@@ -40,7 +43,7 @@ def delete_all_old_orders(days=7):
         count += 1
     return f"Clear done! {count} orders older {days} days has been deleted!"
 
-
+# Задача для удаления всех неудавшихся заказов старше N дней
 @shared_task
 def delete_all_failed_old_orders(days=7):
     count = 0
@@ -48,6 +51,7 @@ def delete_all_failed_old_orders(days=7):
         order.delete()
         count += 1
     return f"Clear done! {count} failed orders older {days} days has been deleted!"
+
 
 @shared_task
 def debug_task():
