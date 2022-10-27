@@ -16,13 +16,12 @@ urlpatterns = [
     ),
     re_path(
         r'^registration/$',
-        views.registration,
+        views.RegistrationPageView.as_view(),
         name='registration'
     ),
     re_path(
         r'^password_change/$',
-        PasswordChangeView.as_view(
-            template_name="change_password.html", form_class=ChangePassword),
+        PasswordChangeView.as_view(template_name="change_password.html", form_class=ChangePassword),
         name='password_change'
     ),
     re_path(

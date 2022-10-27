@@ -1,15 +1,14 @@
-from cgi import print_arguments
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from extra_settings.models import Setting
-from django.views.decorators.http import require_POST, require_GET
+from django.views.generic.base import TemplateView, View
+from django.utils.decorators import method_decorator
 from django.core.cache import cache
 
-from .db_auto_fill import DB_AUTO_FILL
+from .db_auto_fill import db_auto_fill
 from .models import *
 from .forms import *
 
@@ -18,210 +17,129 @@ from Orders.models import *
 from Cart.cart import Cart
 from Cart.forms import *
 
-# Get base context values
-def get_base_context_data(request):
-    categories = Categories.objects.all()
-    subcategories = Subcategories.objects.all()
-    random_product = Products.objects.order_by('?').first()
-    cart_remove_one_form = Cart_remove_one_product_form()
-    cart_add_one_form = Cart_add_one_product_form()
-    cart = Cart(request)
+class CustomTemplateView(TemplateView):
 
-    base_context = {
-        "categories": categories,
-        "subcategories": subcategories,
-        "random_product": random_product,
-        "cart_add_one_form": cart_add_one_form,
-        "cart_remove_one_form": cart_remove_one_form,
-        "cart": cart
-    }
-    
-    return base_context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Categories.objects.all()
+        context["subcategories"] = Subcategories.objects.all()
+        context["random_product"] = Products.objects.order_by('?').first()
+        context["cart_add_one_form"] = Cart_add_one_product_form()
+        context["cart_remove_one_form"] = Cart_remove_one_product_form()
+        context["cart"] = Cart(self.request)
+        return context
         
-# Index page
-def index(request):
-    slider_images = Main_page_slider.objects.all()
-    latest_products_per_category = {}
+class IndexPageView(CustomTemplateView):
+    """ Index page class view """
     
-    cache.clear()
+    template_name = "index.html"
     
-    # Get N products per category in dict
-    for category in get_base_context_data(request)["categories"]:
-        latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:10]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
-    context = {
-        "slider_images": slider_images,
-        "latest_products_per_category": latest_products_per_category,
-    }
-    
-    context.update(get_base_context_data(request))
-
-    return render(request, "index.html", context=context)
-
-def products_page(request, category: str = None, subcategory: str = None):
-    
-    # Main vars getted from GET or cache
-    page = request.GET.get('page', 1)
-    search_query = request.GET.get('search_query', cache.get('search_query'))
-    sort_by = request.GET.get('sort_by', cache.get('sort_by'))
-    
-    # Getting and sorting products from DB
-    if search_query:
-        products = Products.objects.filter(name__icontains=search_query)
-    elif subcategory:
-        products = Products.objects.filter(subcategory__name=subcategory)
-    elif category:
-        products = Products.objects.filter(subcategory__category__name=category)
-    else:
-        products = Products.objects.all()
+        # Get N products per category in dict
+        latest_products_per_category = {}
+        for category in context["categories"]:
+            latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:10]
+            
+        context["slider_images"] = Main_page_slider.objects.all()
+        context["latest_products_per_category"] = latest_products_per_category
         
-    if sort_by:
-        match int(sort_by):
-            case 1:
-                pass
-            case 2:
-                products = products.order_by('price')
-            case 3:
-                products = products.order_by('-price')
-            case 4:
-                products = products.order_by('price', '-promo_price')
+        return context
     
-    # Pagination with N products per page
-    paginator = Paginator(products, Setting.get("PRODUCTS_PER_PAGE", default=12))
-    products = paginator.get_page(page)
-    #page_range = paginator.get_elided_page_range(on_each_side=2, on_ends=1)
-    page_range = paginator.page_range
+class ProductsPageView(CustomTemplateView):
+    """ Products page class view """
     
-    context = {
-        "products": products,
-        "page_range": page_range,
-        "category": category,
-        "subcategory": subcategory,
-    }
+    template_name = "shop_page.html"
     
-    context.update(get_base_context_data(request))
-
-    return render(request, "shop_page.html", context=context)
-
-def product(request):
-    if request.GET.get('id'):
-        try:
-            product = Products.objects.get(id=int(request.GET['id']))
-        except ObjectDoesNotExist:
-            product = False
-    
-    context = {
-        "product": product,
-    }
-
-    context.update(get_base_context_data(request))
-    
-    return render(request, "product_page.html", context=context)
-def promo(request):
-    return render(request, "base.html", context=get_base_context_data(request))
-
-def contacts(request):
-    return render(request, "contacts.html", context=get_base_context_data(request))
-
-def delivery(request):
-    return render(request, "delivery.html", context=get_base_context_data(request))
-
-def about(request):
-    return render(request, "about.html", context=get_base_context_data(request))
-
-# Auto DB fill
-@staff_member_required
-def db_auto_fill(request, amount, model):
-    
-    DB_AUTO_FILL(int(amount), model)
-    
-    return HttpResponse(f'Успешно добавлено {amount} записей в таблицу {model}!')
-
-# Dashboard page
-@login_required
-def dashboard(request):
-    
-    # Cookies test
-    print('\n')
-    request.session.set_test_cookie()
-    print('Cookies - ', request.session.test_cookie_worked())
-    if request.session.test_cookie_worked():
-        request.session.delete_test_cookie()
-    
-    # Get cart data
-    """ print('\n')
-    for item in get_base_context_data(request)['cart']:
-        print(item)
-    print('\n') """
-    
-    current_orders = Orders.objects.filter(user_id=request.user.id)
-    
-    context = {
-        'current_orders': current_orders
-    }
-    
-    context.update(get_base_context_data(request))
-    
-    return render(request, "dashboard.html", context=context)
-
-
-""" def products_page(request):
-    
-    # Check GET and delete cache vars to correct render
-    if 'search_query' in request.GET:
-        cache.delete_many(['category', 'subcategory', 'sort_by'])
-    elif 'category' or 'subcategory' in request.GET:
-        cache.delete_many(['search_query', 'sort_by'])
-    if len(request.GET) == 1 and 'page' in request.GET:
-        cache.clear()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
-    # Caching
-    GET = {}
-    GET['search_query'] = request.GET.get('search_query', cache.get('search_query'))
-    GET['sort_by'] = request.GET.get('sort_by', cache.get('sort_by'))
-    GET['subcategory'] = request.GET.get('subcategory', cache.get('subcategory'))
-    GET['category'] = request.GET.get('category', cache.get('category'))
-    cache.set_many(GET)
-    
-    # Main vars getted from GET or cache
-    page = request.GET.get('page', 1)
-    search_query = request.GET.get('search_query', cache.get('search_query'))
-    sort_by = request.GET.get('sort_by', cache.get('sort_by'))
-    subcategory = request.GET.get('subcategory', cache.get('subcategory'))
-    category = request.GET.get('category', cache.get('category'))
-    
-    # Getting and sorting products from DB
-    if search_query:
-        products = Products.objects.filter(name__icontains=search_query)
-    elif subcategory:
-        products = Products.objects.filter(subcategory__name=subcategory)
-    elif category:
-        products = Products.objects.filter(subcategory__category__name=category)
-    else:
-        products = Products.objects.all()
+        category = kwargs.get("category")
+        subcategory = kwargs.get("subcategory")
         
-    if sort_by:
-        match int(sort_by):
-            case 1:
-                pass
-            case 2:
-                products = products.order_by('price')
-            case 3:
-                products = products.order_by('-price')
-            case 4:
-                products = products.order_by('price', '-promo_price')
-    
-    # Pagination with N products per page
-    paginator = Paginator(products, Setting.get("PRODUCTS_PER_PAGE", default=12))
-    products = paginator.get_page(page)
-    #page_range = paginator.get_elided_page_range(on_each_side=2, on_ends=1)
-    page_range = paginator.page_range
-    
-    context = {
-        "products": products,
-        "page_range": page_range,
-    }
-    
-    context.update(get_base_context_data(request))
+        # Main vars getted from GET or cache
+        page = self.request.GET.get('page', 1)
+        search_query = self.request.GET.get('search_query', cache.get('search_query'))
+        sort_by = self.request.GET.get('sort_by', cache.get('sort_by'))
+        
+        # Caching
+        cache.set("sort_by", sort_by)
+        
+        # Getting and sorting products from DB
+        if search_query:
+            products = Products.objects.filter(name__icontains=search_query)
+        elif subcategory:
+            products = Products.objects.filter(subcategory__name=subcategory)
+        elif category:
+            products = Products.objects.filter(subcategory__category__name=category)
+        else:
+            products = Products.objects.all()
 
-    return render(request, "shop_page.html", context=context) """
+        if sort_by:
+            match int(sort_by):
+                case 1:
+                    pass
+                case 2:
+                    products = products.order_by('price')
+                case 3:
+                    products = products.order_by('-price')
+                case 4:
+                    products = products.order_by('price', '-promo_price')
+                    
+        # Pagination with N products per page
+        paginator = Paginator(products, Setting.get("PRODUCTS_PER_PAGE", default=12))
+        products = paginator.get_page(page)
+        
+        context["products"] = products
+        context["page_range"] = paginator.page_range
+        context["category"] = category
+        context["subcategory"] = subcategory
+            
+        return context
+    
+class ProductPageView(CustomTemplateView):
+    """ Product page class view"""
+    
+    template_name = "product_page.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.GET.get('id'):
+            try:
+                context["product"] = Products.objects.get(id=int(self.request.GET['id']))
+            except ObjectDoesNotExist:
+                context["product"] = False
+                
+        return context
+    
+class DashboardPageView(CustomTemplateView):
+    """ Dashboard page class view"""
+    
+    template_name = "dashboard.html"
+    
+    #@method_decorator(login_required)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["current_orders"] = Orders.objects.filter(user_id=self.request.user.id)
+        return context
+    
+    def test_cookies(self) -> bool:
+        """ Cookies test """
+        
+        self.request.session.set_test_cookie()
+        
+        if self.request.session.test_cookie_worked():
+            self.request.session.delete_test_cookie()
+            return True
+        else:
+            return False
+    
+class DB_AutoFillView(View):
+    """ Auto DB fill class view """
+    
+    @method_decorator(staff_member_required)
+    def get(self, request, *args, **kwargs):
+        db_auto_fill(int(kwargs["amount"]), kwargs["model"])
+        return HttpResponse(f'Успешно добавлено {kwargs["amount"]} записей в таблицу {kwargs["model"]}!')

@@ -5,18 +5,13 @@ from . import views
 
 urlpatterns = [
     path(
-        'cart/',
-        views.cart_detail,
-        name='cart_detail'
-    ),
-    path(
         'cart_action/<int:product_id>/',
-        views.cart_action,
+        views.CartActionRedirectView.as_view(),
         name='cart_action'
     ),
     path(
         'cart_remove/<int:product_id>/',
-        views.cart_remove,
+        views.CartRemoveRedirectView.as_view(),
         name='cart_remove'
     )
 ]

@@ -2,7 +2,7 @@ from Shop.models import *
 from art import tprint
 import random
 
-def DB_AUTO_FILL(amount, model):
+def db_auto_fill(amount, model):
     match model:
         case "Categories":
             print("[+] Model exists...\n")
@@ -56,4 +56,4 @@ if __name__ == '__main__':
     tprint("DB auto fill", font="Slant")
     amount = int(input("Кол-во записей: "))
     model = input("Таблица: ")
-    DB_AUTO_FILL(amount, model)
+    db_auto_fill(amount, model)

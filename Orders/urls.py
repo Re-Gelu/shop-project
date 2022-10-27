@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path(
         'order/',
-        views.order,
+        views.OrderPageView.as_view(),
         name='order'
     ),
 ]

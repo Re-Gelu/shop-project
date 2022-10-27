@@ -1,33 +1,22 @@
 from django.shortcuts import render
+
 from .forms import RegistrationForm
+
 from Shop.models import *
+from Shop.views import CustomTemplateView
+
 from Cart.cart import Cart
 from Cart.forms import *
-# Create your views here.
 
-# Get base context values
-def get_base_context_data(request):
-    categories = Categories.objects.all()
-    subcategories = Subcategories.objects.all()
-    random_product = Products.objects.order_by('?').first()
-    cart_remove_one_form = Cart_remove_one_product_form()
-    cart_add_one_form = Cart_add_one_product_form()
-    cart = Cart(request)
-
-    base_context = {
-        "categories": categories,
-        "subcategories": subcategories,
-        "random_product": random_product,
-        "cart_add_one_form": cart_add_one_form,
-        "cart_remove_one_form": cart_remove_one_form,
-        "cart": cart
-    }
-
-    return base_context
-
-# Registration page
-def registration(request):
-    if request.method == "POST":
+class RegistrationPageView(CustomTemplateView):
+    """ Registration page class view """
+    
+    template_name = "registration.html"
+    
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {"registration_form": RegistrationForm()})
+    
+    def post(self, request, *args, **kwargs):
         registration_form = RegistrationForm(request.POST)
 
         if registration_form.is_valid():
@@ -44,17 +33,6 @@ def registration(request):
             # Save the User object
             new_user.save()
             return render(request, "registration_done.html", {"new_user": new_user})
+        
         else:
-            registration_form = RegistrationForm(request.POST)
-            return render(request, "registration.html", {"registration_form": registration_form})
-
-    else:
-        registration_form = RegistrationForm()
-
-        context = {
-            "registration_form": registration_form
-        }
-
-        context.update(get_base_context_data(request))
-
-        return render(request, "registration.html", context=context)
+            return render(request, self.template_name, {"registration_form": registration_form})
