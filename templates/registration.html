@@ -6,60 +6,18 @@
 {% endblock title %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %} 
-    <div class="container col-xl-4 col-12 p-3 p-xl-5 pt-5">
+    <div class="container col-md-5 col-12 p-3 p-xl-5 pt-5">
         <form class="row g-4 needs-validation" method="post" novalidate>
             {% csrf_token %}
             
             <p class="h3 text-center">Регистрация</p>
 
             <hr>
-
-            {% for field in registration_form %}
-                {% if forloop.first %}
-                
-                    <!-- Email form -->
-                    <div class="col-12">
-
-                        <!-- Form label -->
-                        <label class="form-label">{{field.label_tag}}</label>
-
-                        <!-- Form input -->
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            {{field}}
-                        </div>
-
-                        <!-- Optional form errors -->
-                        {% if field.errors %}
-                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
-                                {{field.errors}}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                {% else %}
-
-                    <!-- Standart form -->
-                    <div class="col-6">
-
-                        <!-- Form label -->
-                        <label class="form-label">{{field.label_tag}}</label>
-
-                        <!-- Form input -->
-                        {{field}}
-
-                        <!-- Optional form errors -->
-                        {% if field.errors %}
-                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
-                                {{field.errors}}
-                            </div>
-                        {% endif %}
-                
-                    </div>  
-                {% endif %}
-            {% endfor %}
+            
+            {% crispy registration_form %}
 
             <!-- Terms and conditions -->
             <div class="col-12">
@@ -69,20 +27,6 @@
                         <a class="text-reset uk-button-text a-important" href="#">Согласен с правилами и условиями</a>
                     </label> 
                 </div>
-            </div>
-
-            <hr>
-
-            {% if registration_form.non_field_errors %}
-                <div class="text-reset uk-button-text text-center offcanvas-submit-button my-3 py-2">
-                    {{registration_form.non_field_errors}}
-                </div>
-                <hr>
-            {% endif %}
-
-            <!-- Submit form -->
-            <div class="col-12 text-center">
-                <button class="btn-lg uk-button-text m-2 px-5 border-colored" type="submit">Перейти к покупкам!</button>
             </div>
         </form>
 
