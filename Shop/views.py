@@ -119,7 +119,10 @@ class DashboardPageView(CustomTemplateView):
     
     template_name = "dashboard.html"
     
-    #@method_decorator(login_required)
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_orders"] = Orders.objects.filter(user_id=self.request.user.id)
@@ -142,4 +145,10 @@ class DB_AutoFillView(View):
     @method_decorator(staff_member_required)
     def get(self, request, *args, **kwargs):
         db_auto_fill(int(kwargs["amount"]), kwargs["model"])
-        return HttpResponse(f'Успешно добавлено {kwargs["amount"]} записей в таблицу {kwargs["model"]}!')
+        return HttpResponse(
+            f"""
+                <center><h3>Успешно добавлено {kwargs["amount"]} записей в таблицу {kwargs["model"]}!</h3></center>
+                <hr>
+                <center><small>with love from Re;Gelu :3</small></center>
+            """
+        )

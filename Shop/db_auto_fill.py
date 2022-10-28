@@ -5,17 +5,17 @@ import random
 def db_auto_fill(amount, model):
     match model:
         case "Categories":
-            print("[+] Model exists...\n")
+            #print("[+] Model exists...\n")
 
             for i in range(1, amount + 1):
                 category = Categories()
                 category.name=f"Категория №{i}"
                 
                 category.save()
-                print(category.name, "\n")
+                #print(category.name, "\n")
 
         case "Subcategories":
-            print("[+] Model exists...\n")
+            #print("[+] Model exists...\n")
             
             categories = list()
             for category in Categories.objects.all():
@@ -28,11 +28,11 @@ def db_auto_fill(amount, model):
                     subcategory.category = category
                     
                     subcategory.save()
-                    print(subcategory.name, "\n")
-                print("\n")
+                    #print(subcategory.name, "\n")
+                #print("\n")
                 
         case "Products":
-            print("[+] Model exists...\n")
+            #print("[+] Model exists...\n")
             
             subcategories = list()
             for subcategory in Subcategories.objects.all():
@@ -50,7 +50,7 @@ def db_auto_fill(amount, model):
                 product.available = True
                 
                 product.save()
-                print(product.information, "\n")
+                #print(product.information, "\n")
 
 if __name__ == '__main__':
     tprint("DB auto fill", font="Slant")

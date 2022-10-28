@@ -14,27 +14,6 @@ from Shop.views import CustomTemplateView
 from Cart.cart import Cart
 from Cart.forms import *
 
-""" # Get base context values
-def get_base_context_data(request):
-    categories = Categories.objects.all()
-    subcategories = Subcategories.objects.all()
-    random_product = Products.objects.order_by('?').first()
-    cart_remove_one_form = Cart_remove_one_product_form()
-    cart_add_one_form = Cart_add_one_product_form()
-    cart = Cart(request)
-
-    base_context = {    
-        "categories": categories,
-        "subcategories": subcategories,
-        "random_product": random_product,
-        "cart_add_one_form": cart_add_one_form,
-        "cart_remove_one_form": cart_remove_one_form,
-        "cart": cart
-    }
-
-    return base_context """
-
-
 class OrderPageView(CustomTemplateView):
     """ Order page class view """
     

@@ -42,7 +42,7 @@ urlpatterns = [
     path(
         'delivery/',
         views.CustomTemplateView.as_view(template_name="delivery.html"),
-        name='delievery'
+        name='delivery'
     ),
     path(
         'dashboard/',

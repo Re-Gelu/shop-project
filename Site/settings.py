@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from django.urls import reverse_lazy
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_celery_results',
     'django_celery_beat',
+    'crispy_forms',
+    'crispy_bootstrap5',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -95,11 +98,6 @@ WSGI_APPLICATION = 'Site.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-""" 'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    } """
     
 DATABASES = {
     "default": {
@@ -284,7 +282,11 @@ TINYMCE_DEFAULT_CONFIG = {
 
 EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
 
-EXTRA_SETTINGS_CACHE_NAME = 'default'
+EXTRA_SETTINGS_CACHE_NAME = 'cache_table'
+
+# Tests bug fix
+if 'test' in sys.argv: 
+    EXTRA_SETTINGS_CACHE_NAME = 'default'
 
 EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = True
 
@@ -406,3 +408,9 @@ EXTRA_SETTINGS_DEFAULTS = [
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+# Crispy forms settings
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
