@@ -38,6 +38,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
+    
     'admin_interface',
     'colorfield',
     'filebrowser',
@@ -285,7 +286,9 @@ EXTRA_SETTINGS_ENFORCE_UPPERCASE_SETTINGS = True
 EXTRA_SETTINGS_CACHE_NAME = 'cache_table'
 
 # Tests bug fix
+
 if 'test' in sys.argv: 
+    
     EXTRA_SETTINGS_CACHE_NAME = 'default'
 
 EXTRA_SETTINGS_SHOW_TYPE_LIST_FILTER = True
