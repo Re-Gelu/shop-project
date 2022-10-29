@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from crispy_forms.helper import FormHelper
@@ -13,7 +12,7 @@ class LoginForm(AuthenticationForm):
         
     helper = FormHelper()
     helper.layout = Layout(
-        Row(
+        Div(
             PrependedText("username", '@'),
             Field("password"),
             css_class='form-row'
@@ -25,6 +24,12 @@ class LoginForm(AuthenticationForm):
     )
 
 class RegistrationForm(UserCreationForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for key in self.fields:
+            self.fields[key].required =True
+            
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ("email", "first_name", "last_name", "password1", "password2")
@@ -35,12 +40,12 @@ class RegistrationForm(UserCreationForm):
             PrependedText("email", '@'),
             Column('first_name', css_class='form-group col-md-6'),
             Column('last_name', css_class='form-group col-md-6'),
-            css_class='form-row'
+            css_class='form-row m-0'
         ),
         Row(
-            Column('password1', css_class='form-group col-md-6'),
-            Column('password2', css_class='form-group col-md-6'),
-            css_class='form-row'
+            Field('password1', css_class='form-group col-md-6'),
+            Field('password2', css_class='form-group col-md-6'),
+            css_class='form-row m-0'
         ),
         FormActions(
             HTML('<hr><button class="btn-lg uk-button-text m-2 px-5 border-colored" type="submit">Перейти к покупкам!</button>'),
@@ -49,9 +54,16 @@ class RegistrationForm(UserCreationForm):
     )
     
 class ChangePassword(PasswordChangeForm):
-
-    def __init__(self, *args, **kwargs):
-        super(ChangePassword, self).__init__(*args, **kwargs)
-
-        for key in self.fields.keys():
-            self.fields[key].widget.attrs['class'] = 'form-control'
+    helper = FormHelper()
+    helper.layout = Layout(
+        Div(
+            Field('old_password', css_class='form-group'),
+            Field('new_password1', css_class='form-group'),
+            Field('new_password2', css_class='form-group'),
+            css_class='form-row'
+        ),
+        FormActions(
+            HTML('<hr><button class="btn-lg uk-button-text m-2 px-5 border-colored" type="submit">Сменить пароль</button>'),
+            css_class='col-12 text-center mt-0',
+        )
+    )

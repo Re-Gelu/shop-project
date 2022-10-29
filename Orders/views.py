@@ -31,7 +31,7 @@ class OrderPageView(CustomTemplateView):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         cart = Cart(request)
-        form = Submit_order(request.POST)
+        form = Submit_order(request.POST or None)
         if form.is_valid():
             p2p = get_QIWI_p2p()
             if p2p == False:
@@ -77,3 +77,7 @@ class OrderPageView(CustomTemplateView):
                 new_order.save()
                 #cart.clear()
                 return redirect(bill.pay_url + f"&successUrl={successUrl}")
+        else:
+            context = self.get_context_data()
+            context["submit_form"] = form
+            return render(request, self.template_name, context=context)

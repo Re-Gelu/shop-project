@@ -7,6 +7,7 @@
 
 {% load static %}
 {% load extra_settings %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -84,50 +85,11 @@
                     </tbody>
                 </table>
 
-            {% for field in submit_form %}
-                {% if forloop.first %}
-                
-                    <!-- Email form -->
-                    <div class="col-12">
-
-                        <!-- Form label -->
-                        <label class="form-label">{{field.label_tag}}</label>
-
-                        <!-- Form input -->
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            {{field}}
-                        </div>
-
-                        <!-- Optional form errors -->
-                        {% if field.errors %}
-                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
-                                {{field.errors}}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                {% else %}
-
-                    <!-- Standart form -->
-                    <div class="col-12">
-
-                        <!-- Form label -->
-                        <label class="form-label">{{field.label_tag}}</label>
-
-                        <!-- Form input -->
-                        {{field}}
-
-                        <!-- Optional form errors -->
-                        {% if field.errors %}
-                            <div class="text-reset uk-button-text text-center offcanvas-submit-button mt-3 p-1">
-                                {{field.errors}}
-                            </div>
-                        {% endif %}
-                
-                    </div>  
-                {% endif %}
-            {% endfor %}
+            {% crispy submit_form %}
+            
+             <div class="col-12 text-center">
+                <p class="small a-important">Время на оплату: {% get_setting 'QIWI_PAYMENTS_LIFETIME' default='30' %} мин   </p>
+            </div>
 
             <!-- Terms and conditions -->
             <div class="col-12">
@@ -137,21 +99,6 @@
                         <a class="text-reset uk-button-text a-important" href="#">Согласен с правилами и условиями</a>
                     </label> 
                 </div>
-            </div>
-
-            <hr>
-
-            {% if submit_form.non_field_errors %}
-                <div class="text-reset uk-button-text text-center offcanvas-submit-button my-3 py-2">
-                    {{submit_form.non_field_errors}}
-                </div>
-                <hr>
-            {% endif %}
-
-            <!-- Submit form -->
-            <div class="col-12 text-center">
-                <button class="btn-lg offcanvas-submit-button uk-button-text m-2 px-5 border-colored" type="submit">Оформить заказ!</button>
-                <p class="small a-important">Время на оплату: {% get_setting 'QIWI_PAYMENTS_LIFETIME' default='30' %} мин   </p>
             </div>
         </form>
 
