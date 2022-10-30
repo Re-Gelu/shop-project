@@ -1,14 +1,19 @@
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, ButtonHolder, Row, Column, Field
-from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
+from crispy_forms.layout import Layout, Div, HTML, Field
+from crispy_forms.bootstrap import PrependedText, FormActions
 
 class Submit_order(forms.Form):
     email = forms.EmailField(max_length=40, required=True)
     adress = forms.CharField(max_length=500, required=True, label="Адрес")
     phone_number = PhoneNumberField(label="Номер телефона", region="RU")
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'placeholder': 'email'})
+        self.fields['phone_number'].widget.attrs.update({'placeholder': '+76665554433'})
+        
     helper = FormHelper()
     helper.layout = Layout(
         Div(

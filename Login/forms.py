@@ -1,14 +1,15 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, ButtonHolder, Row, Column, Field
-from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
+from crispy_forms.layout import Layout, Div, HTML, Row, Column, Field
+from crispy_forms.bootstrap import PrependedText, FormActions
 
 class LoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         self.fields["username"].label = "Адрес электронной почты"
+        self.fields['username'].widget.attrs.update({'placeholder': 'email'})
         
     helper = FormHelper()
     helper.layout = Layout(
@@ -27,6 +28,7 @@ class RegistrationForm(UserCreationForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'placeholder': 'email'})
         for key in self.fields:
             self.fields[key].required =True
             
