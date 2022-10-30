@@ -34,18 +34,13 @@
                                 <tr>
                                     <td>
                                         <a href="{% url 'product' %}?category=Корзина&id={{product.id}}" class=" d-inline-flex">
-                                            <img src="{{product.image}}" width="60px" >
+                                            <img src="{{product.image}}" width="60px" class="flex-shrink-0 me-2 my-auto rounded">
                                             <div class="my-auto ms-2">{{product.name}}</div>
                                         </a>
                                     </td>
 
                                     <td>
-                                        <div class="row col-12 m-0">
-                                        <form class="col-4 p-0 pe-3" method="post">
-
-                                        <span class="col-4 p-0">{{product.product_amount}}</span>
-
-                                        </div>
+                                        {{product.product_amount}}
                                     </td>
 
                                     <td>
