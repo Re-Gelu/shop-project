@@ -13,7 +13,6 @@ from .forms import *
 from Orders.models import *
 
 from Cart.cart import Cart
-from Cart.forms import *
 
 class CustomTemplateView(TemplateView):
 
@@ -22,8 +21,6 @@ class CustomTemplateView(TemplateView):
         context["categories"] = Categories.objects.all()
         context["subcategories"] = Subcategories.objects.all()
         context["random_product"] = Products.objects.order_by('?').first()
-        context["cart_add_one_form"] = Cart_add_one_product_form()
-        context["cart_remove_one_form"] = Cart_remove_one_product_form()
         context["cart"] = Cart(self.request)
         return context
         

@@ -1,13 +1,17 @@
 from django.urls import path, re_path
 from django.contrib.auth.views import *
-from .forms import *
 from . import views
 
 urlpatterns = [
     path(
-        'cart_action/<int:product_id>/',
-        views.CartActionRedirectView.as_view(),
-        name='cart_action'
+        'cart_add_one/<int:product_id>/',
+        views.CartAddOneRedirectView.as_view(),
+        name='cart_add_one'
+    ),
+    path(
+        'cart_remove_one/<int:product_id>/',
+        views.CartRemoveOneRedirectView.as_view(),
+        name='cart_remove_one'
     ),
     path(
         'cart_remove/<int:product_id>/',
