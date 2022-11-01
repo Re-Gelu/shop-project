@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'allauth',
     'allauth.account',
+    'debug_toolbar',
+    'django_extensions',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,6 +77,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'Site.urls'
@@ -454,3 +457,7 @@ SITE_ID = 1
 SESSION_REMEMBER = True
 
 LOGIN_REDIRECT_URL = 'dashboard'
+
+# django-debug-toolbar settings
+
+INTERNAL_IPS = ["127.0.0.1", ]

@@ -18,8 +18,9 @@ from django.contrib.auth.views import *
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
 from filebrowser.sites import site
+import mimetypes
+import debug_toolbar
 from .rest import router
 
 urlpatterns = [
@@ -79,4 +80,6 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls)), ]
+    mimetypes.add_type("application/javascript", ".js", True)

@@ -11,7 +11,6 @@ from Shop.models import *
 from Shop.views import CustomTemplateView
 
 from Cart.cart import Cart
-from Cart.forms import *
 
 
 class OrderPageView(LoginRequiredMixin, CustomTemplateView):
