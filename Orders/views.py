@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from extra_settings.models import Setting
 from .QIWI import get_QIWI_p2p
@@ -14,21 +13,21 @@ from Shop.views import CustomTemplateView
 from Cart.cart import Cart
 from Cart.forms import *
 
-class OrderPageView(CustomTemplateView):
+
+class OrderPageView(LoginRequiredMixin, CustomTemplateView):
     """ Order page class view """
     
     template_name = "order.html"
+    login_url = 'login'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["submit_form"] = Submit_order()
         return context
     
-    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, self.get_context_data())
     
-    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         cart = Cart(request)
         form = Submit_order(request.POST or None)

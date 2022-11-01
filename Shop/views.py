@@ -1,11 +1,9 @@
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from extra_settings.models import Setting
 from django.views.generic.base import TemplateView, View
-from django.utils.decorators import method_decorator
 from django.core.cache import cache
 
 from .db_auto_fill import db_auto_fill
@@ -114,12 +112,13 @@ class ProductPageView(CustomTemplateView):
                 
         return context
     
-class DashboardPageView(CustomTemplateView):
+
+class DashboardPageView(LoginRequiredMixin, CustomTemplateView):
     """ Dashboard page class view"""
     
     template_name = "dashboard.html"
+    login_url = 'login'
     
-    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
     
@@ -139,10 +138,11 @@ class DashboardPageView(CustomTemplateView):
         else:
             return False
     
-class DB_AutoFillView(View):
+class DB_AutoFillView(PermissionRequiredMixin, View):
     """ Auto DB fill class view """
     
-    @method_decorator(staff_member_required)
+    permission_required = 'is_staff'
+
     def get(self, request, *args, **kwargs):
         db_auto_fill(int(kwargs["amount"]), kwargs["model"])
         return HttpResponse(
