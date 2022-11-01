@@ -72,7 +72,8 @@ class Products(models.Model):
         blank=True, null=True, verbose_name="Цена товара со скидкой"
     )
     image = models.ImageField(
-        upload_to="product_images", verbose_name="Изображение товара"
+        upload_to="product_images", verbose_name="Изображение товара",
+        blank=True, null=True
     )
     information = models.TextField(
         max_length=100, blank=True, null=True, 
@@ -83,7 +84,7 @@ class Products(models.Model):
         verbose_name="Полная информация о товаре",
     )
     stock = models.PositiveIntegerField(
-        verbose_name="Остаток товара"
+        verbose_name="Остаток товара", default=0
     )
     available = models.BooleanField(
         default=True, verbose_name="Наличие товара"
@@ -112,12 +113,8 @@ class Products(models.Model):
     def save(self, *args, **kwargs):
         if self.stock == 0:
             self.available = False
-        super(Products, self).save(*args, **kwargs)
-        
-    def admin_image(self):
-        if self.image:
-            return mark_safe(f'< img src="{self.image.url}"/>')
-        else:
-            return 'No Image Found'
-        
-    admin_image.short_description = 'Image'
+        if self.promo_price and self.promo_price >= self.price:
+            self.promo_price = None
+        if not self.image:
+            self.image = '#'
+        super().save(*args, **kwargs)
