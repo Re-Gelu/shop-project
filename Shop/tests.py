@@ -157,6 +157,7 @@ class DashboardViewTests(TestCase):
             view.func.__name__,
             DashboardPageView.as_view().__name__
         )
+        
 class db_auto_fillViewTests(TestCase):
     username = 'superadmin'
     password = 'testpass123'
