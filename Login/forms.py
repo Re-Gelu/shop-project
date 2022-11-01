@@ -1,21 +1,27 @@
+from django.forms import EmailField, TextInput
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Row, Column, Field
 from crispy_forms.bootstrap import PrependedText, FormActions
+from allauth.account.forms import LoginForm as AuthenticationForm
 
 class LoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        self.fields["username"].label = "Адрес электронной почты"
-        self.fields['username'].widget.attrs.update({'placeholder': 'email'})
+        super().__init__(*args, **kwargs)
+        self.fields["login"] = EmailField(
+            widget=TextInput(attrs={"autofocus": True, 'placeholder': 'email'}),
+            label="Адрес электронной почты"
+        )
+        self.fields['password'].widget.attrs.update({'placeholder': ' '})
         
     helper = FormHelper()
     helper.layout = Layout(
         Div(
-            PrependedText("username", '@'),
+            PrependedText("login", '@'),
             Field("password"),
+            Field("remember", css_class='background-colored border-colored'),
             css_class='form-row'
         ),
         FormActions(

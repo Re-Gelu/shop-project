@@ -1,14 +1,15 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
 from django.contrib.auth import get_user_model
-from .forms import RegistrationForm
+from django.contrib.auth.views import *
+from .forms import *
 from .views import *
 
 class RegistrationTests(TestCase):
     
     def setUp(self):
-        url = reverse('registration')
-        self.response = self.client.get(url)
+        self.url = reverse('registration')
+        self.response = self.client.get(self.url)
     
     # registration page tests
     def test_registration_page_status_code(self):
@@ -21,11 +22,14 @@ class RegistrationTests(TestCase):
         self.assertContains(self.response, 'csrfmiddlewaretoken')
 
     def test_registration_page_resolves_RegistrationPageView(self):
-        view = resolve('/registration/')
+        view = resolve(self.url)
         self.assertEqual(
             view.func.__name__,
             RegistrationPageView.as_view().__name__
         )
+        
+    def test_registration_page_correct_html(self):
+        self.assertContains(self.response, 'Регистрация')
     
     def test_registration_user(self):
         registration_form=RegistrationForm(
@@ -62,3 +66,113 @@ class RegistrationTests(TestCase):
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)
+
+
+class LoginTests(TestCase):
+    def setUp(self):
+        self.url = reverse('login')
+        self.response = self.client.get(self.url)
+        
+    # login page tests
+    def test_login_page_status_code(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_login_page_template(self):
+        self.assertTemplateUsed(self.response, 'login.html')
+
+    def test_login_page_resolves_CustomTemplateView(self):
+        view = resolve(self.url)
+        self.assertEqual(
+            view.func.__name__,
+            LoginView.as_view().__name__
+        )
+        
+    def test_login_form(self):
+        form = self.response.context.get('form')
+        self.assertIsInstance(form, LoginForm)
+        self.assertContains(self.response, 'csrfmiddlewaretoken')
+        
+    def test_login_page_correct_html(self):
+        self.assertContains(self.response, 'Вход')
+
+
+class LogoutTests(TestCase):
+    def setUp(self):
+        self.url = reverse('logout')
+        self.response = self.client.get(self.url)
+
+    # logout page tests
+    def test_logout_page_status_code(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_logout_page_template(self):
+        self.assertTemplateUsed(self.response, 'logout.html')
+
+    def test_logout_page_resolves_CustomTemplateView(self):
+        view = resolve(self.url)
+        self.assertEqual(
+            view.func.__name__,
+            LogoutView.as_view().__name__
+        )
+    
+    def test_logout_page_correct_html(self):
+        self.assertContains(self.response, 'Вы успешно вышли из учетной записи.')
+
+class PasswordChangeTests(TestCase):
+    username = 'superadmin'
+    password ='testpass123'
+    
+    def setUp(self):
+        user = User.objects.create_superuser(self.username, self.password)
+        self.client.force_login(user)
+        self.url = reverse('password_change')
+        self.response = self.client.get(self.url)
+
+    # password_change page tests
+    def test_password_change_page_status_code(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_password_change_page_template(self):
+        self.assertTemplateUsed(self.response, 'change_password.html')
+
+    def test_password_change_page_resolves_CustomTemplateView(self):
+        view = resolve(self.url)
+        self.assertEqual(
+            view.func.__name__,
+            PasswordChangeView.as_view().__name__
+        )
+
+    def test_password_change_form(self):
+        form = self.response.context.get('form')
+        self.assertIsInstance(form, ChangePassword)
+        self.assertContains(self.response, 'csrfmiddlewaretoken')
+    
+    def test_password_change_page_correct_html(self):
+        self.assertContains(self.response, 'Смена пароля')
+
+class PasswordChangeDoneTests(TestCase):
+    username = 'superadmin'
+    password = 'testpass123'
+        
+    def setUp(self):
+        user = User.objects.create_superuser(self.username, self.password)
+        self.client.force_login(user)
+        self.url = reverse('password_change_done')
+        self.response = self.client.get(self.url)
+
+    # password_change_done page tests
+    def test_password_change_done_page_status_code(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_password_change_done_page_template(self):
+        self.assertTemplateUsed(self.response, 'change_password_done.html')
+
+    def test_password_change_done_page_resolves_CustomTemplateView(self):
+        view = resolve(self.url)
+        self.assertEqual(
+            view.func.__name__,
+            PasswordChangeDoneView.as_view().__name__
+        )
+        
+    def test_password_change_done_page_correct_html(self):
+        self.assertContains(self.response, 'Пароль успешно изменён!')
