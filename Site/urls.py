@@ -18,7 +18,9 @@ from django.contrib.auth.views import *
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 from filebrowser.sites import site
+from .rest import router
 
 urlpatterns = [
     
@@ -38,6 +40,17 @@ urlpatterns = [
     path(
         'admin/', 
         admin.site.urls
+    ),
+    
+    # REST framework URLS
+    path(
+        'api/', 
+        include(router.urls)
+    ),
+    
+    path(
+        'api-auth/', 
+        include('rest_framework.urls', namespace='rest_framework')
     ),
     
     # Shop app URLS

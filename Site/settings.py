@@ -50,12 +50,15 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'crispy_forms',
     'crispy_bootstrap5',
+    'allauth',
+    'allauth.account',
     
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     
     'Shop',
     'Cart',
@@ -168,6 +171,25 @@ MEDIA_ROOT = BASE_DIR / 'media'
 QIWI_PRIVATE_KEY = ""
 
 QIWI_PAYMENTS_LIFETIME = 30
+
+# REST framework settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser'
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+}
 
 # Prod settings
 
@@ -417,3 +439,18 @@ SILENCED_SYSTEM_CHECKS = ["security.W019"]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# django-allauth settings
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+SITE_ID = 1
+
+SESSION_REMEMBER = True
+
+LOGIN_REDIRECT_URL = 'dashboard'
