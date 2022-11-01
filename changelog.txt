@@ -112,6 +112,8 @@ v0.2 changes:
 
     -   Добавлены django_crispy_forms
 
+    -   Добавлен django-allauth для сохранения входа в систему
+
     -   Покрыто все тестами
 
         Cart -
