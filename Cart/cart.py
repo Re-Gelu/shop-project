@@ -26,7 +26,7 @@ class Cart:
     def __len__(self):
         return sum(item['product_amount'] for item in self.cart.values())
         
-    def action(self, product, product_amount=1, product_action=True):
+    def action(self, product, product_amount:int=1, product_action=True):
         product_id = str(product.id)
         
         # Product in cart set with base data from product model
@@ -79,18 +79,3 @@ class Cart:
         self.session[settings.CART_SESSION_ID] = self.cart
         # mark the session as "modified" to make sure it is saved
         self.session.modified = True
-        
-
-""" def add(self, product, product_amount=1, update_amount=False, product_add_one=True, product_remove_one=False):
-        product_id = str(product.id)
-        if product_id not in self.cart:
-            product = Products.objects.get(id=product_id)
-            self.cart[product_id] = self.Product_serializer(product).data
-            self.cart[product_id]['product_amount'] = 0
-
-        if update_amount:
-            self.cart[product_id]['product_amount'] = product_amount
-        else:
-            self.cart[product_id]['product_amount'] += product_amount
-
-        self.save() """

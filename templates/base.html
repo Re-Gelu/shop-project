@@ -157,16 +157,14 @@
                                         <div class="row col-12 mx-0 mt-2 px-2">
                                             <span class="col-4 p-0">Кол-во: </span>
 
-                                            <form class="col-1 p-0" method="post">
-                                                {% csrf_token %}
-                                                <button class="col-4 border-0 p-0 bg-transparent" formaction="{% url 'cart_action' product.id %}">{{cart_remove_one_form}}<span class="ti-minus"></span></button>
+                                            <form action="{% url 'cart_remove_one' product.id %}" class="col-1 p-0">
+                                                <button class="col-4 border-0 p-0 bg-transparent"><span class="ti-minus"></span></button>
                                             </form>
 
                                             <span class="col-1 p-0">{{product.product_amount}}</span> 
                                             
-                                            <form class="col-1 p-0" method="post">
-                                                {% csrf_token %}
-                                                <button class="col-4 border-0 p-0 bg-transparent" formaction="{% url 'cart_action' product.id %}">{{cart_add_one_form}}<span class="ti-plus"></span></button>
+                                            <form action="{% url 'cart_add_one' product.id %}" class="col-1 p-0">
+                                                <button class="col-4 border-0 p-0 bg-transparent"><span class="ti-plus"></span></button>
                                             </form>
                                         </div><br>
                                         

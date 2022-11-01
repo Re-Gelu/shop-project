@@ -55,13 +55,10 @@
 
                     <p class="m-3">
                         {% if product.stock == 0 or product.avaliable == False %}
-                            <button type="submit" class="btn-lg btn-outline-secondary uk-button-text text-decoration-line-through">Добавить в корзину <i class="bi bi-cart"></i></button>
+                            <button class="btn-lg btn-outline-secondary uk-button-text text-decoration-line-through">Добавить в корзину <i class="bi bi-cart"></i></button>
                         {% else %}
-                        
-                            <form action="{% url 'cart_action' product.id %}" method="post">
-                                {% csrf_token %}
-                                <div class="m-2">{{cart_add_one_form}} </div>
-                                <button type="submit" class="btn-lg uk-button-text border-colored">Добавить в корзину <i class="bi bi-cart"></i></button>
+                            <form action="{% url 'cart_add_one' product.id %}">
+                                <button class="btn-lg uk-button-text border-colored">Добавить в корзину <i class="bi bi-cart"></i></button>
                             </form>
                         {% endif %}
                     </p>
