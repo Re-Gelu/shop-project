@@ -34,6 +34,18 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
 ]
 
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+DJANGO_SECURE_SSL_REDIRECT = False
+
+DJANGO_SECURE_HSTS_SECONDS = 0
+
+DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+
+DJANGO_SECURE_HSTS_PRELOAD = False
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,12 +65,12 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'debug_toolbar',
-    'django_extensions',
     
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     
@@ -78,6 +90,7 @@ MIDDLEWARE = [
     
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Site.urls'
@@ -108,12 +121,12 @@ WSGI_APPLICATION = 'Site.wsgi.application'
     
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("SQL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME":  BASE_DIR / "db.sqlite3",
+        "USER": "user",
+        "PASSWORD": "SQL_PASSWORD",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -158,6 +171,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -183,7 +198,6 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer'
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
@@ -194,6 +208,10 @@ REST_FRAMEWORK = {
     ],
 }
 
+# django-debug-toolbar settings
+
+INTERNAL_IPS = ["127.0.0.1", ]
+
 # Prod settings
 
 if os.environ.get("DEBUG") == '0':
@@ -202,11 +220,26 @@ if os.environ.get("DEBUG") == '0':
     
     ALLOWED_HOSTS = str(os.environ.get("DJANGO_ALLOWED_HOSTS")).split(" ")
     
+    CSRF_TRUSTED_ORIGINS = str(os.environ.get("CSRF_TRUSTED_ORIGINS")).split(" ")
+    
+    INTERNAL_IPS = str(os.environ.get("INTERNAL_IPS")).split(" ")
+    
     SECRET_KEY = os.environ.get("SECRET_KEY")
     
     REDIS_URL = os.environ.get("REDIS_URL")
     
     QIWI_PRIVATE_KEY = os.environ.get("QIWI_PRIVATE_KEY")
+    
+    DATABASES = {
+        "default": {
+            "ENGINE": os.environ.get("SQL_ENGINE"),
+            "NAME": os.environ.get("SQL_DATABASE"),
+            "USER": os.environ.get("SQL_USER"),
+            "PASSWORD": os.environ.get("SQL_PASSWORD"),
+            "HOST": os.environ.get("SQL_HOST"),
+            "PORT": os.environ.get("SQL_PORT"),
+        }
+    }
 
 else:
     
@@ -457,7 +490,3 @@ SITE_ID = 1
 SESSION_REMEMBER = True
 
 LOGIN_REDIRECT_URL = 'dashboard'
-
-# django-debug-toolbar settings
-
-INTERNAL_IPS = ["127.0.0.1", ]

@@ -14,6 +14,7 @@ django-celery-results==2.4.0
 django-celery-beat==2.3.0
 django-allauth
 django-debug-toolbar
+whitenoise
 redis==4.3.4
 pyQiwiP2P==2.0.6
 shortuuid==1.0.9
