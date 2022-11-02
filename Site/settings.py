@@ -210,7 +210,7 @@ INTERNAL_IPS = ["127.0.0.1", ]
 
 # Prod settings
 
-if os.environ.get("DEBUG") == '0':
+if os.environ.get("DEBUG") == '1':
     
     DEBUG = int(os.environ.get("DEBUG"))
     

@@ -2,7 +2,7 @@ version: "3.10"
    
 services:
 
-  web:
+  web: &web
     build:
       context: ./
       dockerfile: Dockerfile.prod
@@ -49,7 +49,7 @@ services:
     restart: always
 
   celery:
-    build: ./
+    <<: *web
     command: celery -A Site worker --beat --loglevel=info
     container_name: 'celery'
     env_file:
