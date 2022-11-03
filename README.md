@@ -39,7 +39,7 @@ tzdata==2022.5
 ## :closed_lock_with_key: Настройка входа в админку
 
 - `$ python manage.py createsuperuser --username admin --email admin@email.com`
-- `$ docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser --username admin --email admin@email.com`
+- `$ docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser --username admin@email.com --email admin@email.com`
 
 ## :black_nib: Авто-заполнение магазина для быстрого тестирования
 
