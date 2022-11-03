@@ -94,9 +94,15 @@ tzdata==2022.5
   ```
   
 ## :camera: Скрины проекта
+![Изображение №1](https://user-images.githubusercontent.com/75813517/199733106-cda4086c-11d1-431b-a853-0b00bdeb165f.png)
+![Изображение №2](https://user-images.githubusercontent.com/75813517/199733450-389a54c8-18d5-4f43-b9c8-ddaeab7486c9.png)
+![Изображение №3](https://user-images.githubusercontent.com/75813517/199733692-bf94269c-043a-45d9-818a-8430408c75e7.png)
+![Изображение №4](https://user-images.githubusercontent.com/75813517/199733891-7cf053ef-2f34-43bb-bb8e-d247c6f5ba80.png)
+![Изображение №5](https://user-images.githubusercontent.com/75813517/199734053-debf4bfa-14cd-4771-9414-af2f56fe2bc6.png)
+![Изображение №6](https://user-images.githubusercontent.com/75813517/199734154-a2008491-838e-4af6-96a8-0775d38821c8.png)
+![Изображение №7](https://user-images.githubusercontent.com/75813517/199734251-e7d27528-c5ac-4bb0-9a61-b8c290af1232.png)
+![Изображение №8](https://user-images.githubusercontent.com/75813517/199734371-bec5cfc7-9a35-4011-8af7-5e70a798f8c2.png)
+![Изображение №9](https://user-images.githubusercontent.com/75813517/199734488-5ae111bf-a545-4282-bed3-4ca41206a0ec.png)
 
-![Изображение №1](https://user-images.githubusercontent.com/75813517/188868325-ccd04c10-ce03-4f4e-953d-585486d8c895.png)
-![Изображение №2](https://user-images.githubusercontent.com/75813517/188868290-8b498777-60ec-4122-b541-f212753966cc.png)
-![Изображение №3](https://user-images.githubusercontent.com/75813517/188868272-d8536fb7-d3bc-4877-baf1-665ba7183fcd.png)
-![Изображение №4](https://user-images.githubusercontent.com/75813517/188868235-59a80095-d2be-474e-849c-b36b1562ce31.png)
-![Изображение №5](https://user-images.githubusercontent.com/75813517/188868163-d8e8793e-85f7-467a-9378-000430b886c1.png)
+
+
