@@ -21,9 +21,13 @@ django-tinymce==3.5.0
 django-admin-interface==0.20.0
 django-extra-settings==0.6.1
 django-phonenumber-field[phonenumbers]==7.0.0
+django_crispy_forms==1.14.0
+crispy-bootstrap5
 celery[redis]==5.2.7
 django-celery-results==2.4.0
 django-celery-beat==2.3.0
+django-allauth
+django-debug-toolbar
 redis==4.3.4
 pyQiwiP2P==2.0.6
 shortuuid==1.0.9
