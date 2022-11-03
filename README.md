@@ -21,9 +21,13 @@ django-tinymce==3.5.0
 django-admin-interface==0.20.0
 django-extra-settings==0.6.1
 django-phonenumber-field[phonenumbers]==7.0.0
+django_crispy_forms==1.14.0
+crispy-bootstrap5
 celery[redis]==5.2.7
 django-celery-results==2.4.0
 django-celery-beat==2.3.0
+django-allauth
+django-debug-toolbar
 redis==4.3.4
 pyQiwiP2P==2.0.6
 shortuuid==1.0.9
@@ -93,10 +97,23 @@ tzdata==2022.5
   $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
   ```
   
-## :camera: Скрины проекта
+## :sleeping: REST
 
-![Изображение №1](https://user-images.githubusercontent.com/75813517/188868325-ccd04c10-ce03-4f4e-953d-585486d8c895.png)
-![Изображение №2](https://user-images.githubusercontent.com/75813517/188868290-8b498777-60ec-4122-b541-f212753966cc.png)
-![Изображение №3](https://user-images.githubusercontent.com/75813517/188868272-d8536fb7-d3bc-4877-baf1-665ba7183fcd.png)
-![Изображение №4](https://user-images.githubusercontent.com/75813517/188868235-59a80095-d2be-474e-849c-b36b1562ce31.png)
-![Изображение №5](https://user-images.githubusercontent.com/75813517/188868163-d8e8793e-85f7-467a-9378-000430b886c1.png)
+Сделан небольшой REST API отдающий json-ки, мб пригодится. Для доступа к API нужны права администратора.
+
+![REST API](https://user-images.githubusercontent.com/75813517/199736075-2171c022-ffbd-45da-b16a-c2fc948b8b05.png)
+
+  
+## :camera: Скрины проекта
+![Изображение №1](https://user-images.githubusercontent.com/75813517/199733106-cda4086c-11d1-431b-a853-0b00bdeb165f.png)
+![Изображение №2](https://user-images.githubusercontent.com/75813517/199733450-389a54c8-18d5-4f43-b9c8-ddaeab7486c9.png)
+![Изображение №3](https://user-images.githubusercontent.com/75813517/199733692-bf94269c-043a-45d9-818a-8430408c75e7.png)
+![Изображение №4](https://user-images.githubusercontent.com/75813517/199733891-7cf053ef-2f34-43bb-bb8e-d247c6f5ba80.png)
+![Изображение №5](https://user-images.githubusercontent.com/75813517/199734053-debf4bfa-14cd-4771-9414-af2f56fe2bc6.png)
+![Изображение №6](https://user-images.githubusercontent.com/75813517/199734154-a2008491-838e-4af6-96a8-0775d38821c8.png)
+![Изображение №7](https://user-images.githubusercontent.com/75813517/199734251-e7d27528-c5ac-4bb0-9a61-b8c290af1232.png)
+![Изображение №8](https://user-images.githubusercontent.com/75813517/199734371-bec5cfc7-9a35-4011-8af7-5e70a798f8c2.png)
+![Изображение №9](https://user-images.githubusercontent.com/75813517/199734488-5ae111bf-a545-4282-bed3-4ca41206a0ec.png)
+
+
+
