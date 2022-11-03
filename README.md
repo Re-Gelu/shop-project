@@ -97,7 +97,7 @@ tzdata==2022.5
   $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
   ```
   
-## REST
+## :sleeping: REST
 
 Сделан небольшой REST API отдающий json-ки, мб пригодится. Для доступа к API нужны права администратора.
 
