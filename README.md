@@ -36,8 +36,8 @@ psycopg2-binary==2.9.3
 Pillow==9.2.0
 gunicorn==20.1.0
 art==5.7
-pytz==2022.4
-tzdata==2022.5
+pytz
+tzdata
 ```
 
 ## :closed_lock_with_key: Настройка входа в админку
