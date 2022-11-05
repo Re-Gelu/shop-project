@@ -18,7 +18,7 @@ redis==4.3.4
 pyQiwiP2P==2.0.6
 shortuuid==1.0.9
 Markdown==3.4.1
-psycopg2-binary==2.9.3
+psycopg2-binary==2.8.6
 Pillow==9.2.0
 gunicorn==20.1.0
 art==5.7

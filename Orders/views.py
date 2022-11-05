@@ -63,7 +63,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
 
                 # Создание QIWI платежа
                 site_name = Setting.get("SITE_NAME")
-                successUrl = "https://vk.com/re_gelu"
+                successUrl = "http://62.217.178.182:1337/dashboard/"
                 bill = p2p.bill(
                     bill_id=new_order.UUID,
                     #amount=cart.get_total_promo_price(),
@@ -73,7 +73,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
                 )
 
                 new_order.save()
-                #cart.clear()
+                cart.clear()
                 return redirect(bill.pay_url + f"&successUrl={successUrl}")
         else:
             context = self.get_context_data()
