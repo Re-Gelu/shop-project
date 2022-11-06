@@ -83,7 +83,8 @@
             {% crispy submit_form %}
             
              <div class="col-12 text-center">
-                <p class="small a-important">Время на оплату: {% get_setting 'QIWI_PAYMENTS_LIFETIME' default='30' %} мин   </p>
+                <p class="small a-important mb-1">Время на оплату: {% get_setting 'QIWI_PAYMENTS_LIFETIME' default='30' %} мин   </p>
+                <p class="small a-important">Платеж обрабатывается в течении минуты</p>
             </div>
 
             <!-- Terms and conditions -->
