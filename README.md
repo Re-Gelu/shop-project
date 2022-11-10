@@ -51,13 +51,13 @@ $ docker-compose -f docker-compose.prod.yml exec web python manage.py createsupe
 ## :black_nib: Авто-заполнение магазина для быстрого тестирования
 
 ```
-.../db_auto_fill/7/Categories/
+http://.../db_auto_fill/7/Categories/
 ```
 ```
-.../db_auto_fill/10/Subcategories/
+http://.../db_auto_fill/10/Subcategories/
 ```
 ```
-.../db_auto_fill/300/Products/
+http://.../db_auto_fill/300/Products/
 ```
 
 > Необходимы права администратора
