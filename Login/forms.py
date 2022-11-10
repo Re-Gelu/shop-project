@@ -1,6 +1,7 @@
 from django.forms import EmailField, TextInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.utils.html import format_html
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Row, Column, Field
 from crispy_forms.bootstrap import PrependedText, FormActions
@@ -19,8 +20,8 @@ class LoginForm(AuthenticationForm):
     helper = FormHelper()
     helper.layout = Layout(
         Div(
-            PrependedText("login", '@'),
-            Field("password"),
+            PrependedText("login", format_html('<i class="bi bi-envelope"></i>')),
+            PrependedText("password", format_html('<i class="bi bi-lock"></i>')),
             Field("remember", css_class='background-colored border-colored'),
             css_class='form-row'
         ),
@@ -45,14 +46,18 @@ class RegistrationForm(UserCreationForm):
     helper = FormHelper()
     helper.layout = Layout(
         Row(
-            PrependedText("email", '@'),
-            Column('first_name', css_class='form-group col-md-6'),
-            Column('last_name', css_class='form-group col-md-6'),
+            PrependedText("email", format_html('<i class="bi bi-envelope"></i>')),
+            Column(PrependedText("first_name", format_html('<i class="bi bi-person"></i>')), css_class='form-group col-md-6'),
+            Column(PrependedText("last_name", format_html('<i class="bi bi-person-plus"></i>')), css_class='form-group col-md-6'),
+            #Column('first_name', css_class='form-group col-md-6'),
+            #Column('last_name', css_class='form-group col-md-6'),
             css_class='form-row m-0'
         ),
         Row(
-            Field('password1', css_class='form-group col-md-6'),
-            Field('password2', css_class='form-group col-md-6'),
+            Column(PrependedText("password1", format_html('<i class="bi bi-lock"></i>')), css_class='form-group col-md-6'),
+            Column(PrependedText("password2", format_html('<i class="bi bi-key"></i>')), css_class='form-group col-md-6'),
+            #Field('password1', css_class='form-group col-md-6'),
+            #Field('password2', css_class='form-group col-md-6'),
             css_class='form-row m-0'
         ),
         FormActions(
@@ -65,9 +70,12 @@ class ChangePassword(PasswordChangeForm):
     helper = FormHelper()
     helper.layout = Layout(
         Div(
-            Field('old_password', css_class='form-group'),
-            Field('new_password1', css_class='form-group'),
-            Field('new_password2', css_class='form-group'),
+            Column(PrependedText("old_password", format_html('<i class="bi bi-unlock"></i>')), css_class='form-group'),
+            Column(PrependedText("new_password1", format_html('<i class="bi bi-lock"></i>')), css_class='form-group'),
+            Column(PrependedText("new_password2", format_html('<i class="bi bi-key"></i>')), css_class='form-group'),
+            #Field('old_password', css_class='form-group'),
+            #Field('new_password1', css_class='form-group'),
+            #Field('new_password2', css_class='form-group'),
             css_class='form-row'
         ),
         FormActions(
