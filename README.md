@@ -4,57 +4,32 @@
 ## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
 
 ## :triangular_ruler: Стек проекта: 
-- Python (Django, Django REST)
-- HTML5
-- CSS (Bootstrap 5, UIkit)
+- Python (Django, Django REST framework)
+- HTML5, CSS (Bootstrap 5, UIkit), JS
 - NGNIX, Gunicorn
 - Celery, Redis
 
-## :package: Зависимости проекта
-```
-Django==4.0.8
-djangorestframework==3.13.1
-django-filter==22.1
-FileBrowser==1.1.3
-django-filebrowser-no-grappelli==4.0.1
-django-tinymce==3.5.0
-django-admin-interface==0.20.0
-django-extra-settings==0.6.1
-django-phonenumber-field[phonenumbers]==7.0.0
-django_crispy_forms==1.14.0
-crispy-bootstrap5
-celery[redis]==5.2.7
-django-celery-results==2.4.0
-django-celery-beat==2.3.0
-django-allauth
-django-debug-toolbar
-redis==4.3.4
-pyQiwiP2P==2.0.6
-shortuuid==1.0.9
-Markdown==3.4.1
-psycopg2-binary==2.9.3
-Pillow==9.2.0
-gunicorn==20.1.0
-art==5.7
-pytz
-tzdata
-```
+## :package: [Зависимости проекта](https://github.com/Re-Gelu/Sample_shop/blob/master/requirements.txt)
 
 ## :closed_lock_with_key: Настройка входа в админку
 
-- `$ python manage.py createsuperuser --username admin --email admin@email.com`
-- `$ docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser --username admin@email.com --email admin@email.com`
+```
+$ python manage.py createsuperuser --username admin --email admin@email.com
+```
+```
+$ docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser --username admin@email.com --email admin@email.com
+```
 
 ## :black_nib: Авто-заполнение магазина для быстрого тестирования
 
 ```
-.../db_auto_fill/7/Categories/
+http://.../db_auto_fill/7/Categories/
 ```
 ```
-.../db_auto_fill/10/Subcategories/
+http://.../db_auto_fill/10/Subcategories/
 ```
 ```
-.../db_auto_fill/300/Products/
+http://.../db_auto_fill/300/Products/
 ```
 
 > Необходимы права администратора
