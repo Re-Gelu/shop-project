@@ -1,7 +1,10 @@
 <!doctype html>
+
 {% load static %}
 {% load extra_settings %}
+
 <html lang="en">
+
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -33,6 +36,19 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
         
+        <!-- Jquery JS -->
+        <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+        
+        <!-- JS -->
+        <script src="{% static 'js/scripts.js' %}"></script>
+
+        <!-- UIkit JS -->
+        <script src="{% static 'js/UIkit/uikit.min.js' %}"></script>
+        <script src="{% static 'js/UIkit/uikit-icons.min.js' %}"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+
         {% get_setting "MAIN_COLOR" default='#dc143c' as main_color %}
         {% get_setting "SECOND_MAIN_COLOR" default='#dc143c' as second_main_color %}
         {% get_setting "A_TEXT_COLOR" default='#dc143c' as a_text_active_color %}
@@ -49,8 +65,8 @@
             }
         </style>
     </head>
+
     <body>
-    <!-- НАРКОМАНИЯ --> <!-- <body uk-spinner="ratio: 100"> -->
 
         <!-- Header --> 
         <header id="header" class="navbar navbar-expand-xl sticky-top">    
@@ -94,7 +110,7 @@
 
                     <!-- Right header block --> 
                     <div class="d-inline-flex">
-                        <a class="header-element me-5 ms-3" href="#"><span class="ti-search"></span></a>
+                        <div class="header-element me-5 ms-3 a-important"><span class="ti-search"></span></div>
 
                             <!-- Search form --> 
                             <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
@@ -105,7 +121,7 @@
                                         </form>
                                     </div>
                                     <div class="uk-width-auto">
-                                        <a class="uk-navbar-dropdown-close" href="#" uk-close></a>
+                                        <div class="uk-navbar-dropdown-close a-important" uk-close></div>
                                     </div>
                                 </div>
 
@@ -115,9 +131,9 @@
                             <span class="ti-user"></span>
                         </a>
 
-                        <a class="header-element me-5" href="#shopping-cart-offcanvas" data-bs-toggle="offcanvas" aria-controls="shopping-cart-offcanvas">
+                        <div class="header-element me-5 a-important" href="#shopping-cart-offcanvas" data-bs-toggle="offcanvas" aria-controls="shopping-cart-offcanvas">
                             <span class="ti-shopping-cart"></span>
-                        </a>
+                        </div>
 
                     </div>
 
@@ -158,13 +174,13 @@
                                             <span class="col-4 p-0">Кол-во: </span>
 
                                             <form action="{% url 'cart_remove_one' product.id %}" class="col-1 p-0">
-                                                <button class="col-4 border-0 p-0 bg-transparent"><span class="ti-minus"></span></button>
+                                                <button class="col-4 border-0 p-0 bg-transparent" data-bjax><span class="ti-minus"></span></button>
                                             </form>
 
                                             <span class="col-1 p-0">{{product.product_amount}}</span> 
                                             
                                             <form action="{% url 'cart_add_one' product.id %}" class="col-1 p-0">
-                                                <button class="col-4 border-0 p-0 bg-transparent"><span class="ti-plus"></span></button>
+                                                <button class="col-4 border-0 p-0 bg-transparent" data-bjax><span class="ti-plus"></span></button>
                                             </form>
                                         </div><br>
                                         
@@ -221,15 +237,5 @@
         </div>
         
         {% include "footer.html" %}
-
-        <!-- JS -->
-        <script src="{% static 'js/scripts.js' %}"></script>
-
-        <!-- UIkit JS -->
-        <script src="{% static 'js/UIkit/uikit.min.js' %}"></script>
-        <script src="{% static 'js/UIkit/uikit-icons.min.js' %}"></script>
-
-        <!-- Bootstrap JS -->
-        <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
     </body>
 </html> 

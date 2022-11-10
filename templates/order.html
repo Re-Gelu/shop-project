@@ -33,7 +33,7 @@
                         {% for product in cart %}
                                 <tr>
                                     <td>
-                                        <a href="{% url 'product' %}?category=Корзина&id={{product.id}}" class=" d-inline-flex">
+                                        <a href="{% url 'product' %}?id={{product.id}}" class=" d-inline-flex">
                                             <img src="{{product.image}}" width="60px" class="flex-shrink-0 me-2 my-auto rounded">
                                             <div class="my-auto ms-2">{{product.name}}</div>
                                         </a>
@@ -88,14 +88,14 @@
             </div>
 
             <!-- Terms and conditions -->
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="form-check" href="#">
                     <input class="form-check-input border-colored background-colored" type="checkbox" value="1" id="invalidCheck" required checked>
                     <label class="form-check-label" for="invalidCheck">
                         <a class="text-reset uk-button-text a-important" href="#">Согласен с правилами и условиями</a>
                     </label> 
                 </div>
-            </div>
+            </div> -->
         </form>
 
     </div>

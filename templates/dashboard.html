@@ -24,54 +24,52 @@
 
     <!-- current orders -->
     {% if current_orders %}
-        <div class="row m-0 p-0">
-            <div class="container col-xl-8 col-12 p-0">
-                <div class="g-3 text-center">
-                        <p class="h3">Ваши текущие заказы</p>
-                        <table class="uk-table uk-table-middle uk-table-divider uk-table-responsive">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">UUID заказа</th>
-                                    <th class="text-center">Статус оплаты</th>
-                                    <th class="text-center">Список товаров</th>
-                                    <th class="text-center">Адрес</th>
-                                    <th class="text-center">Контакты</th>
-                                    <th class="text-center">Дата создания заказа</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for order in current_orders %}
-                                    <tr>
-                                        <td>
-                                            {{order.UUID}}
-                                        </td>
-                                        <td>
-                                            {{order.get_status_display}}
-                                        </td>
-                                        <td>
-                                            <pre>{{order.product_info}}</pre>
-                                        </td>
-                                        <td>
-                                            {{order.adress|cut:'Адрес: '}}
-                                        </td>
-                                        <td>
-                                            {{order.contacts}}
-                                        </td>
-                                        <td>
-                                            {{order.created}}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                    </table>
-                </div>
+        <div class="row m-0 px-4">
+            <p class="h3 text-center">Ваши текущие заказы</p>
+            <div class="container col-xxl-8 col-12 p-0 mt-0 mb-3 g-3 text-center uk-overflow-auto">
+                <table class="uk-table uk-table-middle uk-table-divider uk-table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="text-center">UUID заказа</th>
+                            <th class="text-center">Статус оплаты</th>
+                            <th class="text-center">Список товаров</th>
+                            <th class="text-center">Адрес</th>
+                            <th class="text-center">Контакты</th>
+                            <th class="text-center">Дата создания заказа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in current_orders %}
+                            <tr>
+                                <td>
+                                    {{order.UUID}}
+                                </td>
+                                <td>
+                                    {{order.get_status_display}}
+                                </td>
+                                <td>
+                                    <pre class="p-0 border-0">{{order.product_info}}</pre>
+                                </td>
+                                <td>
+                                    {{order.adress|cut:'Адрес: '}}
+                                </td>
+                                <td>
+                                    {{order.contacts}}
+                                </td>
+                                <td>
+                                    {{order.created}}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     {% endif %}
 
     <!-- Cart -->
     {% if cart %}
-        <div class="row m-0 p-0">
+        <div class="row m-0">
             <div class="container col-xl-6 col-lg-10 col-md-12 col-12 p-0">
                 <div class="g-3 text-center">
                     <p class="h3">Корзина</p>
