@@ -5,7 +5,7 @@ from rest_framework.serializers import ModelSerializer
 
 class Cart:
     
-    class Product_serializer(ModelSerializer):
+    class ProductSerializer(ModelSerializer):
 
         class Meta:
             model = Products
@@ -32,7 +32,7 @@ class Cart:
         # Product in cart set with base data from product model
         if product_id not in self.cart:
             product = Products.objects.get(id=product_id)
-            self.cart[product_id] = self.Product_serializer(product).data
+            self.cart[product_id] = self.ProductSerializer(product).data
             self.cart[product_id]['product_amount'] = 0
         
         # Product amount set

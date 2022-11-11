@@ -43,7 +43,7 @@ class Subcategories(models.Model):
     def __str__(self):
         return self.name
     
-class Main_page_slider(models.Model):
+class MainPageSlider(models.Model):
     image = models.ImageField(
         upload_to="main_page_slider", verbose_name="Изображение"
     )

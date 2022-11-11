@@ -37,7 +37,7 @@ class IndexPageView(CustomTemplateView):
         for category in context["categories"]:
             latest_products_per_category[category] = Products.objects.filter(subcategory__category = category)[:10]
             
-        context["slider_images"] = Main_page_slider.objects.all()
+        context["slider_images"] = MainPageSlider.objects.all()
         context["latest_products_per_category"] = latest_products_per_category
         
         return context

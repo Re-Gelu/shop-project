@@ -4,7 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Field
 from crispy_forms.bootstrap import PrependedText, FormActions
 
-class Submit_order(forms.Form):
+class SubmitOrder(forms.Form):
     email = forms.EmailField(max_length=40, required=True)
     adress = forms.CharField(max_length=500, required=True, label="Адрес")
     phone_number = PhoneNumberField(label="Номер телефона", region="RU")

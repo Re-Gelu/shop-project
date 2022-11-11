@@ -16,14 +16,14 @@ admin.site.unregister(EmailAddress)
 class SubcategoriesInline(admin.TabularInline):
     model = Subcategories
 
-@admin.register(Main_page_slider)
-class Main_page_slider_admin(admin.ModelAdmin):
+@admin.register(MainPageSlider)
+class MainPageSliderAdmin(admin.ModelAdmin):
     list_display = ("image", "updated", "created")
     list_filter = ("updated", "created")
     search_fields = ("image__startswith", )
     
 @admin.register(Categories)
-class Categories_admin(admin.ModelAdmin):
+class CategoriesAdmin(admin.ModelAdmin):
     list_display = ("name", "updated", "created")
     list_filter = ("updated", "created")
     search_fields = ("name", )
@@ -32,13 +32,13 @@ class Categories_admin(admin.ModelAdmin):
     ]
     
 @admin.register(Subcategories)
-class Subcategories_admin(admin.ModelAdmin):
+class SubcategoriesAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "updated", "created")
     list_filter = ("category", "updated", "created")
     search_fields = ("name", )
 
 @admin.register(Products)
-class Products_admin(admin.ModelAdmin):
+class ProductsAdmin(admin.ModelAdmin):
     list_display = ("image_tag", "name", "price", "subcategory", "stock","available", "updated", "created")
     list_filter = ("subcategory", "updated", "created")
     search_fields = ("name", )

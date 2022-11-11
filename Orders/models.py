@@ -43,7 +43,7 @@ class Orders(models.Model):
         editable=False,
     )
     
-    class Payment_statuses(models.TextChoices):
+    class PaymentStatuses(models.TextChoices):
         CREATED = "CREATED", "Платеж создан"
         WAITING = "WAITING", "Платёж в обработке / ожидает оплаты"
         PAID = "PAID", "Платёж оплачен"
@@ -51,8 +51,8 @@ class Orders(models.Model):
         REJECTED = "REJECTED", "Платёж отклонен"
     
     status = models.TextField(     
-        choices=Payment_statuses.choices,
-        default=Payment_statuses.CREATED,
+        choices=PaymentStatuses.choices,
+        default=PaymentStatuses.CREATED,
         verbose_name="Статус заказа"
     )
     

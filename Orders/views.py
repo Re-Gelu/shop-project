@@ -21,7 +21,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["submit_form"] = Submit_order()
+        context["submit_form"] = SubmitOrder()
         return context
     
     def get(self, request, *args, **kwargs):
@@ -29,7 +29,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
     
     def post(self, request, *args, **kwargs):
         cart = Cart(request)
-        form = Submit_order(request.POST or None)
+        form = SubmitOrder(request.POST or None)
         if form.is_valid():
             p2p = get_QIWI_p2p()
             if p2p == False:
