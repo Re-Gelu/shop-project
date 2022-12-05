@@ -60,16 +60,9 @@ http://.../db_auto_fill/300/Products/
   $ docker-compose down -v
   ```
 
-- Поднять Dev контейнер
-  ```
-  $ docker-compose -f docker-compose.yml up -d --build
-  ```
-
 - Поднять Prod контейнер
   ```
   $ docker-compose -f docker-compose.prod.yml up -d --build
-  $ docker-compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
-  $ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
   ```
   
 ## :sleeping: REST
