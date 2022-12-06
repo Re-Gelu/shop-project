@@ -31,7 +31,9 @@ class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
         fields = ['id', 'name', 'price', 'promo_price', 'image',
-                  'information', 'full_information', 'stock', 'available', 'created', 'updated', 'subcategory']
+                  'information', 'full_information', 'stock', 
+                  'available', 'created', 'updated', 'subcategory'
+        ]
         
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -50,4 +52,6 @@ class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
         fields = ['id', 'user_id', 'UUID', 'product_info',
-                  'adress', 'contacts', 'created', 'updated', 'status', 'cart']
+                  'adress', 'contacts', 'created', 'updated', 
+                  'status', 'cart'
+        ]
