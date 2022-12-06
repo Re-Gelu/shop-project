@@ -21,7 +21,6 @@ from django.conf import settings
 from filebrowser.sites import site
 import mimetypes
 import debug_toolbar
-from .rest import router
 
 urlpatterns = [
     
@@ -46,12 +45,7 @@ urlpatterns = [
     # REST framework URLS
     path(
         'api/', 
-        include(router.urls)
-    ),
-    
-    path(
-        'api-auth/', 
-        include('rest_framework.urls', namespace='rest_framework')
+        include('rest.urls')
     ),
     
     # Shop app URLS

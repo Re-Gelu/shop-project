@@ -15,7 +15,7 @@ class CartAddOneRedirectView(RedirectView):
         cart = Cart(request)
         product = get_object_or_404(Products, id=kwargs.get("product_id"))
         
-        cart.action(product=product, product_action=True)
+        cart.action(product=product, action=True)
 
         return HttpResponseRedirect(self.get_redirect_url())
 
@@ -29,7 +29,7 @@ class CartRemoveOneRedirectView(RedirectView):
         cart = Cart(request)
         product = get_object_or_404(Products, id=kwargs.get("product_id"))
 
-        cart.action(product=product, product_action=False)
+        cart.action(product=product, action=False)
 
         return HttpResponseRedirect(self.get_redirect_url())
 
