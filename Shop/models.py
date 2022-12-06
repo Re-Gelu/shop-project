@@ -21,6 +21,10 @@ class Categories(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.updated = timezone.now()
+        super().save(*args, **kwargs)
 
 class Subcategories(models.Model):
     name = models.CharField(
@@ -43,6 +47,10 @@ class Subcategories(models.Model):
     def __str__(self):
         return self.name
     
+    def save(self, *args, **kwargs):
+        self.updated = timezone.now()
+        super().save(*args, **kwargs)
+    
 class MainPageSlider(models.Model):
     image = models.ImageField(
         upload_to="main_page_slider", verbose_name="Изображение"
@@ -59,6 +67,10 @@ class MainPageSlider(models.Model):
 
     def __str__(self):
         return str(self.image)
+
+    def save(self, *args, **kwargs):
+        self.updated = timezone.now()
+        super().save(*args, **kwargs)
 
 class Products(models.Model):
     name = models.CharField(
@@ -117,4 +129,5 @@ class Products(models.Model):
             self.promo_price = None
         if not self.image:
             self.image = '#'
+        self.updated = timezone.now()
         super().save(*args, **kwargs)

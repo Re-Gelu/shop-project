@@ -39,6 +39,11 @@ class Orders(models.Model):
         verbose_name="Дата создания заказа"
     )
     
+    updated = models.DateTimeField(
+        auto_now=True, 
+        verbose_name="Дата обновления заказа"
+    )
+    
     cart = models.JSONField(
         editable=False,
     )
@@ -61,6 +66,10 @@ class Orders(models.Model):
 
     def __str__(self):
         return f' Заказ №: {self.id}, UUID: {self.UUID}'
+    
+    def save(self, *args, **kwargs):
+        self.updated = timezone.now()
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'текущий заказ'
