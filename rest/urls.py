@@ -1,6 +1,6 @@
-from django.urls import path, re_path, include
+from django.urls import path, include
 from rest_framework import routers
-from rest_framework.urlpatterns import format_suffix_patterns
+#from rest_framework.urlpatterns import format_suffix_patterns
 from .views import *
 
 # Router
@@ -30,6 +30,6 @@ urlpatterns = [
         r'cart/',
         CartAPIView.as_view(),
     ),
-] """
+]
 
-#urlpatterns += format_suffix_patterns(rest_urlpatterns)
+urlpatterns += format_suffix_patterns(rest_urlpatterns) """

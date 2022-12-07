@@ -30,11 +30,11 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
-        fields = ['id', 'name', 'price', 'promo_price', 'image',
-                  'information', 'full_information', 'stock', 
-                  'available', 'created', 'updated', 'subcategory'
-        ]
-        
+        fields = [
+            'id', 'name', 'price', 'promo_price', 'image',
+            'information', 'full_information', 'stock', 
+            'available', 'created', 'updated', 'subcategory'
+        ] 
 
 class CategoriesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -51,7 +51,8 @@ class SubcategoriesSerializer(serializers.ModelSerializer):
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = ['id', 'user_id', 'UUID', 'product_info',
-                  'adress', 'contacts', 'created', 'updated', 
-                  'status', 'cart'
+        fields = [
+            'id', 'user_id', 'UUID', 'product_info',
+            'adress', 'contacts', 'created', 'updated', 
+            'status', 'cart'
         ]
