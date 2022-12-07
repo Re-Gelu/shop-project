@@ -2,12 +2,14 @@ from django.contrib import admin
 from django.utils.html import format_html
 from extra_settings.models import Setting
 from filebrowser.base import FileObject
+import filebrowser
 from django.conf import settings
-from django.apps import apps
 from allauth.account.models import EmailAddress
 from .models import *
 
 admin.site.unregister(EmailAddress)
+Setting._meta.verbose_name = "настройку"
+Setting._meta.verbose_name_plural = "Настройки"
 
 #admin.AdminSite.site_header = "Админка"
 #admin.AdminSite.site_title = "Админка"
@@ -67,6 +69,4 @@ class ProductsAdmin(admin.ModelAdmin):
             return format_html(f'<img src="#"/>')
     
     image_tag.short_description = "Изображение товара"
-    Setting._meta.verbose_name = "настройку"
-    Setting._meta.verbose_name_plural = "Настройки"
     

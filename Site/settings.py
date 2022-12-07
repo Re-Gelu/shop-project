@@ -51,7 +51,7 @@ DJANGO_SECURE_HSTS_PRELOAD = False
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     
-    'admin_interface',
+    'baton',
     'colorfield',
     'filebrowser',
     'tinymce',
@@ -76,6 +76,8 @@ INSTALLED_APPS = [
     'Shop',
     'Cart',
     'Orders',
+    
+    'baton.autodiscover',
 ]
 
 MIDDLEWARE = [
@@ -190,7 +192,7 @@ QIWI_PAYMENTS_LIFETIME = 30
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        'rest_framework.permissions.IsAdminUser'
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -464,12 +466,6 @@ EXTRA_SETTINGS_DEFAULTS = [
     },
 ]
 
-# Django-admin-interface settings
-
-X_FRAME_OPTIONS = "SAMEORIGIN"
-
-SILENCED_SYSTEM_CHECKS = ["security.W019"]
-
 # Crispy forms settings
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -490,3 +486,25 @@ SITE_ID = 1
 SESSION_REMEMBER = True
 
 LOGIN_REDIRECT_URL = 'dashboard'
+
+# Django baton settings
+
+BATON = {
+    'SITE_HEADER': 'Администрирование',
+    'SITE_TITLE': 'Администрирование магазина',
+    'INDEX_TITLE': ' ',
+    'SUPPORT_HREF': 'https://github.com/Re-Gelu/Django-shop-project/issues',
+    'COPYRIGHT': 'copyright © 2022 <a href="https://github.com/Re-Gelu">made by Re;Gelu</a>',  # noqa
+    'POWERED_BY': '<a href="https://github.com/Re-Gelu">Re;Gelu</a>',
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'SHOW_MULTIPART_UPLOADING': True,
+    'ENABLE_IMAGES_PREVIEW': True,
+    'CHANGELIST_FILTERS_IN_MODAL': True,
+    'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'CHANGELIST_FILTERS_FORM': True,
+    'MENU_ALWAYS_COLLAPSED': False,
+    'MENU_TITLE': 'Меню',
+    'MESSAGES_TOASTS': False,
+    'GRAVATAR_DEFAULT_IMG': 'retro',
+    'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+}
