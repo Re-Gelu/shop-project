@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{block.super}} | Ошибка!
+{% endblock title %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container mt-3">
+        <center class="col-md-12">
+            <div class="display-6 p-5 m-5">
+                Упс.. страница не найдена :)
+            </div>
+        </center>
+    </div>
+{% endblock content %}
