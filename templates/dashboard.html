@@ -165,6 +165,7 @@
                 <!-- Dashboard func -->
                 {% if request.user.is_superuser %}
                     <p><a class="text-reset uk-button-text a-important lead" href="/admin">Админ-панель</a></p>
+                    <p><a class="text-reset uk-button-text a-important lead" href="/api">API</a></p>
                 {% endif %}
                 <p><a class="text-reset uk-button-text a-important lead" href="{% url 'password_change' %}">Сменить пароль</a></p>
                 <p><a class="text-reset uk-button-text a-important lead" href="{% url 'logout' %}">Выйти</a></p>
