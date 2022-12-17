@@ -51,6 +51,7 @@ DJANGO_SECURE_HSTS_PRELOAD = False
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     
+    'corsheaders',
     'baton',
     'colorfield',
     'filebrowser',
@@ -83,6 +84,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -192,7 +194,8 @@ QIWI_PAYMENTS_LIFETIME = 30
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser'
+        'rest_framework.permissions.AllowAny'
+        #'rest_framework.permissions.IsAdminUser'
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -508,3 +511,9 @@ BATON = {
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
 }
+
+# Django CORS headers setttings
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
