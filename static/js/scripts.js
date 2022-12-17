@@ -1,5 +1,7 @@
 console.log("CSRF token:", csrf_token);
 
+const basic_url =  window.location.protocol + '//' + window.location.host + '/'
+
 const data = {
     "id": 100,
 }
@@ -47,14 +49,14 @@ const post = (url, data) => {
     });
 };
 
-get('http://localhost:8000/api/')
+/* get(basic_url + 'api/')
    .then(res => console.log(res))
-   .catch(err => console.error(err));
+   .catch(err => console.error(err)); */
 
-post('http://localhost:8000/api/cart/', data)
+post(basic_url + 'api/cart/', data)
   .then(res => console.log(res))
   .catch(err => console.error(err));
 
-get('http://localhost:8000/api/cart/')
+get(basic_url + 'api/cart/')
    .then(res => console.log(res))
    .catch(err => console.error(err));
