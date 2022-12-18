@@ -128,7 +128,7 @@
                                         </td>
 
                                         <td class="uk-table-shrink ps-0">
-                                            <a type="button" class="btn-close btn-sm btn-lg float-end" aria-label="Delete product" href="{% url 'cart_remove' product.id %}"></a>
+                                            <button id="cart-remove-btn" product-id="{{product.id}}" class="btn-close btn-sm btn-lg float-end" aria-label="Delete product"></button>
                                         </td>
                                     
                                     </tr>
