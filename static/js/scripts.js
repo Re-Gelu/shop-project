@@ -1,60 +1,12 @@
-/* 
-console.log(document.querySelectorAll('[id=cart-add-one-btn]'));
-console.log($('[id=cart-add-one-btn]'));
-*/
+jQuery(document).ready( () => {
 
-/* console.log("CSRF token:", csrf_token); */
+$.ajaxSetup({
+    "headers": {
+        "X-CSRFToken": csrf_token
+    }
+})
 
-jQuery(document).ready(function(){
-
-const basic_url =  window.location.protocol + '//' + window.location.host + '/'         /* 'http://localhost:8000/' */
-
-const get = (url) => {
-    return new Promise((succeed, fail) => {
-        const xhr = new XMLHttpRequest();
-
-        xhr.open('GET', url);
-        xhr.setRequestHeader('X-CSRFToken', csrf_token);
-        xhr.send();
-
-        xhr.addEventListener('load', () => {
-            if (xhr.status >= 200 && xhr.status < 400) {
-                succeed(xhr.response);
-            }
-            else {
-                fail(new Error(`Request on url - ${url} failed: ${xhr.statusText}`));
-            }
-        });
-
-        xhr.addEventListener('error', () => fail(new Error(`Network error: ${xhr.status}`)));
-    });
-};
-
-const post = (url, data) => {
-    return new Promise((succeed, fail) => {
-        const xhr = new XMLHttpRequest();
-
-        xhr.open('POST', url);
-        xhr.setRequestHeader('X-CSRFToken', csrf_token);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(data));
-
-        xhr.addEventListener('load', () => {
-            if (xhr.status >= 200 && xhr.status < 400) {
-                succeed(xhr.response);
-            }
-            else {
-                fail(new Error(`Request on url - ${url} failed: ${xhr.statusText}`));
-            }
-        });
-
-        xhr.addEventListener('error', () => fail(new Error(`Network error: ${xhr.status}`)));
-    });
-};
-
-get(basic_url + 'api/cart/')
-   .then(res => console.log(JSON.parse(res)))
-   .catch(err => console.error(err));
+const basic_url =  window.location.protocol + '//' + window.location.host + '/'
 
 /* Event handler to add one product in cart */
 document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
@@ -64,15 +16,17 @@ document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
         const data = {
             "id": product_id,
             "action": true,
-            "amount": 1
+            "amount": 1,
         }
 
-        post(basic_url + 'api/cart/', data)
-            .then( (res) => {
-                console.log(JSON.parse(res));
-                $('body').load('#')
-            })
-            .catch(err => console.error(err));
+        $.post(
+            basic_url + 'api/cart/',
+            data,
+            (data, textStatus) => {
+                console.log(textStatus, data);
+                $('body').load(document.location.href);
+            }
+        );
     };
 });
 
@@ -87,12 +41,14 @@ document.querySelectorAll('[id=cart-remove-one-btn]').forEach( (element) => {
             "amount": 1
         }
 
-        post(basic_url + 'api/cart/', data)
-            .then( (res) => {
-                console.log(JSON.parse(res));
-                $('body').load('#');
-            })
-            .catch(err => console.error(err));
+        $.post(
+            basic_url + 'api/cart/',
+            data,
+            (data, textStatus) => {
+                console.log(textStatus, data);
+                $('body').load(document.location.href);
+            }
+        );
     };
 });
 
