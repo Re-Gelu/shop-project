@@ -46,9 +46,9 @@
                             <button type="submit" class="btn btn-outline-secondary uk-button-text text-decoration-line-through col-12"><i class="bi bi-cart-x"></i></button>
                         </div>
                     {% else %}
-                        <form action="{% url 'cart_add_one' product.id %}" class="my-2 p-0 col-3">
-                            <button type="submit" class="btn btn-dark text-white background-colored col-12"><i class="bi bi-cart"></i></button>
-                        </form>
+                        <div class="my-2 p-0 col-3">
+                            <button type="submit" id="cart-add-one-btn" product-id="{{product.id}}" class="btn btn-dark text-white background-colored col-12"><i class="bi bi-cart"></i></button> 
+                        </div>
                     {% endif %}
                 </div>
             </div>

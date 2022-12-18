@@ -1,10 +1,13 @@
-console.log("CSRF token:", csrf_token);
+/* 
+console.log(document.querySelectorAll('[id=cart-add-one-btn]'));
+console.log($('[id=cart-add-one-btn]'));
+*/
+
+/* console.log("CSRF token:", csrf_token); */
+
+jQuery(document).ready(function(){
 
 const basic_url =  window.location.protocol + '//' + window.location.host + '/'         /* 'http://localhost:8000/' */
-
-const data = {
-    "id": 100,
-}
 
 const get = (url) => {
     return new Promise((succeed, fail) => {
@@ -49,18 +52,48 @@ const post = (url, data) => {
     });
 };
 
-/* get(basic_url + 'api/')
-   .then(res => console.log(res))
-   .catch(err => console.error(err)); */
-
 get(basic_url + 'api/cart/')
    .then(res => console.log(JSON.parse(res)))
    .catch(err => console.error(err));
 
-post(basic_url + 'api/cart/', data)
-  .then(res => console.log(JSON.parse(res)))
-  .catch(err => console.error(err));
+/* Event handler to add one product in cart */
+document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
+    element.onclick = () => {
+        const product_id = parseInt(element.getAttribute("product-id"))
 
-get(basic_url + 'api/cart/')
-   .then(res => console.log(JSON.parse(res)))
-   .catch(err => console.error(err));
+        const data = {
+            "id": product_id,
+            "action": true,
+            "amount": 1
+        }
+
+        post(basic_url + 'api/cart/', data)
+            .then( (res) => {
+                console.log(JSON.parse(res));
+                $('body').load('#')
+            })
+            .catch(err => console.error(err));
+    };
+});
+
+/* Event handler to remove one product from cart */
+document.querySelectorAll('[id=cart-remove-one-btn]').forEach( (element) => {
+    element.onclick = () => {
+        const product_id = parseInt(element.getAttribute("product-id"))
+
+        const data = {
+            "id": product_id,
+            "action": false,
+            "amount": 1
+        }
+
+        post(basic_url + 'api/cart/', data)
+            .then( (res) => {
+                console.log(JSON.parse(res));
+                $('body').load('#');
+            })
+            .catch(err => console.error(err));
+    };
+});
+
+});

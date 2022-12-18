@@ -70,7 +70,7 @@
     <!-- Cart -->
     {% if cart %}
         <div class="row m-0">
-            <div class="container col-xl-6 col-lg-10 col-md-12 col-12 p-0">
+            <div id="cart-container" class="container col-xl-6 col-lg-10 col-md-12 col-12 p-0">
                 <div class="g-3 text-center">
                     <p class="h3">Корзина</p>
                     <table class="uk-table uk-table-middle uk-table-divider uk-overflow-auto">
@@ -96,15 +96,15 @@
                                         <td>
                                             <div class="row col-12 m-0">
 
-                                                <form action="{% url 'cart_remove_one' product.id %}" class="col-4 p-0 pe-3">
-                                                    <button class="col-4 border-0 p-0 bg-transparent"><span class="ti-minus"></span></button>
-                                                </form>
+                                                <div class="col-4 p-0 pe-3">
+                                                    <button id="cart-remove-one-btn" product-id="{{product.id}}" class="col-4 border-0 p-0 bg-transparent"><span class="ti-minus"></span></button>
+                                                </div>
 
-                                                <span class="col-4 p-0">{{product.product_amount}}</span>
+                                                <span id="product_amount_for_id_{{product.id}}" class="col-4 p-0">{{product.product_amount}}</span>
 
-                                                <form action="{% url 'cart_add_one' product.id %}" class="col-4 p-0">
-                                                    <button class="col-4 border-0 p-0 bg-transparent"><span class="ti-plus"></span></button>
-                                                </form>
+                                                <div class="col-4 p-0">
+                                                    <button id="cart-add-one-btn" product-id="{{product.id}}" class="col-4 border-0 p-0 bg-transparent"><span class="ti-plus"></span></button>
+                                                </div>
 
                                             </div>
                                         </td>
