@@ -28,14 +28,14 @@
 
 {% block content_2 %}
     {% if product %}
-        <div class="row mt-1">
+        <article class="row mt-1">
 
             <!-- Breadcrumbs -->
             {% block top_row %}
                 {{ block.super }}
             {% endblock %}
 
-            <div class="row mt-1">
+            <section class="row mt-1">
                 <!-- Product image-->
                 <div class="col-xl-7 uk-transition-toggle text-center ">
                     <img src="{{product.image.url}}" class="h-100 uk-object-scale-down p-2 uk-transition-opaque uk-transition-scale-up img-rounded" alt="Product">
@@ -77,9 +77,9 @@
                         </p>
                     {% endif %}
                 </div>
-            </div>
+            </section>
 
-            <div class="row mt-1">
+            <section class="row mt-1">
                 <div class="col-xl-7 m-2 my-3 text-center">
 
                     <!-- Product name-->
@@ -101,8 +101,8 @@
                     {% endif %}
                   
                 </div>
-            </div>
-        </div>
+            </section>
+        </article>
 
         {{product.id|json_script:"product-id-json"}}
     

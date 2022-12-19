@@ -10,17 +10,21 @@
 
 {% block content %}
 
-    <div class="container pt-3">
-        <div class="fs-4">О нас</div>
-        <div class="my-3">
-            {% get_setting 'ABOUT_PAGE_INFORMATION' default='Настройте параметр ABOUT_PAGE_INFORMATION' %}
-        </div>
-        <div class="lead text-center my-3" >
-            Мы находимся:
-        </div>
-        <div class="container mt-3">
-            {% autoescape off %}{% get_setting 'LOCATION_MAP_HTML' default='Настройте параметр LOCATION_MAP_HTML' %}{% endautoescape %}
-        </div>
-    </div>
+    <article class="container pt-3">
+        <section>
+            <div class="fs-4">О нас</div>
+            <div class="my-3">
+                {% get_setting 'ABOUT_PAGE_INFORMATION' default='Настройте параметр ABOUT_PAGE_INFORMATION' %}
+            </div>
+        </section>
+        <section>
+            <div class="lead text-center my-3" >
+                Мы находимся:
+            </div>
+            <div class="container mt-3">
+                {% autoescape off %}{% get_setting 'LOCATION_MAP_HTML' default='Настройте параметр LOCATION_MAP_HTML' %}{% endautoescape %}
+            </div>
+        </section>
+    </article>
 
 {% endblock content %}

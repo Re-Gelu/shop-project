@@ -9,7 +9,7 @@
 {% block content_2 %}
 
         <!-- Slider -->
-        <div id="slider" class="carousel slide" data-bs-ride="carousel">
+        <section id="slider" class="carousel slide" data-bs-ride="carousel">
             
             <!-- Slider indicators -->
             <div class="carousel-indicators">
@@ -48,14 +48,14 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Следующий</span>
             </button>
-        </div>
+        </section>
 
         <!-- Categories -->
         {% for category, products in latest_products_per_category.items %}
 
-            <div class="row mt-3 g-0">
+            <!-- Category row -->
+            <section class="row mt-3 g-0">
 
-                <!-- Category card -->
                 <div class="uk-card border p-3">
                     
                     <!-- Category card body-->
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-            </div>
+            </section>
         {% endfor %}
 
 {% endblock content_2 %}

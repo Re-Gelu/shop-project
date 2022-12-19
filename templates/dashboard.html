@@ -8,8 +8,8 @@
 {% load static %}
 
 {% block content %}
-    <!-- col-xl-6 col-lg-8 col-md-8  -->
-    <div class="row m-0">
+<article>
+    <section class="row m-0">
         <div class="container col-xl-6 col-lg-8 col-md-8 col-12 p-3 pt-5">
             <div class="g-3 text-center">
                 <!-- Dashboard -->
@@ -20,11 +20,11 @@
                 <p class="lead">Привет, {{ request.user.first_name }}</p>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- current orders -->
     {% if current_orders %}
-        <div class="row m-0 px-4">
+        <section class="row m-0 px-4">
             <p class="h3 text-center">Ваши текущие заказы</p>
             <div class="container col-xxl-8 col-12 p-0 mt-0 mb-3 g-3 text-center uk-overflow-auto">
                 <table class="uk-table uk-table-middle uk-table-divider uk-table-responsive">
@@ -64,12 +64,12 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </section>
     {% endif %}
 
     <!-- Cart -->
     {% if cart %}
-        <div class="row m-0">
+        <section class="row m-0">
             <div id="cart-container" class="container col-xl-6 col-lg-10 col-md-12 col-12 p-0">
                 <div class="g-3 text-center">
                     <p class="h3">Корзина</p>
@@ -156,12 +156,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     {% endif %}
 
-    <div class="row m-0">
+    <section class="row m-0">
         <div class="container col-xl-6 col-lg-8 col-md-8 col-12 p-3">
-            <div class="g-3 text-center">
+            <nav class="g-3 text-center">
                 <!-- Dashboard func -->
                 {% if request.user.is_superuser %}
                     <p><a class="text-reset uk-button-text a-important lead" href="/admin">Админ-панель</a></p>
@@ -169,7 +169,8 @@
                 {% endif %}
                 <p><a class="text-reset uk-button-text a-important lead" href="{% url 'password_change' %}">Сменить пароль</a></p>
                 <p><a class="text-reset uk-button-text a-important lead" href="{% url 'logout' %}">Выйти</a></p>
-            </div>
+            </nav>
         </div>
-    </div>
+    </section>
+</article>
 {% endblock content %}
