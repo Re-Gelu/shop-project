@@ -8,12 +8,10 @@ $.ajaxSetup({
 
 const basic_url =  window.location.protocol + '//' + window.location.host + '/'
 
+/* DASHBOARD BUTTONS EVENT HANDLERS */
 
-/* MAIN CART BUTTONS EVENT HANDLERS */
-
-    
-/* Event handler to add one piece of product in cart */
-document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
+/* Event handler to add one piece of product in dashboard cart */
+document.querySelectorAll('[id=cart-dashboard-add-one-btn]').forEach( (element) => {
     element.onclick = () => {
         const product_id = parseInt(element.getAttribute("product-id"))
 
@@ -28,14 +26,14 @@ document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
             data,
             (data, textStatus) => {
                 console.log(textStatus, data);
-                $('body').load(document.location.href);
+                $('#dashboard-cart').load(basic_url + 'api/dashboard_cart/');
             }
         );
     };
 });
 
-/* Event handler to remove one piece of product from cart */
-document.querySelectorAll('[id=cart-remove-one-btn]').forEach( (element) => {
+/* Event handler to remove one piece of product from dashboard cart */
+document.querySelectorAll('[id=cart-dashboard-remove-one-btn]').forEach( (element) => {
     element.onclick = () => {
         const product_id = parseInt(element.getAttribute("product-id"))
 
@@ -50,14 +48,14 @@ document.querySelectorAll('[id=cart-remove-one-btn]').forEach( (element) => {
             data,
             (data, textStatus) => {
                 console.log(textStatus, data);
-                $('body').load(document.location.href);
+                $('#dashboard-cart').load(basic_url + 'api/dashboard_cart/');
             }
         );
     };
 });
 
-/* Event handler to remove one product position from cart */
-document.querySelectorAll('[id=cart-remove-btn]').forEach( (element) => {
+/* Event handler to remove one product position from dashboard cart */
+document.querySelectorAll('[id=cart-dashboard-remove-btn]').forEach( (element) => {
     element.onclick = () => {
         const product_id = parseInt(element.getAttribute("product-id"))
 
@@ -72,7 +70,7 @@ document.querySelectorAll('[id=cart-remove-btn]').forEach( (element) => {
             data,
             (data, textStatus) => {
                 console.log(textStatus, data);
-                $('body').load(document.location.href);
+                $('#dashboard-cart').load(basic_url + 'api/dashboard_cart/');
             }
         );
     };

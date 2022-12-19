@@ -1,0 +1,95 @@
+{% load static %}
+
+{% if cart %}
+<section class="row m-0">
+    <div id="cart-container" class="container col-xl-6 col-lg-10 col-md-12 col-12 p-0">
+        <div class="g-3 text-center">
+            <p class="h3">Корзина</p>
+            <table class="uk-table uk-table-middle uk-table-divider uk-overflow-auto">
+                <thead>
+                    <tr>
+                        <th class="text-center">Товар</th>
+                        <th class="text-center">Кол-во</th> 
+                        <th class="text-center">Цена за шт.</th>
+                        <th class="text-center">Итоговая цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for product in cart %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'product' %}?category=Корзина&id={{product.id}}" class=" d-inline-flex">
+                                        <img src="{{product.image}}" width="60px" >
+                                        <div class="my-auto ms-2">{{product.name}}</div>
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <div class="row col-12 m-0">
+
+                                        <div class="col-4 p-0 pe-3">
+                                            <button id="cart-dashboard-remove-one-btn" product-id="{{product.id}}" class="col-4 border-0 p-0 bg-transparent"><span class="ti-minus"></span></button>
+                                        </div>
+
+                                        <span id="product_amount_for_id_{{product.id}}" class="col-4 p-0">{{product.product_amount}}</span>
+
+                                        <div class="col-4 p-0">
+                                            <button id="cart-dashboard-add-one-btn" product-id="{{product.id}}" class="col-4 border-0 p-0 bg-transparent"><span class="ti-plus"></span></button>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <td>
+                                    {% if product.promo_price %}
+                                        <div class="text-decoration-line-through">{{product.price}} RUB</div>
+                                        <div class="text-danger">{{product.promo_price}} RUB</div>
+                                    {% else %}
+                                        {{product.price}} RUB
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if product.total_promo_price %}
+                                        <div class="text-decoration-line-through">{{product.total_price}} RUB</div>
+                                        <div class="text-danger">{{product.total_promo_price}} RUB</div>
+                                    {% else %}
+                                        {{product.total_price}} RUB
+                                    {% endif %}
+                                </td>
+
+                                <td class="uk-table-shrink ps-0">
+                                    <button id="cart-dashboard-remove-btn" product-id="{{product.id}}" class="btn-close btn-sm btn-lg float-end" aria-label="Delete product"></button>
+                                </td>
+                            
+                            </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td>Итого:</td>
+                        <td colspan="2"></td>
+                        <td>
+                            {% if cart.get_total_promo_price < cart.get_total_price %}
+                                <span class="text-decoration-line-through">{{cart.get_total_price}} RUB</span>
+                                <span class="text-danger">{{cart.get_total_promo_price}} RUB</span>
+                            {% else %}
+                                {{cart.get_total_price}} RUB
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="row my-3">
+                <div class="col-3"></div>
+                <a type="button" class="btn-lg offcanvas-submit-button uk-button-text col-6" href="{% url 'order' %}">Перейти к оформлению заказа</a>
+                <div class="col-3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JS -->
+<script src="{% static 'js/dashboard_cart.js' %}" defer></script>
+{% endif %}

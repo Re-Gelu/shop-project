@@ -8,12 +8,10 @@ $.ajaxSetup({
 
 const basic_url =  window.location.protocol + '//' + window.location.host + '/'
 
+/* HEADER OFFCANVAS BUTTONS EVENT HANDLERS */
 
-/* MAIN CART BUTTONS EVENT HANDLERS */
-
-    
-/* Event handler to add one piece of product in cart */
-document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
+/* Event handler to add one piece of product in offcanvas cart */
+document.querySelectorAll('[id=cart-offcanvas-add-one-btn]').forEach( (element) => {
     element.onclick = () => {
         const product_id = parseInt(element.getAttribute("product-id"))
 
@@ -28,14 +26,14 @@ document.querySelectorAll('[id=cart-add-one-btn]').forEach( (element) => {
             data,
             (data, textStatus) => {
                 console.log(textStatus, data);
-                $('body').load(document.location.href);
+                $('#cart-offcanvas-body').load(basic_url + 'api/header_offcanvas_body/');
             }
         );
     };
 });
 
 /* Event handler to remove one piece of product from cart */
-document.querySelectorAll('[id=cart-remove-one-btn]').forEach( (element) => {
+document.querySelectorAll('[id=cart-offcanvas-remove-one-btn]').forEach( (element) => {
     element.onclick = () => {
         const product_id = parseInt(element.getAttribute("product-id"))
 
@@ -50,14 +48,14 @@ document.querySelectorAll('[id=cart-remove-one-btn]').forEach( (element) => {
             data,
             (data, textStatus) => {
                 console.log(textStatus, data);
-                $('body').load(document.location.href);
+                $('#cart-offcanvas-body').load(basic_url + 'api/header_offcanvas_body/');
             }
         );
     };
 });
 
 /* Event handler to remove one product position from cart */
-document.querySelectorAll('[id=cart-remove-btn]').forEach( (element) => {
+document.querySelectorAll('[id=cart-offcanvas-remove-btn]').forEach( (element) => {
     element.onclick = () => {
         const product_id = parseInt(element.getAttribute("product-id"))
 
@@ -72,7 +70,7 @@ document.querySelectorAll('[id=cart-remove-btn]').forEach( (element) => {
             data,
             (data, textStatus) => {
                 console.log(textStatus, data);
-                $('body').load(document.location.href);
+                $('#cart-offcanvas-body').load(basic_url + 'api/header_offcanvas_body/');
             }
         );
     };

@@ -23,6 +23,16 @@ urlpatterns = [
         'auth/',
         include('rest_framework.urls', namespace='rest_framework')
     ),
+    
+    path(
+        'header_offcanvas_body/',
+        HeaderOffcanvasBodyView.as_view()
+    ),
+    
+    path(
+        'dashboard_cart/',
+        DashboardCartView.as_view()
+    )
 ]
 
 """ rest_urlpatterns = [
