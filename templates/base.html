@@ -34,6 +34,22 @@
         <!-- Fonts -->
         <link href="{% static 'fonts/fonts.css' %}" rel="stylesheet">
 
+        <!-- Jquery JS -->
+        <script src="{% static 'js/jquery/jquery-3.6.1.js' %}"></script>
+
+        <!-- CSRF token -->
+        <script> var csrf_token = '{{ csrf_token }}'; </script>
+
+        <!-- JS -->
+        <script src="{% static 'js/scripts.js' %}" defer></script>
+
+        <!-- UIkit JS -->
+        <script src="{% static 'js/UIkit/uikit.min.js' %}" async></script>
+        <script src="{% static 'js/UIkit/uikit-icons.min.js' %}" async></script>
+
+        <!-- Bootstrap JS -->
+        <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}" async></script>
+
         {% get_setting "MAIN_COLOR" default='#dc143c' as main_color %}
         {% get_setting "SECOND_MAIN_COLOR" default='#dc143c' as second_main_color %}
         {% get_setting "A_TEXT_COLOR" default='#dc143c' as a_text_active_color %}
@@ -69,21 +85,5 @@
         </div>
         
         {% include "footer.html" %}
-
-        <!-- Jquery JS -->
-        <script src="{% static 'js/jquery/jquery-3.6.1.js' %}"></script>
-
-        <!-- CSRF token -->
-        <script> var csrf_token = '{{ csrf_token }}'; </script>
-
-        <!-- JS -->
-        <script src="{% static 'js/scripts.js' %}"></script>
-
-        <!-- UIkit JS -->
-        <script src="{% static 'js/UIkit/uikit.min.js' %}"></script>
-        <script src="{% static 'js/UIkit/uikit-icons.min.js' %}"></script>
-
-        <!-- Bootstrap JS -->
-        <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
     </body>
 </html> 
