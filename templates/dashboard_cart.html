@@ -18,9 +18,9 @@
 
                     {% for product in cart %}
                             <tr>
-                                <td>
+                                <td class="uk-transition-toggle">
                                     <a href="{% url 'product' %}?category=Корзина&id={{product.id}}" class=" d-inline-flex">
-                                        <img src="{{product.image}}" width="60px" >
+                                        <img src="{{product.image}}" width="60px" class="rounded-3 uk-transition-scale-up uk-transition-opaque">
                                         <div class="my-auto ms-2">{{product.name}}</div>
                                     </a>
                                 </td>
