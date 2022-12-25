@@ -5,7 +5,7 @@
 
 ## :triangular_ruler: Стек проекта: 
 - Python (Django, Django REST framework)
-- HTML5, CSS (Bootstrap 5, UIkit), JS
+- HTML5, CSS (Bootstrap 5, UIkit), JS (jQuery)
 - NGNIX, Gunicorn
 - Celery, Redis
 
