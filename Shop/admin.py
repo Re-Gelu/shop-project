@@ -41,7 +41,7 @@ class SubcategoriesAdmin(admin.ModelAdmin):
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ("image_tag", "name", "price", "subcategory", "stock","available", "updated", "created")
+    list_display = ("name", "image_tag", "price", "subcategory", "stock","available", "updated", "created")
     list_filter = ("subcategory", "updated", "created")
     search_fields = ("name", )
     list_editable = ('stock', 'available')
