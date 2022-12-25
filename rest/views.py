@@ -26,8 +26,7 @@ class CartViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = CartActionSerializer(data=request.data)
         if serializer.is_valid():
-            product = get_object_or_404(
-                Products, id=serializer.validated_data.get("id"))
+            product = get_object_or_404(Products, id=serializer.validated_data.get("id"))
             action = serializer.validated_data.get("action")
             amount = serializer.validated_data.get("amount")
             Cart(request).action(
@@ -45,19 +44,8 @@ class CartViewSet(viewsets.ViewSet):
     
     @action(detail=False, methods=['post'])
     def cart_action(self, request):
-        serializer = CartActionSerializer(data=request.data)
-        if serializer.is_valid():
-            product = get_object_or_404(Products, id=serializer.validated_data.get("id"))
-            action = serializer.validated_data.get("action")
-            amount = serializer.validated_data.get("amount")
-            Cart(request).action(
-                product=product, 
-                action=action,
-                amount=amount
-            )
-            return Response(Cart(request).get_cart_list(), status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return self.create(self, request)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):

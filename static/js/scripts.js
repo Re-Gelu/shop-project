@@ -89,7 +89,7 @@ const cart_animation = (element) => {
         .animate({opacity: 0.05,
             left: cart.offset()['left'],
             top: cart.offset()['top'],
-            width: 20}, 1000, function() {	
+            width: 20}, 1000, () => {	
             $(this).remove();
         });
 };

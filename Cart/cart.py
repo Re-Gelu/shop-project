@@ -48,6 +48,8 @@ class Cart:
         # Cart limits check
         if not self.cart[product_id]['available']:
             self.remove(product)
+        elif self.cart[product_id]['product_amount'] >= self.cart[product_id]['stock']:
+            self.cart[product_id]['product_amount'] = self.cart[product_id]['stock']
         elif self.cart[product_id]['product_amount'] > settings.MAX_PRODUCT_AMOUNT_IN_CART:
             self.cart[product_id]['product_amount'] = settings.MAX_PRODUCT_AMOUNT_IN_CART
         elif self.cart[product_id]['product_amount'] < settings.MIN_PRODUCT_AMOUNT_IN_CART:

@@ -210,7 +210,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication'
     ],
-    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata'
+    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 12
 }
 
 # django-debug-toolbar settings
@@ -268,11 +270,11 @@ CART_SESSION_ID = 'cart'
 
 # Cart settings
 
-MAX_PRODUCT_AMOUNT_IN_CART = 10
+MAX_PRODUCT_AMOUNT_IN_CART = 100
 
 MIN_PRODUCT_AMOUNT_IN_CART = 1
 
-MAX_PRODUCTS_IN_CART = 5
+MAX_PRODUCTS_IN_CART = 10
 
 MIN_PRODUCTS_IN_CART = 1
 
@@ -514,6 +516,18 @@ BATON = {
 
 # Django CORS headers setttings
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+]
 
 CORS_ALLOW_CREDENTIALS = True
