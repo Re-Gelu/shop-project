@@ -67,7 +67,7 @@ http://.../db_auto_fill/300/Products/
   
 ## :sleeping: REST API
 
-Сделан небольшой REST API отдающий json-ки, мб пригодится. Для доступа к некоторым разделам API нужны права администратора.
+Сделан небольшой REST API, мб пригодится. Для доступа к некоторым разделам API нужны права администратора.
 
 ![REST API](https://user-images.githubusercontent.com/75813517/205884672-97a00e2e-3978-49ce-a769-faef4479ddbc.png)
 
