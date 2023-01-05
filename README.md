@@ -4,10 +4,10 @@
 ## :memo: [Changelog](https://github.com/Re-Gelu/Sample_shop/blob/master/changelog.txt)
 
 ## :triangular_ruler: Стек проекта: 
-- Python 3.11 (Django, Django REST framework)
+- Python 3.11 (Django, Django REST framework, Celery)
 - HTML5, CSS (Bootstrap 5, UIkit), JS (jQuery)
 - NGNIX, Gunicorn
-- Celery, Redis
+- Redis, PostgreSQL
 
 ## :package: [Зависимости проекта](https://github.com/Re-Gelu/Sample_shop/blob/master/requirements.txt)
 
