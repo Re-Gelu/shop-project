@@ -27,16 +27,16 @@ SECRET_KEY = 'django-insecure-$aqn(bz0br&rqn0%)-#wi@g!w14h55*zr4&_y_v=)5ajo$75j_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:1337',
-    'http://localhost:8000',
+    'http://localhost:8000'
 ]
 
 CSRF_COOKIE_SECURE = True
 
-SESSION_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True 
 
 DJANGO_SECURE_SSL_REDIRECT = False
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     
     'corsheaders',
     'baton',
+    'watson',
     'colorfield',
     'filebrowser',
     'tinymce',
@@ -93,6 +94,7 @@ MIDDLEWARE = [
     
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'watson.middleware.SearchContextMiddleware',
 ]
 
 ROOT_URLCONF = 'Site.urls'
@@ -217,7 +219,7 @@ REST_FRAMEWORK = {
 
 # django-debug-toolbar settings
 
-INTERNAL_IPS = ["127.0.0.1", ]
+INTERNAL_IPS = ["127.0.0.1", "176.193.212.96"]
 
 # Prod settings
 

@@ -10,6 +10,7 @@ django-extra-settings==0.6.1
 django-phonenumber-field[phonenumbers]==7.0.0
 django-colorfield
 django_crispy_forms==1.14.0
+django-watson
 crispy-bootstrap5
 celery[redis]==5.2.7
 django-celery-results==2.4.0

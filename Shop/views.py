@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from extra_settings.models import Setting
 from django.views.generic.base import TemplateView, View
 from django.core.cache import cache
+from watson import search as watson
 
 from .db_auto_fill import db_auto_fill
 from .models import *
@@ -63,7 +64,7 @@ class ProductsPageView(CustomTemplateView):
         
         # Getting and sorting products from DB
         if search_query:
-            products = Products.objects.filter(name__icontains=search_query)
+            products = watson.filter(Products, search_query)
         elif subcategory:
             products = Products.objects.filter(subcategory__name=subcategory)
         elif category:
