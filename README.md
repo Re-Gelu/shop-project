@@ -17,7 +17,7 @@
 $ python manage.py createsuperuser --username admin --email admin@email.com
 ```
 ```
-$ docker-compose -f docker-compose.prod.yml exec web python manage.py createsuperuser --username admin@email.com --email admin@email.com
+$ docker-compose -f docker-compose.yml exec web python manage.py createsuperuser --username admin@email.com --email admin@email.com
 ```
 
 ## :black_nib: Авто-заполнение магазина для быстрого тестирования
@@ -46,7 +46,7 @@ http://.../db_auto_fill/300/Products/
   ```
     Windows:
   $ celery -A Site beat --loglevel=info
-  $ celery -A Site worker --loglevel=info /  $ celery -A Site worker --pool=solo --loglevel=info
+  $ celery -A Site worker --pool=solo --loglevel=info
   
     Linux:
   $ celery -A Site worker --beat --loglevel=info
@@ -54,15 +54,15 @@ http://.../db_auto_fill/300/Products/
 
 ## :whale: Работа с Docker
 
+- Поднять контейнер (prod/dev - .env)
+  ```
+  $ docker-compose -f docker-compose.yml up -d --build
+  ```
+
 - Удаление контейнеров
 
   ```
   $ docker-compose down -v
-  ```
-
-- Поднять Prod контейнер
-  ```
-  $ docker-compose -f docker-compose.prod.yml up -d --build
   ```
   
 ## :sleeping: REST API
