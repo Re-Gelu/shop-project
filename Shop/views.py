@@ -5,6 +5,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from extra_settings.models import Setting
 from django.views.generic.base import TemplateView, View
 from django.core.cache import cache
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.conf import settings
 from watson import search as watson
 
 from .db_auto_fill import db_auto_fill
@@ -15,6 +18,8 @@ from Orders.models import *
 
 from Cart.cart import Cart
 
+
+@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class CustomTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
@@ -25,6 +30,8 @@ class CustomTemplateView(TemplateView):
         context["cart"] = Cart(self.request)
         return context
         
+
+@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class IndexPageView(CustomTemplateView):
     """ Index page class view """
     
@@ -43,6 +50,8 @@ class IndexPageView(CustomTemplateView):
         
         return context
     
+
+@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class ProductsPageView(CustomTemplateView):
     """ Products page class view """
     
@@ -54,7 +63,7 @@ class ProductsPageView(CustomTemplateView):
         category = kwargs.get("category")
         subcategory = kwargs.get("subcategory")
         
-        # Main vars getted from GET or cache
+        # Vars getted from GET or cache (temporary solution)
         page = self.request.GET.get('page', 1)
         search_query = self.request.GET.get('search_query', cache.get('search_query'))
         sort_by = self.request.GET.get('sort_by', cache.get('sort_by'))
@@ -93,7 +102,9 @@ class ProductsPageView(CustomTemplateView):
         context["subcategory"] = subcategory
             
         return context
-    
+
+
+@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class ProductPageView(CustomTemplateView):
     """ Product page class view"""
     
@@ -110,7 +121,7 @@ class ProductPageView(CustomTemplateView):
                 
         return context
     
-
+@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class DashboardPageView(LoginRequiredMixin, CustomTemplateView):
     """ Dashboard page class view"""
     

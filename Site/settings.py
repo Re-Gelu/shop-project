@@ -91,6 +91,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.CacheMiddleware',
     
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -221,6 +222,10 @@ REST_FRAMEWORK = {
 
 INTERNAL_IPS = ["127.0.0.1", "176.193.212.96"]
 
+# Redis settings
+
+REDIS_URL = 'redis://localhost:6379/0'
+
 # Prod settings
 
 if os.environ.get("DEBUG") == '1':
@@ -249,12 +254,6 @@ if os.environ.get("DEBUG") == '1':
             "PORT": os.environ.get("SQL_PORT"),
         }
     }
-
-else:
-    
-    # Redis settings
-
-    REDIS_URL = 'redis://localhost:6379/0'
 
 # Login settings
 
@@ -292,6 +291,8 @@ CACHES = {
         'LOCATION': 'cache_table',
     }
 }
+
+CACHING_TIME = 60 * 15
 
 # Celery settings
 

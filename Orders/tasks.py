@@ -11,7 +11,7 @@ from .QIWI import get_QIWI_p2p
 def payment_handler():
     result = ""
     p2p = get_QIWI_p2p()
-    if p2p != False and (Orders.objects.filter(status=Orders.PaymentStatuses.CREATED).exists() or Orders.objects.filter(status=Orders.PaymentStatuses.WAITING).exists()):
+    if p2p != None and (Orders.objects.filter(status=Orders.PaymentStatuses.CREATED).exists() or Orders.objects.filter(status=Orders.PaymentStatuses.WAITING).exists()):
         for order in Orders.objects.filter(status=Orders.PaymentStatuses.CREATED) or Orders.objects.filter(status=Orders.PaymentStatuses.WAITING):
             payment_status = p2p.check(order.UUID).status
             if order.status != payment_status:

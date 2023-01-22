@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from extra_settings.models import Setting
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.conf import settings
 from .QIWI import get_QIWI_p2p
 
 from .models import *
@@ -13,6 +16,7 @@ from Shop.views import CustomTemplateView
 from Cart.cart import Cart
 
 
+@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class OrderPageView(LoginRequiredMixin, CustomTemplateView):
     """ Order page class view """
     
@@ -32,7 +36,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
         form = SubmitOrder(request.POST or None)
         if form.is_valid():
             p2p = get_QIWI_p2p()
-            if p2p == False:
+            if p2p == None:
                 
                 # Если нет или не прошел проверку ключ QIWI
                 return HttpResponse(
