@@ -304,12 +304,12 @@ CELERY_TASK_TRACK_STARTED = True
 
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_RESULT_BACKEND = REDIS_URL
-#CELERY_RESULT_BACKEND = 'django-db'
+RESULT_BACKEND = REDIS_URL
+#RESULT_BACKEND = 'django-db'
 
-CELERY_CACHE_BACKEND = 'django-cache'
+CACHE_BACKEND = 'django-cache'
 
-CELERYBEAT_SCHEDULE = {
+BEAT_SCHEDULE = {
     'payment_check_every_60_s': {
         'task': 'orders.tasks.payment_handler',
         'schedule': 60.0,
