@@ -5,7 +5,7 @@ from rest_framework.serializers import ModelSerializer
 from rest.serializers import CartSerializer
 
 
-class cart:
+class Cart:
 
     class ProductSerializer(ModelSerializer):
 
@@ -42,28 +42,35 @@ class cart:
             self.cart[product_id] = self.ProductSerializer(product).data
             self.cart[product_id]['product_amount'] = 0
 
-        # Product amount set
+        # Set product amount
         self.cart[product_id]['product_amount'] += amount if action else -amount
 
-        # cart limits check
+        # If is available
         if not self.cart[product_id]['available']:
-            self.remove(product)
-        elif self.cart[product_id]['product_amount'] >= self.cart[product_id]['stock']:
+            return self.remove(product)
+
+        # If product_amount >= stock of product
+        if self.cart[product_id]['product_amount'] >= self.cart[product_id]['stock']:
             self.cart[product_id]['product_amount'] = self.cart[product_id]['stock']
-        elif self.cart[product_id]['product_amount'] > settings.MAX_PRODUCT_AMOUNT_IN_CART:
+
+        # Check if the quantity of the product is correct
+        if self.cart[product_id]['product_amount'] > settings.MAX_PRODUCT_AMOUNT_IN_CART:
             self.cart[product_id]['product_amount'] = settings.MAX_PRODUCT_AMOUNT_IN_CART
         elif self.cart[product_id]['product_amount'] < settings.MIN_PRODUCT_AMOUNT_IN_CART:
-            self.remove(product)
-        elif not settings.MIN_PRODUCTS_IN_CART <= len(self.cart) <= settings.MAX_PRODUCTS_IN_CART:
-            self.remove(product)
-        else:
-            # Total price set
-            self.cart[product_id]['total_price'] = str(Decimal(self.cart[product_id]['price']) * self.cart[product_id]['product_amount'])
+            return self.remove(product)
 
-            if self.cart[product_id]['promo_price']:
-                self.cart[product_id]['total_promo_price'] = str(Decimal(self.cart[product_id]['promo_price']) * self.cart[product_id]['product_amount'])
+        # If cart length is not correct
+        if not settings.MIN_PRODUCTS_IN_CART <= len(self.cart) <= settings.MAX_PRODUCTS_IN_CART:
+            return self.remove(product)
 
-        self.save()
+        # Total price set
+        self.cart[product_id]['total_price'] = str(Decimal(self.cart[product_id]['price']) * self.cart[product_id]['product_amount'])
+
+        # Set total promo price
+        if self.cart[product_id]['promo_price']:
+            self.cart[product_id]['total_promo_price'] = str(Decimal(self.cart[product_id]['promo_price']) * self.cart[product_id]['product_amount'])
+
+        return self.save()
 
     def remove(self, product: Products):
         product_id = str(product.id)
