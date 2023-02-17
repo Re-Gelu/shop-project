@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 from .forms import RegistrationForm
 
-from Shop.models import *
-from Shop.views import CustomTemplateView
+from shop.models import *
+from shop.views import CustomTemplateView
 
 class RegistrationPageView(CustomTemplateView):
     """ Registration page class view """

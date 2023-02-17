@@ -3,7 +3,7 @@ from django.utils import timezone
 from shortuuid.django_fields import ShortUUIDField
 import datetime
 
-class Orders(models.Model):
+class orders(models.Model):
     
     user_id = models.PositiveIntegerField(
         editable=False,

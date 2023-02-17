@@ -14,9 +14,9 @@ from .db_auto_fill import db_auto_fill
 from .models import *
 from .forms import *
 
-from Orders.models import *
+from orders.models import *
 
-from Cart.cart import Cart
+from cart.cart import cart
 
 
 @method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
@@ -27,7 +27,7 @@ class CustomTemplateView(TemplateView):
         context["categories"] = Categories.objects.all()
         context["subcategories"] = Subcategories.objects.all()
         context["random_product"] = Products.objects.order_by('?').first()
-        context["cart"] = Cart(self.request)
+        context["cart"] = cart(self.request)
         return context
         
 
@@ -121,7 +121,7 @@ class ProductPageView(CustomTemplateView):
                 
         return context
     
-@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
+#@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class DashboardPageView(LoginRequiredMixin, CustomTemplateView):
     """ Dashboard page class view"""
     
@@ -133,7 +133,7 @@ class DashboardPageView(LoginRequiredMixin, CustomTemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_orders"] = Orders.objects.filter(user_id=self.request.user.id)
+        context["current_orders"] = orders.objects.filter(user_id=self.request.user.id)
         return context
     
     def test_cookies(self) -> bool:

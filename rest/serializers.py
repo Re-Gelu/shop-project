@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User, Group
-from Shop.models import *
-from Orders.models import *
+from shop.models import *
+from orders.models import *
 
 # Serializers
 
@@ -50,7 +50,7 @@ class SubcategoriesSerializer(serializers.ModelSerializer):
 
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Orders
+        model = orders
         fields = [
             'id', 'user_id', 'UUID', 'product_info',
             'adress', 'contacts', 'created', 'updated', 

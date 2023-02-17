@@ -1,4 +1,4 @@
-from Shop.models import *
+from shop.models import *
 from art import tprint
 import random
 

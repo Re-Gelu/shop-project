@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.base import RedirectView
 from django.http import HttpResponseRedirect
 
-from Shop.models import Products
-from .cart import Cart
+from shop.models import Products
+from .cart import cart
 
 class CartAddOneRedirectView(RedirectView):
     """ Add one product in cart class view """
@@ -12,7 +12,7 @@ class CartAddOneRedirectView(RedirectView):
         return self.request.META.get('HTTP_REFERER')
 
     def get(self, request, *args, **kwargs):
-        cart = Cart(request)
+        cart = cart(request)
         product = get_object_or_404(Products, id=kwargs.get("product_id"))
         
         cart.action(product=product, action=True)
@@ -26,7 +26,7 @@ class CartRemoveOneRedirectView(RedirectView):
         return self.request.META.get('HTTP_REFERER')
 
     def get(self, request, *args, **kwargs):
-        cart = Cart(request)
+        cart = cart(request)
         product = get_object_or_404(Products, id=kwargs.get("product_id"))
 
         cart.action(product=product, action=False)
@@ -40,7 +40,7 @@ class CartRemoveRedirectView(RedirectView):
         return self.request.META.get('HTTP_REFERER')
     
     def get(self, request, *args, **kwargs):
-        cart = Cart(request)
+        cart = cart(request)
         product = get_object_or_404(Products, id=kwargs.get("product_id"))
         cart.remove(product)
 

@@ -1,4 +1,4 @@
-"""Site URL Configuration
+"""config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-#from django.contrib import admin
 from baton.autodiscover import admin
 from django.contrib.auth.views import *
 from django.urls import path, include
@@ -24,63 +23,39 @@ import mimetypes
 import debug_toolbar
 
 urlpatterns = [
-    
+
     # Filebrowser URLS
-    path(
-        'admin/filebrowser/',
-        site.urls
-    ),
-    
+    path('admin/filebrowser/', site.urls),
+
     # TinyMCE URLS
-    path(
-        'tinymce/', 
-        include('tinymce.urls')
-    ),
-    
+    path('tinymce/', include('tinymce.urls')),
+
     # Admin app URLS
-    path(
-        'admin/', 
-        admin.site.urls
-    ),
-    
+    path('admin/', admin.site.urls),
+
     # Baton admin URLS
-    path(
-        'baton/', 
-        include('baton.urls')
-    ),
-    
+    path('baton/', include('baton.urls')),
+
     # REST framework URLS
-    path(
-        'api/', 
-        include('rest.urls')
-    ),
-    
-    # Shop app URLS
-    path(
-        '', 
-        include('Shop.urls')
-    ),
-    
-    # Cart app URLS
-    path(
-        '',
-        include('Cart.urls')
-    ),
-    
-    # Login app URLS
-    path(
-        '', 
-        include('Login.urls')
-    ),
-    
-    # Orders app URLS
-    path(
-        '', 
-        include('Orders.urls')
-    ),
+    path('api/', include('rest.urls')),
+
+    # shop app URLS
+    path('', include('shop.urls')),
+
+    # cart app URLS
+    path('', include('cart.urls')),
+
+    # login app URLS
+    path('', include('login.urls')),
+
+    # orders app URLS
+    path('', include('orders.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
-    urlpatterns += [path('__debug__/', include(debug_toolbar.urls)), ]
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
     mimetypes.add_type("application/javascript", ".js", True)

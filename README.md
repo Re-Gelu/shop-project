@@ -47,7 +47,7 @@
 - Запуск при помощи Gunicorn
 
   ```
-  $ gunicorn Site.wsgi:application --bind 0.0.0.0:8000
+  $ gunicorn config.wsgi:application --bind 0.0.0.0:8000
   ```
   
 > И определенно стоит настроить .env файл перед запуском
@@ -69,7 +69,7 @@
 ## :closed_lock_with_key: Настройка входа в админку
 
 ```
-$ python manage.py createsuperuser --username admin --email admin@email.com
+$ python manage.py createsuperuser --username admin@email.com --email admin@email.com
 ```
 ```
 $ docker-compose -f docker-compose.yml exec web python manage.py createsuperuser --username admin@email.com --email admin@email.com
@@ -86,11 +86,11 @@ $ docker-compose -f docker-compose.yml exec web python manage.py createsuperuser
 
   ```
     Windows:
-  $ celery -A Site beat --loglevel=info
-  $ celery -A Site worker --pool=solo --loglevel=info
+  $ celery -A config beat --loglevel=info
+  $ celery -A config worker --pool=solo --loglevel=info
   
     Linux:
-  $ celery -A Site worker --beat --loglevel=info
+  $ celery -A config worker --beat --loglevel=info
   ```
   
 ## :sleeping: REST API

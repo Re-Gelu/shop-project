@@ -8,10 +8,10 @@ from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import status
 from .serializers import *
-from Shop.models import *
-from Orders.models import *
-from Shop.models import Products
-from Cart.cart import Cart
+from shop.models import *
+from orders.models import *
+from shop.models import Products
+from cart.cart import cart
 
 # ViewSets
 
@@ -19,7 +19,7 @@ class CartViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
     
     def list(self, request):
-        queryset = [item for item in Cart(request)]
+        queryset = [item for item in cart(request)]
         serializer = CartSerializer(queryset)
         return Response(serializer.data)
     
@@ -29,17 +29,17 @@ class CartViewSet(viewsets.ViewSet):
             product = get_object_or_404(Products, id=serializer.validated_data.get("id"))
             action = serializer.validated_data.get("action")
             amount = serializer.validated_data.get("amount")
-            Cart(request).action(
+            cart(request).action(
                 product=product,
                 action=action,
                 amount=amount
             )
-            return Response(Cart(request).get_cart_list(), status=status.HTTP_201_CREATED)
+            return Response(cart(request).get_cart_list(), status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     def delete(self, request):
-        Cart(request).clear()
+        cart(request).clear()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     @action(detail=False, methods=['post'])
@@ -76,7 +76,7 @@ class SubcategoriesViewSet(viewsets.ModelViewSet):
     
 
 class OrdersViewSet(viewsets.ModelViewSet):
-    queryset = Orders.objects.all()
+    queryset = orders.objects.all()
     serializer_class = OrdersSerializer
 
 
@@ -86,7 +86,7 @@ class HeaderOffcanvasBodyView(APIView):
     
     def get(self, request, *args, **kwargs):
         context = {
-            "cart": Cart(request)
+            "cart": cart(request)
         }
         return Response(context)
 
@@ -97,6 +97,6 @@ class DashboardCartView(APIView):
 
     def get(self, request, *args, **kwargs):
         context = {
-            "cart": Cart(request)
+            "cart": cart(request)
         }
         return Response(context)

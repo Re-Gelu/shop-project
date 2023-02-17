@@ -2,7 +2,7 @@ version: "3.10"
    
 services:
 
-  web: &web
+  web:
     build:
       context: ./
       dockerfile: Dockerfile
@@ -10,7 +10,7 @@ services:
       sh -c "python manage.py createcachetable
              python manage.py migrate --noinput
              python manage.py collectstatic --no-input --clear
-             gunicorn Site.wsgi:application --bind 0.0.0.0:8000"
+             gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     container_name: 'gunicorn_web'
     volumes:
       - static_volume:/home/app/web/staticfiles
@@ -49,11 +49,19 @@ services:
     restart: always
 
   celery:
-    <<: *web
-    command: celery -A Site worker --beat --loglevel=info
+    command: celery -A config worker --beat --loglevel=info --logfile=logs/celery/celery.log
     container_name: 'celery'
+    build:
+      context: ./
+    volumes:
+      - ./:/home/app
     env_file:
       - ./.env.prod
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
     depends_on:
       - web
       - redis

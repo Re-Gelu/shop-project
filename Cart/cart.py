@@ -1,11 +1,11 @@
 from decimal import Decimal
 from django.conf import settings
-from Shop.models import *
+from shop.models import *
 from rest_framework.serializers import ModelSerializer
 from rest.serializers import CartSerializer
 
 
-class Cart:
+class cart:
 
     class ProductSerializer(ModelSerializer):
 
@@ -45,7 +45,7 @@ class Cart:
         # Product amount set
         self.cart[product_id]['product_amount'] += amount if action else -amount
 
-        # Cart limits check
+        # cart limits check
         if not self.cart[product_id]['available']:
             self.remove(product)
         elif self.cart[product_id]['product_amount'] >= self.cart[product_id]['stock']:

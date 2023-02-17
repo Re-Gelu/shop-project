@@ -10,10 +10,10 @@ from .QIWI import get_QIWI_p2p
 from .models import *
 from .forms import *
 
-from Shop.models import *
-from Shop.views import CustomTemplateView
+from shop.models import *
+from shop.views import CustomTemplateView
 
-from Cart.cart import Cart
+from cart.cart import cart
 
 
 @method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
@@ -32,7 +32,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
         return render(request, self.template_name, self.get_context_data())
     
     def post(self, request, *args, **kwargs):
-        cart = Cart(request)
+        cart = cart(request)
         form = SubmitOrder(request.POST or None)
         if form.is_valid():
             p2p = get_QIWI_p2p()
@@ -48,7 +48,7 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
                 )
             else:
                 cd = form.cleaned_data
-                new_order = Orders()
+                new_order = orders()
 
                 # Создание объекта нового заказа
                 new_order.user_id = request.user.id

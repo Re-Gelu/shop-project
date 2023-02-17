@@ -6,11 +6,11 @@ from django_celery_results.apps import CeleryResultConfig
 from django_celery_beat.apps import BeatConfig
 from django.conf import settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Site.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-app = Celery('Site', broker=settings.REDIS_URL)
+app = Celery('config', broker=settings.REDIS_URL)
       
-app.config_from_object('Site.settings')
+app.config_from_object('config.settings')
 app.autodiscover_tasks()
 
 app.conf.update(result_extended=True)

@@ -74,13 +74,13 @@ v0.2 changes:
 
         Команды Celery:
 
-            celery flower -A Site --port=5555
+            celery flower -A config --port=5555
 
-            celery -A Site beat --loglevel=info
+            celery -A config beat --loglevel=info
             
-            celery -A Site worker --pool=solo --loglevel=info
+            celery -A config worker --pool=solo --loglevel=info
 
-            celery -A Site worker --beat --loglevel=info
+            celery -A config worker --beat --loglevel=info
 
     -   При помощи библиотеки filebrower добавлена возможность использования разных заранее определённых размеров изображений и редактирования изображений в админке
 
@@ -116,9 +116,9 @@ v0.2 changes:
 
     -   Покрыто все тестами
 
-        Cart -
-        Login +
-        Shop +
-        Orders -
+        cart -
+        login +
+        shop +
+        orders -
 
     -   Добавлен простенький REST API
