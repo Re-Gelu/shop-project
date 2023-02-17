@@ -11,10 +11,38 @@
             "program": "${workspaceFolder}\\manage.py",
             "args": [
                 "runserver",
-                "0.0.0.0:8080"
+                /* "0.0.0.0:8080" */
             ],
             "django": true,
             "justMyCode": true
+        },
+        {
+          "name": "Python: Celery",
+          "type": "python",
+          "request": "launch",
+          "module": "celery",
+          "args": ["-A", "config", "worker", "--pool=solo", "--loglevel=info"],
+          "justMyCode": true
+        },
+        {
+            "name": "Python: Celery beat",
+            "type": "python",
+            "request": "launch",
+            "module": "celery",
+            "args": ["-A", "config", "beat", "--loglevel=info"],
+            "justMyCode": true
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Python: Django / Celery",
+            "configurations": ["Python: Django", "Python: Celery", "Python: Celery beat"],
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "",
+                "order": 0
+            }
         }
     ]
 }
