@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'extra_settings',
     'phonenumber_field',
     'rest_framework',
+    'drf_yasg',
     'django_celery_results',
     'django_celery_beat',
     'crispy_forms',
