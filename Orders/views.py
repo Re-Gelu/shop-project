@@ -13,31 +13,31 @@ from .forms import *
 from shop.models import *
 from shop.views import CustomTemplateView
 
-from cart.cart import cart
+from cart.cart import Cart
 
 
 @method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
 class OrderPageView(LoginRequiredMixin, CustomTemplateView):
     """ Order page class view """
-    
+
     template_name = "order.html"
     login_url = 'login'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["submit_form"] = SubmitOrder()
         return context
-    
+
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, self.get_context_data())
-    
+
     def post(self, request, *args, **kwargs):
-        cart = cart(request)
+        cart = Cart(request)
         form = SubmitOrder(request.POST or None)
         if form.is_valid():
             p2p = get_QIWI_p2p()
             if p2p == None:
-                
+
                 # Если нет или не прошел проверку ключ QIWI
                 return HttpResponse(
                     f"""
@@ -52,14 +52,14 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
 
                 # Создание объекта нового заказа
                 new_order.user_id = request.user.id
-                new_order.adress = f"Адрес: {cd['adress']}"
-                new_order.contacts = f"Номер телефона: {cd['phone_number']}"
+                new_order.adress = f"Адрес: {cd.get('adress')}"
+                new_order.contacts = f"Номер телефона: {cd.get('phone_number')}"
 
                 new_order.product_info = ""
                 product_list = {}
                 for key, item in enumerate(cart):
-                    new_order.product_info += f"\n{key + 1}) ID товара: {item['id']}, Наименование товара: {item['name']}"
-                    new_order.product_info += f", Общая стоимость товара: {item['total_promo_price']}$" if 'total_promo_price' in item else f", Общая стоимость товара: {item['total_price']}$"
+                    new_order.product_info += f"\n{key + 1}) ID товара: {item.get('id')}, Наименование товара: {item.get('name')}"
+                    new_order.product_info += f", Общая стоимость товара: {item.get('total_promo_price')}$" if 'total_promo_price' in item else f", Общая стоимость товара: {item.get('total_price')}$"
                     product_list[key] = item
 
                 new_order.product_info += f"\n\nИТОГО: {cart.get_total_promo_price()} RUB"

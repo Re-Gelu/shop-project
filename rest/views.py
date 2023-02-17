@@ -11,7 +11,7 @@ from .serializers import *
 from shop.models import *
 from orders.models import *
 from shop.models import Products
-from cart.cart import cart
+from cart.cart import Cart
 
 # ViewSets
 
@@ -19,7 +19,7 @@ class CartViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
     
     def list(self, request):
-        queryset = [item for item in cart(request)]
+        queryset = [item for item in Cart(request)]
         serializer = CartSerializer(queryset)
         return Response(serializer.data)
     
@@ -29,17 +29,17 @@ class CartViewSet(viewsets.ViewSet):
             product = get_object_or_404(Products, id=serializer.validated_data.get("id"))
             action = serializer.validated_data.get("action")
             amount = serializer.validated_data.get("amount")
-            cart(request).action(
+            Cart(request).action(
                 product=product,
                 action=action,
                 amount=amount
             )
-            return Response(cart(request).get_cart_list(), status=status.HTTP_201_CREATED)
+            return Response(Cart(request).get_cart_list(), status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     def delete(self, request):
-        cart(request).clear()
+        Cart(request).clear()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     @action(detail=False, methods=['post'])
@@ -86,7 +86,7 @@ class HeaderOffcanvasBodyView(APIView):
     
     def get(self, request, *args, **kwargs):
         context = {
-            "cart": cart(request)
+            "cart": Cart(request)
         }
         return Response(context)
 
@@ -97,6 +97,6 @@ class DashboardCartView(APIView):
 
     def get(self, request, *args, **kwargs):
         context = {
-            "cart": cart(request)
+            "cart": Cart(request)
         }
         return Response(context)

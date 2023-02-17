@@ -3,7 +3,7 @@ from django.urls import reverse, resolve
 
 from shop.models import Products
 
-from .cart import cart
+from .cart import Cart
 from .views import *
 
 class CartViewsTests(TestCase):
@@ -16,7 +16,7 @@ class CartViewsTests(TestCase):
             stock=100,
             available=True
         )
-        self.cart = cart(self.client)
+        self.cart = Cart(self.client)
         self.url_1 = reverse('cart_add_one', args=(1, ))
         self.response_1 = self.client.get(self.url_1)
         self.url_2 = reverse('cart_remove_one', args=(1, ))
@@ -65,7 +65,7 @@ class CartTests(TestCase):
             stock=100,
             available=True
         )
-        self.cart = cart(self.client)
+        self.cart = Cart(self.client)
 
     def test_cart_actions(self):
         self.cart.action(self.product, 5, True)

@@ -16,7 +16,7 @@ from .forms import *
 
 from orders.models import *
 
-from cart.cart import cart
+from cart.cart import Cart
 
 
 @method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
@@ -27,7 +27,7 @@ class CustomTemplateView(TemplateView):
         context["categories"] = Categories.objects.all()
         context["subcategories"] = Subcategories.objects.all()
         context["random_product"] = Products.objects.order_by('?').first()
-        context["cart"] = cart(self.request)
+        context["cart"] = Cart(self.request)
         return context
         
 
