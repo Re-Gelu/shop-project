@@ -1,5 +1,6 @@
 Django==4.0.8
 djangorestframework==3.13.1
+drf-yasg
 django-cors-headers
 django-filter==22.1
 FileBrowser==1.1.3
