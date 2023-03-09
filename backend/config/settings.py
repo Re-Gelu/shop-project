@@ -224,7 +224,7 @@ REST_FRAMEWORK = {
 
 # django-debug-toolbar settings
 
-INTERNAL_IPS = ["127.0.0.1", "176.193.212.96"]
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Redis settings
 

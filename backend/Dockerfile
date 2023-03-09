@@ -19,13 +19,12 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# staticfiles and mediafiles
+# staticfiles folder
 RUN mkdir $BACKEND_APP_HOME/staticfiles
 
 # entrypoint
 RUN sed -i 's/\r$//g'  $BACKEND_APP_HOME/entrypoint.sh
 RUN chmod +x  $BACKEND_APP_HOME/entrypoint.sh
-
 ENTRYPOINT ["./entrypoint.sh"]
 
 EXPOSE 8000

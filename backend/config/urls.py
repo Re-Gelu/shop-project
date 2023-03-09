@@ -88,7 +88,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     
     # Auth URLS
-    path('api/api-auth', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
     
     path('api/auth/', include('djoser.urls')),
     
@@ -102,6 +102,9 @@ urlpatterns = [
     
     # Orders app URLS
     path('', include('orders.urls')),
+    
+    # Cart app URLS
+    path('', include('cart.urls')),
 ]
 
 if settings.DEBUG:

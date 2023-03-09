@@ -4,6 +4,8 @@ from rest_framework.decorators import action
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.renderers import TemplateHTMLRenderer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from shop.models import Products
@@ -17,9 +19,15 @@ class CartViewSet(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
 
     def list(self, request):
-        queryset = [item for item in Cart(request)]
+        cart = Cart(request)
+        queryset = [item for item in cart]
         serializer = CartSerializer(queryset)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        response = {
+            "cart": serializer.data,
+            "cart_total_price": cart.get_total_price(),
+            "cart_total_promo_price": cart.get_total_promo_price(),
+        }
+        return Response(response, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(
         request_body=openapi.Schema(
@@ -67,3 +75,24 @@ class CartViewSet(viewsets.ViewSet):
     def clear(self, request):
         Cart(request).clear()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class HeaderOffcanvasBodyView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'cart_offcanvas_body.html'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "cart": Cart(request)
+        }
+        return Response(context)
+
+
+class DashboardCartView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'dashboard_cart.html'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "cart": Cart(request)
+        }
+        return Response(context)

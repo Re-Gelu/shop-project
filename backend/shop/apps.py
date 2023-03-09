@@ -8,5 +8,7 @@ class ShopConfig(AppConfig):
     verbose_name = 'Магазин'
 
     def ready(self):
-        watson.register(self.get_model("Products"),
-                        fields=("name", "information"))
+        watson.register(
+            self.get_model("Products"),
+            fields=("name", "information")
+        )
