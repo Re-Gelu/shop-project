@@ -55,7 +55,7 @@
 
 ## :whale: Работа с Docker
 
-- Поднять контейнер (prod/dev - .env)
+- Собрать проект (prod.env или dev.env)
   ```
   $ docker-compose -f docker-compose.yml up -d --build
   ```
@@ -95,20 +95,18 @@ $ docker-compose -f docker-compose.yml exec web python manage.py createsuperuser
   
 ## :sleeping: REST API
 
-Небольшой REST API, мб пригодится когда буду заниматься выделенным фронтом. Для доступа к некоторым разделам API нужны права администратора.
-
-![REST API](https://user-images.githubusercontent.com/75813517/205884672-97a00e2e-3978-49ce-a769-faef4479ddbc.png)
+Полный REST API, пригодится когда буду заниматься выделенным фронтом. Для доступа к некоторым разделам API нужны права администратора.
+API swagger:  ```http://.../swagger``` 
 
 ## :black_nib: Авто-заполнение магазина для быстрого тестирования
 
+POST запрос по адресу ```http://.../api/db_auto_fill``` с содержимым в формате:
+
 ```
-http://.../db_auto_fill/7/Categories/
-```
-```
-http://.../db_auto_fill/10/Subcategories/
-```
-```
-http://.../db_auto_fill/300/Products/
+{
+  model: "Categories",
+  amount: 7
+}
 ```
 
 > Необходимы права администратора

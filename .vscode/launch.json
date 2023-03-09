@@ -1,48 +1,65 @@
 {
-    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
-    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
-    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}\\manage.py",
-            "args": [
-                "runserver",
-                /* "0.0.0.0:8080" */
-            ],
-            "django": true,
-            "justMyCode": true
-        },
-        {
-          "name": "Python: Celery",
-          "type": "python",
-          "request": "launch",
-          "module": "celery",
-          "args": ["-A", "config", "worker", "--pool=solo", "--loglevel=info"],
-          "justMyCode": true
-        },
-        {
-            "name": "Python: Celery beat",
-            "type": "python",
-            "request": "launch",
-            "module": "celery",
-            "args": ["-A", "config", "beat", "--loglevel=info"],
-            "justMyCode": true
-        }
-    ],
-    "compounds": [
-        {
-            "name": "Python: Django / Celery",
-            "configurations": ["Python: Django", "Python: Celery", "Python: Celery beat"],
-            "stopAll": true,
-            "presentation": {
-                "hidden": false,
-                "group": "",
-                "order": 0
-            }
-        }
-    ]
+  // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+  // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+  // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Django",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}\\backend\\manage.py",
+      "args": ["runserver"],
+      "django": true,
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Celery",
+      "type": "python",
+      "request": "launch",
+      "module": "celery",
+      "cwd": "${workspaceFolder}/backend",
+      "args": ["-A", "config", "worker", "--pool=solo", "--loglevel=info"],
+      "justMyCode": true
+    },
+    {
+      "name": "Python: CeleryBeat",
+      "type": "python",
+      "request": "launch",
+      "module": "celery",
+      "cwd": "${workspaceFolder}/backend",
+      "args": ["-A", "config", "beat", "--loglevel=info"],
+      "justMyCode": true
+    },
+    {
+      "name": "Node: React",
+      "type": "node-terminal",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend",
+      "skipFiles": ["<node_internals>/**"],
+      "command": "npm start"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Python: Django / Celery, Node: React",
+      "configurations": ["Python: Django", "Python: Celery", "Python: CeleryBeat", "Node: React"],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 0
+      }
+    },
+    {
+      "name": "Python: Django / Celery",
+      "configurations": ["Python: Django", "Python: Celery", "Python: CeleryBeat"],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 1
+      }
+    }
+  ]
 }
