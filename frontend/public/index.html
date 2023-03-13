@@ -1,43 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        <!-- Title -->
+        <title>Настройте параметр SITE_NAME...</title>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
-</html>
+        <style>
+            :root {
+                --main-color: #dc143c !important;
+                --second-main-color: #dc143c !important;
+                --second-main-color-o: rgba(220, 20, 60, 0.9) !important;
+                --shadow-color: rgba(220, 20, 60, 0.5) !important;
+                --a-text-active: #dc143c !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Header --> 
+        <header id="header" class="navbar navbar-expand-xl sticky-top">    
+            <div class="container-fluid">
+
+                <!-- Left header block - Logo -->
+                <a href="/" class="navbar-brand logo ms-3">Настройте параметр SITE_NAME...</a>
+
+                <!-- Navbar toggler -->
+                <button type="button" class="navbar-toggler text-black" data-bs-toggle="collapse"
+                data-bs-target="#navbar-menu" aria-controls="navbar-menu" 
+                aria-expanded="false" aria-label="Переключатель навигации">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Navigation menu -->
+                <nav id="navbar-menu" class="navbar-collapse collapse">
+
+                    <hr class="d-xl-none border-top-colored"> 
+
+                    <ul class="navbar-nav top-nav-menu me-auto d-inline-flex">
+                        <li class="nav-item px-4">
+                            <a class="nav-link text-reset uk-button-text" aria-current="page" href="/">Домой</a>
+                        </li>
+
+                        <li class="nav-item px-4">
+                            <a class="nav-link text-reset uk-button-text " href="/contacts">Контакты</a>
+                        </li>
+
+                        <li class="nav-item px-4">
+                            <a class="nav-link text-reset uk-button-text " href="/delivery">Доставка</a>
+                        </li>
+
+                        <li class="nav-item px-4">
+                            <a class="nav-link text-reset uk-button-text " href="/about">О нас</a>
+                        </li>
+                
+                    </ul>
+
+                    <hr class="d-xl-none border-top-colored"> 
+
+                    <!-- Right header block --> 
+                    <div class="d-inline-flex">
+                        <div class="header-element me-5 ms-3 a-important"><i class="bi bi-search"></i></div>
+
+                            <!-- Search form --> 
+                            <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <form class="uk-search uk-search-navbar uk-width-1-1" method="get" action="{% url 'products' %}">
+                                            <input class="uk-search-input" name="search_query" id="search_query" type="search" placeholder="Поиск..."  autocomplete="off" autofocus>
+                                        </form>
+                                    </div>
+                                    <div class="uk-width-auto">
+                                        <div class="uk-navbar-dropdown-close a-important" uk-close></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        <a class="header-element me-5" href="/dashboard">
+                            <i class="bi bi-person"></i>
+                        </a>
+
+                        <div id="shopping-cart-offcanvas-open-button" class="header-element me-5 a-important" href="#shopping-cart-offcanvas" data-bs-toggle="offcanvas" aria-controls="shopping-cart-offcanvas">
+                            <i class="bi bi-cart2"></i>
+                        </div>
+
+                    </div>
+
+                </nav>
+            </div>
+        </header>
+
+        <!-- Offcanvas -->
+        <aside id="shopping-cart-offcanvas" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="shopping-cart-offcanvas-label">
+            
+            <!-- Offcanvas header-->
+            <div class="offcanvas-header my-1">
+                <p class="offcanvas-title h4 header-element badge uk-button-text" id="shopping-cart-offcanvas-label">Корзина  <i class="bi bi-cart2"></i></span></p>
+                <button type="button" class="btn-close btn-lg border-colored" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+            </div>
+
+            <!-- Decoration -->
+            <hr class="border-top-colored">
+
+            <!-- Offcanvas body-->
+            <div id="cart-offcanvas-body" class="offcanvas-body"></div>
+
+            <!-- Decoration -->
+            <hr class="border-top-colored">
+        </aside>
+
+        <!-- Wrapper -->
+        <div id="wrapper" class="container-fluid">
+
+            <!-- Wrapper content -->
+            <main class="row" id="root">
+            </main>
+
+            <!-- Back to top button -->
+            <a id="btn-back-to-top" href="#" type="button" class="btn btn-light position-fixed" uk-totop uk-scroll></a>
+
+        </div>
+        
+        <!-- Footer -->
+        <footer class="container text-center my-5">
+
+            <div class="row justify-content-center h-100">
+                <div class="col-5 my-auto p-0">
+                    <hr class="text-black-50 my-0">
+                </div>
+
+                <div class="col-auto my-auto">
+                    <i class="bi bi-circle fs-4 opacity-25 my-0"></i>
+                </div>
+
+                <div class="col-5 my-auto p-0">
+                    <hr class="text-black-50 my-0">
+                </div>	
+            </div>
+
+            <div class="mt-4">© 2022 Название сайта - Интернет-маркетплейс на Django</div>
+            <sub class="text-colored float-end pt-4 pb-5 d-inline-flex">made by Re;Gelu
+                <div class="waves-container mx-3">
+                  <div class="wave" style="--i: 1"></div>
+                </div>
+            </sub>
+            
+        </footer>
+    </body>
+</html> 
