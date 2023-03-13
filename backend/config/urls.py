@@ -52,6 +52,8 @@ router.register(r'subcategories', SubcategoriesViewSet)
 router.register(r'orders', OrdersViewSet)
 router.register(r'cart', CartViewSet, basename='cart')
 router.register(r'db_auto_fill', DBAutoFillViewSet, basename='db_auto_fill')
+router.register(r'main_settings', MainSettingsViewSet, basename='main_settings')
+router.register(r'index_page', IndexPageViewSet, basename='api_index_page')
 
 urlpatterns = [
 

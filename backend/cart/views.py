@@ -11,6 +11,7 @@ from drf_yasg import openapi
 from shop.models import Products
 from .serializers import *
 from .cart import Cart
+import django.contrib.auth
 
 # ViewSets
 
@@ -41,11 +42,12 @@ class CartViewSet(viewsets.ViewSet):
         responses={'201': CartActionSerializer}
     )
     def create(self, request):
+        cart = Cart(request)
         serializer = CartActionSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        Cart(request).action(
+        cart.action(
             product=get_object_or_404(
                 Products,
                 id=serializer.validated_data.get("id")
@@ -53,7 +55,13 @@ class CartViewSet(viewsets.ViewSet):
             action=serializer.validated_data.get("action"),
             amount=serializer.validated_data.get("amount")
         )
-        return Response(Cart(request).get_cart_list(), status=status.HTTP_201_CREATED)
+        
+        response = {
+            "cart": cart.get_cart_list(),
+            "cart_total_price": cart.get_total_price(),
+            "cart_total_promo_price": cart.get_total_promo_price(),
+        }
+        return Response(response, status=status.HTTP_201_CREATED)
 
     def destroy(self, request, pk=None):
         product = get_object_or_404(

@@ -30,12 +30,9 @@ ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:1337',
-    'http://localhost:8000'
+    'http://localhost:8000',
+    'http://localhost:3000'
 ]
-
-CSRF_COOKIE_SECURE = True
-
-#SESSION_COOKIE_SECURE = True 
 
 DJANGO_SECURE_SSL_REDIRECT = False
 

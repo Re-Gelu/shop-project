@@ -79,6 +79,45 @@ class DBAutoFillViewSet(viewsets.ViewSet):
             status=status.HTTP_201_CREATED
         )
         
+
+class MainSettingsViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        return Response({
+            "SITE_NAME": Setting.get("SITE_NAME"),
+            "PRODUCTS_PER_PAGE": Setting.get("PRODUCTS_PER_PAGE"),
+            "EMAIL_1": Setting.get("EMAIL_1"),
+            "EMAIL_2": Setting.get("EMAIL_2"),
+            "PHONE_NUMBER_1": Setting.get("PHONE_NUMBER_1"),
+            "PHONE_NUMBER_2": Setting.get("PHONE_NUMBER_2"),
+            "LOCATION": Setting.get("LOCATION"),
+            "LOCATION_MAP_HTML": Setting.get("LOCATION_MAP_HTML"),
+            "ABOUT_PAGE_INFORMATION": Setting.get("ABOUT_PAGE_INFORMATION"),
+            "LOCATION_MAP_HTML": Setting.get("LOCATION_MAP_HTML"),
+            "LOCATION_MAP_HTML": Setting.get("LOCATION_MAP_HTML"),
+        },
+        status=status.HTTP_200_OK)
+
+
+class IndexPageViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        categories = Categories.objects.all()
+
+        # Get N products per category in dict
+        latest_products_per_category = [
+            latest_products_per_category.append({
+                "id": category.id,
+                "name": category.name,
+                "products": Products.objects.filter(
+                    subcategory__category=category
+                )[:10]
+            }) for category in categories
+        ]
+
+        serializer = IndexPageSerializer(latest_products_per_category)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
         
 # Views
 

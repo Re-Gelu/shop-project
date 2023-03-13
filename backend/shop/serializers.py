@@ -43,3 +43,14 @@ class SubcategoriesSerializer(serializers.ModelSerializer):
 class DBAutoFillSerializer(serializers.Serializer):
     amount = serializers.IntegerField(required=True, min_value=1, max_value=1000)
     model = serializers.CharField(required=True, min_length=1, max_length=100)
+    
+    
+class IndexPageItemSerializer(serializers.ModelSerializer):
+    products = ProductsSerializer(many=True)
+    class Meta:
+        model = Categories
+        fields = ['id', 'name', 'products']
+        
+
+class IndexPageSerializer(serializers.ListSerializer):
+    child = IndexPageItemSerializer()
