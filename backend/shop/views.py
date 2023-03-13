@@ -45,11 +45,13 @@ class ProductsViewSet(viewsets.ModelViewSet):
 class CategoriesViewSet(viewsets.ModelViewSet):
     queryset = Categories.objects.all()
     serializer_class = CategoriesSerializer
+    pagination_class = None
 
 
 class SubcategoriesViewSet(viewsets.ModelViewSet):
     queryset = Subcategories.objects.all()
     serializer_class = SubcategoriesSerializer
+    pagination_class = None
 
 
 class DBAutoFillViewSet(viewsets.ViewSet):
@@ -105,17 +107,20 @@ class IndexPageViewSet(viewsets.ViewSet):
         categories = Categories.objects.all()
 
         # Get N products per category in dict
-        latest_products_per_category = [
-            latest_products_per_category.append({
+        queryset = [
+            {
                 "id": category.id,
                 "name": category.name,
+                "subcategories": Subcategories.objects.filter(
+                    category=category
+                ),
                 "products": Products.objects.filter(
                     subcategory__category=category
                 )[:10]
-            }) for category in categories
+            } for category in categories
         ]
 
-        serializer = IndexPageSerializer(latest_products_per_category)
+        serializer = IndexPageSerializer(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)
         
         

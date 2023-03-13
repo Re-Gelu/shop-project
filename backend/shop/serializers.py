@@ -47,9 +47,11 @@ class DBAutoFillSerializer(serializers.Serializer):
     
 class IndexPageItemSerializer(serializers.ModelSerializer):
     products = ProductsSerializer(many=True)
+    subcategories = SubcategoriesSerializer(many=True)
+    
     class Meta:
         model = Categories
-        fields = ['id', 'name', 'products']
+        fields = ['id', 'name', 'subcategories', 'products']
         
 
 class IndexPageSerializer(serializers.ListSerializer):
