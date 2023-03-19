@@ -2,8 +2,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { ApiProvider } from './components/ApiContext';
 import Base from './components/Base.js';
 import Index from './components/Index.js';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
+import CartOffcanvas from './components/CartOffcanvas.js';
 
 const router = createBrowserRouter([
 	{	
@@ -47,8 +51,15 @@ const router = createBrowserRouter([
 	},
 ]);
 
-function App() {
-  	return (<RouterProvider router={router} />);
+const App = () => {
+  	return (
+		<ApiProvider>
+			<Header />
+			<CartOffcanvas />
+			<RouterProvider router={router} />
+			<Footer />
+		</ApiProvider>
+	);
 }
 
 export default App;

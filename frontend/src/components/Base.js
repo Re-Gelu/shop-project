@@ -8,16 +8,36 @@ const Base = (props) => {
     const [subcategories, setSubcategories] = useState([]);
 
     useEffect(() => {
-        axios.get('categories')
-        .then(response => setCategories(response.data))
-        .catch(error => console.log(error));
+        const savedCategories = sessionStorage.getItem('categories');
+        const savedSubcategories = sessionStorage.getItem('subcategories');
 
-        axios.get('subcategories')
-        .then(response => setSubcategories(response.data))
-        .catch(error => console.log(error));
+        if (savedCategories && savedSubcategories) {
+            setCategories(JSON.parse(savedCategories));
+            setSubcategories(JSON.parse(savedSubcategories));
+        } else {
+            axios.get('categories')
+            .then(response => {
+                setCategories(response.data);
+                sessionStorage.setItem('categories', JSON.stringify(response.data));
+            })
+            .catch(error => console.log(error));
+
+            axios.get('subcategories')
+            .then(response => {
+                setSubcategories(response.data);
+                sessionStorage.setItem('subcategories', JSON.stringify(response.data));
+            })
+            .catch(error => console.log(error));
+        };
     }, []);
 
     return (
+        /* <!-- Wrapper --> */
+        <div id="wrapper" className="container-fluid">
+
+            {/* <!-- Wrapper content --> */}
+            <main id="root">
+            
         <div className="row">
         <div className="col-xl-3 col-12 pt-3">
             <aside className="sidebar">
@@ -36,7 +56,7 @@ const Base = (props) => {
                                         <ul className="uk-nav uk-dropdown-nav p-0">  
                                             <hr className="text-black-50"/>
                                             {subcategories.map((subcategory, key) =>
-                                                subcategory.category == category.id &&
+                                                subcategory.category === category.id &&
                                                     <span key={key}>
                                                         <li ><a href={"products/" + category.name + '/' + subcategory.name} className="a-important">{subcategory.name}</a></li>
                                                         <hr className="text-black-50"></hr>
@@ -46,7 +66,7 @@ const Base = (props) => {
                                     </div>
                                 </div>
 
-                                {!(key == categories.length - 1) &&
+                                {!(key === categories.length - 1) &&
                                     <hr className="text-black-50"/>
                                 }
                             </span>
@@ -66,9 +86,10 @@ const Base = (props) => {
             </aside>
         </div>
 
-        <div className="col-xl-9 col-12 pt-3">  
-            <Outlet />
+        <Outlet />
         </div>
+        </main>
+
         </div>
     );
 };
