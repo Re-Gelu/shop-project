@@ -14,23 +14,26 @@ const ProductPage = ({product}) => {
     );
 };
 
-export async function getServerSideProps(context) {
-	const productResponse = await axios.get(`products/${context.query.productID}`);
+export async function getStaticPaths() {
+	const productResponse = await axios.get(`products/`);
+	const productAmount = productResponse.data.count;
+	const paths = [...Array(productAmount).keys()].map((product) => ({
+		params: {productID: product.toString()}
+	}));
+	return {
+		paths: paths,
+		fallback: false
+	}
+}
+
+export async function getStaticProps({ params }) {
+    const productResponse = await axios.get(`products/${params.productID}`);
 	const product = productResponse.data;
 	return {
 		props: {
 			product
 		}
 	}
-};
-
-/* export async function getStaticPaths() {
-	return {
-		paths: [
-			{ params: {productID} }
-		],
-		fallback: false
-	}
-} */
+}
 
 export default ProductPage;
