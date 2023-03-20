@@ -4,10 +4,12 @@ import {
 } from "react-router-dom";
 import { ApiProvider } from './components/ApiContext';
 import Base from './components/Base.js';
-import Index from './components/Index.js';
+import IndexPage from './components/IndexPage.js';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
 import CartOffcanvas from './components/CartOffcanvas.js';
+import ProductPage from './components/ProductPage.js';
+import ShopPage from './components/ShopPage.js';
 
 const router = createBrowserRouter([
 	{	
@@ -16,20 +18,24 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <Index />
+				element: <IndexPage />
+			},
+			{
+				path: "/product/:productID",
+				element: <ProductPage />
 			},
 			{
 				path: "/products",
-				element: <div>products page</div>
+				element: <ShopPage />
 			},
 			{
 				path: "/products/:category",
-				element: <div>products page</div>,
+				element: <ShopPage />,
 
 			},
 			{
 				path: "/products/:category/:subcategory",
-				element: <div>products page</div>
+				element: <ShopPage />
 			},
 		],
 	},

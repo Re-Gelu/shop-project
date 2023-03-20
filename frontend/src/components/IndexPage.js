@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard.js";
 import React from "react"
 import axios from '../api.js';
 
-const Index = (props) => {
+const IndexPage = (props) => {
 
     const [IndexPageData, setIndexPageData] = useState([]);
 
@@ -30,7 +30,7 @@ const Index = (props) => {
 
                                     <li id="scroller-item" className="card me-4 overflow-auto" tabIndex="0">
                                             <div className="card-header">
-                                                <a href="#" className="lead text-colored">Подкатегории: </a>
+                                                <div className="lead text-colored">Подкатегории: </div>
                                             </div>
 
                                             <div className="card-body">
@@ -82,4 +82,4 @@ const Index = (props) => {
     )
 };
 
-export default Index;
+export default IndexPage;

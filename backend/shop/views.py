@@ -107,18 +107,20 @@ class IndexPageViewSet(viewsets.ViewSet):
         categories = Categories.objects.all()
 
         # Get N products per category in dict
-        queryset = [
-            {
-                "id": category.id,
-                "name": category.name,
-                "subcategories": Subcategories.objects.filter(
+        queryset = [{
+            "id": category.id,
+            "name": category.name,
+            "subcategories": Subcategories.objects.filter(
                     category=category
-                ),
-                "products": Products.objects.filter(
+                    ),
+            "products": ProductsWithAbsoluteURLSerializer(
+                Products.objects.filter(
                     subcategory__category=category
-                )[:10]
-            } for category in categories
-        ]
+                )[:10],
+                many=True,
+                context={'request': request}
+            ).data
+        } for category in categories]
 
         serializer = IndexPageSerializer(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)

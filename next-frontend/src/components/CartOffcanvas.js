@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { MEDIA_SERVER_URL } from "../config.js";
-import { ApiContext } from './ApiContext.js';
+import { MEDIA_SERVER_URL } from "@/config.js";
+import { ApiContext } from '@/components/ApiContext.js';
 
 const CartOffcanvas = (props) => {
 	const { 
 		cart, 
-		cartTotalPrice, 
+		cartTotalPrice,
 		cartTotalPromoPrice, 
 		cartEventHandler
 	} = useContext(ApiContext);

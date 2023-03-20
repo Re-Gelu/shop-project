@@ -32,18 +32,18 @@
       "justMyCode": true
     },
     {
-      "name": "Node: React",
+      "name": "Node: Next React",
       "type": "node-terminal",
       "request": "launch",
-      "cwd": "${workspaceFolder}/frontend",
+      "cwd": "${workspaceFolder}/next-frontend",
       "skipFiles": ["<node_internals>/**"],
-      "command": "npm start"
+      "command": "npm run dev"
     }
   ],
   "compounds": [
     {
-      "name": "Python: Django / Celery, Node: React",
-      "configurations": ["Python: Django", "Python: Celery", "Python: CeleryBeat", "Node: React"],
+      "name": "Python: Django / Celery, Node: Next React",
+      "configurations": ["Python: Django", "Python: Celery", "Python: CeleryBeat", "Node: Next React"],
       "stopAll": true,
       "presentation": {
         "hidden": false,

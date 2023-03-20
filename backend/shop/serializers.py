@@ -24,8 +24,18 @@ class ProductsSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'name', 'price', 'promo_price', 'image',
             'information', 'full_information', 'stock',
-            'available', 'created', 'updated', 'subcategory'
+            'available', 'created', 'updated', 'subcategory',
+            'was_publiched_recently'
         ]
+
+
+class ProductsWithAbsoluteURLSerializer(ProductsSerializer):
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get('request')
+        if request is not None:
+            data['image'] = request.build_absolute_uri(data['image'])
+        return data
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -46,7 +56,7 @@ class DBAutoFillSerializer(serializers.Serializer):
     
     
 class IndexPageItemSerializer(serializers.ModelSerializer):
-    products = ProductsSerializer(many=True)
+    products = serializers.ListField()
     subcategories = SubcategoriesSerializer(many=True)
     
     class Meta:
