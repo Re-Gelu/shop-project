@@ -25,7 +25,7 @@ class ProductsSerializer(serializers.ModelSerializer):
             'id', 'name', 'price', 'promo_price', 'image',
             'information', 'full_information', 'stock',
             'available', 'created', 'updated', 'subcategory',
-            'was_publiched_recently'
+            'category', 'was_publiched_recently'
         ]
 
 

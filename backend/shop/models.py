@@ -129,6 +129,9 @@ class Products(models.Model):
 
     def was_publiched_recently(self):
         return self.created >= timezone.now() - datetime.timedelta(days=7)
+    
+    def category(self):
+        return self.subcategory.category.id
 
     def save(self, *args, **kwargs):
         if self.stock == 0:
