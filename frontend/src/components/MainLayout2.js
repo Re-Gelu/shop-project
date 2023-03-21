@@ -20,13 +20,13 @@ const MainLayout2 = ({children, categories, subcategories}) => {
 							<ul className="card-body list-unstyled">
 								{categories && categories.map((category, key) =>
 									<span key={key}>
-										<li className="my-3 px-0 text-left container">
+										<li className="my-3 px-0 text-left container" tabIndex="0" aria-haspopup="true">
 											<Link href={"products/" + category.name}>{category.name}
 												<i className="bi bi-caret-right pe-1 float-end "></i>
 											</Link>
 										</li>
 										
-										<div uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;">
+										<div className="uk-drop uk-dropdown" uk-dropdown="pos: right-top; animation: uk-animation-slide-left-medium; duration: 300;">
 											<div>
 												<ul className="uk-nav uk-dropdown-nav p-0">  
 													<hr className="text-black-50"/>

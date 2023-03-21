@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const Header = (props) => {
     return (
         /* <!-- Header --> */
@@ -5,7 +7,7 @@ const Header = (props) => {
             <div className="container-fluid">
 
                 {/* <!-- Left header block - Logo --> */}
-                <a href="/" className="navbar-brand logo ms-3">Настройте параметр SITE_NAME...</a>
+                <Link href="/" className="navbar-brand logo ms-3">Настройте параметр SITE_NAME...</Link>
 
                 {/* <!-- Navbar toggler --> */}
                 <button type="button" className="navbar-toggler text-black" data-bs-toggle="collapse"
@@ -21,19 +23,19 @@ const Header = (props) => {
 
                     <ul className="navbar-nav top-nav-menu me-auto d-inline-flex">
                         <li className="nav-item px-4">
-                            <a className="nav-link text-reset uk-button-text" aria-current="page" href="/">Домой</a>
+                            <Link className="nav-link text-reset uk-button-text" aria-current="page" href="/">Домой</Link>
                         </li>
 
                         <li className="nav-item px-4">
-                            <a className="nav-link text-reset uk-button-text " href="/contacts">Контакты</a>
+                            <Link className="nav-link text-reset uk-button-text " href="/contacts">Контакты</Link>
                         </li>
 
                         <li className="nav-item px-4">
-                            <a className="nav-link text-reset uk-button-text " href="/delivery">Доставка</a>
+                            <Link className="nav-link text-reset uk-button-text " href="/delivery">Доставка</Link>
                         </li>
 
                         <li className="nav-item px-4">
-                            <a className="nav-link text-reset uk-button-text " href="/about">О нас</a>
+                            <Link className="nav-link text-reset uk-button-text " href="/about">О нас</Link>
                         </li>
                 
                     </ul>
@@ -42,26 +44,25 @@ const Header = (props) => {
 
                     {/* <!-- Right header block --> */} 
                     <div className="d-inline-flex">
-                        <div className="header-element me-5 ms-3 a-important"><i className="bi bi-search fs-2"></i></div>
+                        <div className="header-element me-5 ms-3 a-important" tabIndex="0" aria-haspopup="true"><i className="bi bi-search fs-2"></i></div>
 
-                            {/* <!-- Search form --> */} 
-                            <div className="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
-                                <div className="uk-grid-small uk-flex-middle" uk-grid="true">
-                                    <div className="uk-width-expand">
-                                        <form className="uk-search uk-search-navbar uk-width-1-1" method="get" action="{% url 'products' %}">
-                                            <input className="uk-search-input" name="search_query" id="search_query" type="search" placeholder="Поиск..."  autoComplete="off" autoFocus />
-                                        </form>
-                                    </div>
-                                    <div className="uk-width-auto">
-                                        <div className="uk-navbar-dropdown-close a-important" uk-close="true"></div>
+                        {/* <!-- Search form --> */} 
+                        <div className="uk-navbar-dropdown uk-drop" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: !nav">
+                            <div className="uk-grid-small uk-flex-middle uk-grid uk-grid-stack" uk-grid="true">
+                                <div className="uk-width-expand">
+                                    <div className="uk-search uk-search-navbar uk-width-1-1"> {/* method="get" action="{% url 'products' %}" */}
+                                        <input className="uk-search-input" name="search_query" id="search_query" type="search" placeholder="Поиск..."  autoComplete="off" autoFocus />
                                     </div>
                                 </div>
-
+                                <div className="uk-width-auto">
+                                    <div className="a-important uk-navbar-dropdown-toggle" uk-toggle="target: .uk-navbar-dropdown" tabIndex="0"><i className="bi bi-x-lg fs-4"></i></div>
+                                </div>
                             </div>
+                        </div>
 
-                        <a className="header-element me-5" href="/dashboard">
+                        <Link className="header-element me-5" href="/dashboard">
                             <i className="bi bi-person fs-1"></i>
-                        </a>
+                        </Link>
 
                         <div id="shopping-cart-offcanvas-open-button" className="header-element me-5 a-important" href="#shopping-cart-offcanvas" data-bs-toggle="offcanvas" aria-controls="shopping-cart-offcanvas">
                             <i className="bi bi-cart2"></i>

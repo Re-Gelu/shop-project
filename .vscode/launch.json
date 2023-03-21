@@ -35,7 +35,7 @@
       "name": "Node: Next React",
       "type": "node-terminal",
       "request": "launch",
-      "cwd": "${workspaceFolder}/next-frontend",
+      "cwd": "${workspaceFolder}/frontend",
       "skipFiles": ["<node_internals>/**"],
       "command": "npm run dev"
     }

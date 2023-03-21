@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ApiContext } from './ApiContext.js';
+import { ApiContext } from '@/components/ApiContext.js';
 
 
 const ProductCard = ({ product, cardAnimationClass }) => {

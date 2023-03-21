@@ -25,9 +25,11 @@ const IndexPage = (props) => {
                             <a href={`/products/${category.name}`} className="row my-2 ms-2 lead text-colored d-inline-block"><i className="bi bi-caret-right"></i>{category.name}</a>
                             <hr className="border-top-colored"/>
 
-                            <div className="row uk-position-relative uk-visible-toggle px-3" tabIndex="-1" uk-slider="sets: true, finite: true, draggable: true">
+                            <div className="row uk-position-relative uk-visible-toggle px-3 uk-slider uk-slider-container" 
+								tabIndex="-1" uk-slider="sets: true, finite: true, draggable: true"
+								role="region" ariaroledescription="carousel">
                                 
-                                <ul className="uk-slider-items uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" style={{"maxHeight    ": 100 + "%"}}>
+                                <ul aria-live="polite" role="presentation" className="uk-slider-items uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" style={{"maxHeight    ": 100 + "%"}}>
 
                                     <li id="scroller-item" className="card me-4 overflow-auto" tabIndex="0">
                                             <div className="card-header">
@@ -35,23 +37,23 @@ const IndexPage = (props) => {
                                             </div>
 
                                             <div className="card-body">
-                                               {category.subcategories.map((subcategory, key) => {
-                                                    if (subcategory.category === category.id) {
-                                                        return (
-                                                            <React.Fragment key={subcategory.id}>
-                                                                <p className="my-3">
-                                                                    <a href={`/products/${category.name}/${subcategory.name}`} className="uk-button-text my-2 a-important">
-                                                                        {subcategory.name}
-                                                                    </a>
-                                                                </p>
-                                                                {key !== category.subcategories.length - 1 && 
-                                                                    <hr className="text-black-50" />
-                                                                }
-                                                            </React.Fragment>
-                                                        );
-                                                    }
-                                                    return null;
-                                                })}
+												{category.subcategories.map((subcategory, key) => {
+														if (subcategory.category === category.id) {
+															return (
+																<React.Fragment key={subcategory.id}>
+																	<p className="my-3">
+																		<a href={`/products/${category.name}/${subcategory.name}`} className="uk-button-text my-2 a-important">
+																			{subcategory.name}
+																		</a>
+																	</p>
+																	{key !== category.subcategories.length - 1 && 
+																		<hr className="text-black-50" />
+																	}
+																</React.Fragment>
+															);
+														}
+														return null;
+													})}
                                             </div>
                                     </li>
 

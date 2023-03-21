@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
-import axios from '../api';
 import $ from 'jquery';
+import axios from '@/api';
 
 const ApiContext = createContext();
 
@@ -8,13 +8,16 @@ const ApiContext = createContext();
 const cart_animation = (element) => {
     var img = $(element).closest('#product-card').find('#product-img');
     var cart = $("#shopping-cart-offcanvas-open-button");
+    var offset = img.offset();
     img.clone()
         .removeClass('card-img-top h-100 uk-object-scale-down p-2 uk-transition-opaque')
-        .css({'width' : img.width(),
-            'position' : 'absolute',
-            'z-index' : '9999',
-            top:img.offset().top,
-            left:img.offset().left})
+        .css({
+            'width':img.width(),
+            'position':'absolute',
+            'z-index':'9999',
+            top:offset.top,
+            left:offset.left
+        })
         .appendTo("body")
         .animate({opacity: 0.05,
             left: cart.offset()['left'],
@@ -42,12 +45,17 @@ const ApiProvider = ({ children }) => {
     const cartEventHandler = (e, data) => {
 		axios.post('cart/', data)
 		.then(response => {
+            console.log(response.data);
 			setCart(response.data.cart);
 			setCartTotalPrice(response.data.cart_total_price);
 			setCartTotalPromoPrice(response.data.cart_total_promo_price);
 		})
 		.catch(error => console.log(error));
-		if (e.target.getAttribute("id") || e.target.parentElement.getAttribute("id") === "cart-add-one-btn") {
+		if (
+            (e.target.getAttribute("id") || 
+            e.target.parentElement.getAttribute("id") === "cart-add-one-btn") &&
+            e.target.getAttribute("id") !== "cart-offcanvas-remove-btn"
+        ) {
 			cart_animation(e.target);
 		};
 	};

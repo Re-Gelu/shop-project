@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { MEDIA_SERVER_URL } from "../config.js";
-import { ApiContext } from './ApiContext.js';
+import { MEDIA_SERVER_URL } from "@/config.js";
+import { ApiContext } from '@/components/ApiContext.js';
+import Link from 'next/link';
 
 const CartOffcanvas = (props) => {
 	const { 
 		cart, 
-		cartTotalPrice, 
+		cartTotalPrice,
 		cartTotalPromoPrice, 
 		cartEventHandler
 	} = useContext(ApiContext);
@@ -41,7 +42,7 @@ const CartOffcanvas = (props) => {
 										className="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60" />
 										<div className="row g-3">
 											<div className="col-12">
-												<a href="{% url 'product' %}?category=Корзина&id={{product.id}}" className="lead uk-button-text">{product.name}</a>
+												<Link href={`product/${product.id}/?subcategory=${product.subcategory}`} className="lead uk-button-text">{product.name}</Link>
 												<button id="cart-offcanvas-remove-btn" product-id={product.id} className="btn-close btn-sm float-end" aria-label="Delete product"
 												onClick={(e) => cartEventHandler(e, {"id": product.id, "action": false,"amount": 100})}></button>
 											</div><br />
@@ -95,7 +96,7 @@ const CartOffcanvas = (props) => {
 						</div>
 
 						<div className="d-grid gap-2">
-							<a type="button" className="btn-lg uk-button-text border-colored" href="{% url 'order' %}">Перейти к оформлению заказа</a>
+							<a type="button" className="btn btn-lg uk-button-text border-colored">Перейти к оформлению заказа</a>
 						</div>
 						</>
 					}
