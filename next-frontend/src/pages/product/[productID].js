@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router'
 import axios from '@/api.js';
+import {fetchAllData} from '@/api.js';
 
 const ProductPage = ({product}) => {
     const router = useRouter();
@@ -15,25 +16,30 @@ const ProductPage = ({product}) => {
 };
 
 export async function getStaticPaths() {
-	const productResponse = await axios.get(`products/`);
-	const productAmount = productResponse.data.count;
-	const paths = [...Array(productAmount).keys()].map((product) => ({
-		params: {productID: product.toString()}
+	const data = await fetchAllData(`products/?page=1`);
+	const paths = data.map((product) => ({
+		params: {
+			productID: product.id.toString(),
+			product: product
+		}
 	}));
 	return {
 		paths: paths,
 		fallback: false
-	}
-}
+	};
+};
 
 export async function getStaticProps({ params }) {
-    const productResponse = await axios.get(`products/${params.productID}`);
-	const product = productResponse.data;
+	console.log(params.product);
+	const product = params.product;
+	const productID = params.productID;
 	return {
 		props: {
-			product
-		}
+			product,
+			productID
+		},
+		revalidate: 3
 	}
-}
+};
 
 export default ProductPage;
