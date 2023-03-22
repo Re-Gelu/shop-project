@@ -1,42 +1,32 @@
 import { useState, useEffect } from "react";
-/* import { useParams } from 'react-router-dom'; */
-import axios from '../api.js';
-import ProductCard from "./ProductCard.js";
+import { useRouter } from 'next/router';
+import axios from '@/api.js';
+import ProductCard from "@/components/ProductCard.js";
 
-const ProductPage = (props) => {
-    const [products, setProducts] = useState([]);
-    const {category, subcategory} = useParams();
-    const page = 1
-
-    useEffect(() => {
-        axios.get(`products/?page=${page}`)
-        .then(response => {
-            setProducts(response.data.results);
-            console.log(response.data);
-        })
-        .catch(error => console.log(error));
-    }, []);
+const ProductPage = ({props}) => {
+    const router = useRouter();
+    const {category, subcategory} = router.query;
+    const products = {...props};
+    console.log(products);
 
     return (
-        <div className="col-xl-9 col-12 pt-3">  
-            <div className="row mt-1 g-2">
-                { (products.length !== 0) ?
-                    products.map((product) => (
-                        <div className="col-xl-3" key={product.id}>
-                            <ProductCard product={product} />
-                        </div>
-                    ))
-                :
-                    /* <!-- No products in category --> */
-                    <div className="container col-xl-5 col-12 p-5">
-                        <div className="row g-3 text-center">
-                            <p className="h2">Товаров пока нет!</p>
-                            <hr />
-                            <p>Возможно когда нибудь я их даже добавлю (но это не точно)</p>
-                        </div>
+        <div className="row mt-1 g-2">
+            { products && (products.length !== 0) ?
+                products.map((product) => (
+                    <div className="col-xl-3" key={product.id}>
+                        <ProductCard product={product} />
                     </div>
-                }
-            </div>
+                ))
+            :
+                /* <!-- No products in category --> */
+                <div className="container col-xl-5 col-12 p-5">
+                    <div className="row g-3 text-center">
+                        <p className="h2">Товаров пока нет!</p>
+                        <hr />
+                        <p>Возможно когда нибудь я их даже добавлю (но это не точно)</p>
+                    </div>
+                </div>
+            }
         </div>
     );
 };

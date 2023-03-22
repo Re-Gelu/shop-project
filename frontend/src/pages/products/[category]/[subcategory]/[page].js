@@ -1,45 +1,53 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
 import axios from '@/api.js';
-import ProductCard from "@/components/ProductCard";
+import { fetchAllData } from '@/api.js';
+import ShopPage from "@/components/ShopPage";
+import MainLayout2 from '@/components/MainLayout2.js';
 
 const ProductPage = (props) => {
-    const [products, setProducts] = useState([]);
-    const {category, subcategory} = useParams();
-    const page = 1
-
-    useEffect(() => {
-        axios.get(`products/?page=${page}`)
-        .then(response => {
-            setProducts(response.data.results);
-            console.log(response.data);
-        })
-        .catch(error => console.log(error));
-    }, []);
+    const {
+		categories,
+		subcategories,
+        products
+    } = {...props};
 
     return (
-        <div className="col-xl-9 col-12 pt-3">  
-            <div className="row mt-1 g-2">
-                { (products.length !== 0) ?
-                    products.map((product) => (
-                        <div className="col-xl-3" key={product.id}>
-                            <ProductCard product={product} />
-                        </div>
-                    ))
-                :
-                    /* <!-- No products in category --> */
-                    <div className="container col-xl-5 col-12 p-5">
-                        <div className="row g-3 text-center">
-                            <p className="h2">Товаров пока нет!</p>
-                            <hr />
-                            <p>Возможно когда нибудь я их даже добавлю (но это не точно)</p>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+        <MainLayout2 {...{categories, subcategories}}>
+            <ShopPage {...{products}} />
+        </MainLayout2>
     );
 };
+
+export async function getStaticPaths() {
+    const data = await fetchAllData(`products/?page=1`);
+	return {
+		paths: data.map((product) => ({
+			params: { 
+                category: product.category.toString(),
+                subcategory: product.category.toString(),
+                page: "1"
+            }
+		})),
+		fallback: true
+	};
+};
+
+export async function getStaticProps({ params }) {
+	const categoriesResponse = await axios.get('categories');
+	const subcategoriesResponse = await axios.get('subcategories');
+	const categories = categoriesResponse.data;
+	const subcategories = subcategoriesResponse.data;
+    const productsResponse = await axios.get(`products/?page=${params.page}`);
+    const products = productsResponse.data;
+	return {
+		props: {
+			categories,
+			subcategories,
+            products,
+		}
+	};
+};
+
 
 export default ProductPage;
 
