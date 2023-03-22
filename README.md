@@ -5,7 +5,7 @@
 
 ## :triangular_ruler: Стек проекта: 
 - Python 3.11 (Django, Django REST framework, Celery)
-- HTML5, CSS (Bootstrap 5, UIkit), JS (jQuery)
+- HTML5, CSS (Bootstrap 5, UIkit), JS (Next.js, React, jQuery)
 - NGNIX, Gunicorn
 - Redis, PostgreSQL
 
