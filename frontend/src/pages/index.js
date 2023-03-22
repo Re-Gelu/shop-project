@@ -12,7 +12,8 @@ const IndexPage = (props) => {
 	const {
 		categories,
 		subcategories,
-		index} = {...props};
+		index
+  } = {...props};
 
 	return (
 		<MainLayout2 {...{categories, subcategories}}>
