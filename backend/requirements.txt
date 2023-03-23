@@ -5,6 +5,7 @@ drf-yasg
 django-cors-headers
 django-filter==22.1
 FileBrowser==1.1.3
+django-filter
 django-filebrowser-no-grappelli==4.0.1
 django-tinymce==3.5.0
 django-baton
