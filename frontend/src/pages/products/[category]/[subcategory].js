@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import axios from '@/api.js';
-import { fetchAllData, fetchPagesAmount } from '@/api.js';
 import ShopPage from "@/components/ShopPage";
 import MainLayout2 from '@/components/MainLayout2.js';
 

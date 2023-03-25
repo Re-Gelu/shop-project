@@ -21,7 +21,7 @@ const MainLayout2 = ({children, categories, subcategories}) => {
 								{categories && categories.map((category, key) =>
 									<span key={key}>
 										<li className="my-3 px-0 text-left container" tabIndex="0" aria-haspopup="true">
-											<Link href={"products/" + category.name}>{category.name}
+											<Link href={`/products/${category.id}/1`}>{category.name}
 												<i className="bi bi-caret-right pe-1 float-end "></i>
 											</Link>
 										</li>
@@ -34,7 +34,7 @@ const MainLayout2 = ({children, categories, subcategories}) => {
 														subcategory.category === category.id &&
 															<span key={key}>
 																<li>
-																	<Link href={"products/" + category.name + '/' + subcategory.name} className="a-important">
+																	<Link href={`/products/${category.id}/${subcategory.id}/1`} className="a-important">
 																		{subcategory.name}
 																	</Link>
 																</li>

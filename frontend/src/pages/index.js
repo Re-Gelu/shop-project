@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import React from "react"
+import React from "react";
 import MainLayout2 from '@/components/MainLayout2.js';
-import ProductCard from "@/components/ProductCard.js";
+import Index from '@/components/Index.js';
 import axios from '@/api.js';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -13,75 +13,11 @@ const IndexPage = (props) => {
 		categories,
 		subcategories,
 		index
-  } = {...props};
+  	} = {...props};
 
 	return (
 		<MainLayout2 {...{categories, subcategories}}>
-			{index.map(category =>
-                <section className="row mt-3 g-0" key={category.id}>
-
-                    <div className="uk-card border p-3">
-                        
-                        <div>
-                            <a href={`/products/${category.name}`} className="row my-2 ms-2 lead text-colored d-inline-block"><i className="bi bi-caret-right"></i>{category.name}</a>
-                            <hr className="border-top-colored"/>
-
-                            <div className="row uk-position-relative uk-visible-toggle px-3 uk-slider uk-slider-container" 
-								tabIndex="-1" uk-slider="sets: true, finite: true, draggable: true"
-								role="region" ariaroledescription="carousel">
-                                
-                                <ul aria-live="polite" role="presentation" className="uk-slider-items uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" style={{"maxHeight    ": 100 + "%"}}>
-
-                                    <li id="scroller-item" className="card me-4 overflow-auto" tabIndex="0">
-                                            <div className="card-header">
-                                                <div className="lead text-colored">Подкатегории: </div>
-                                            </div>
-
-                                            <div className="card-body">
-												{category.subcategories.map((subcategory, key) => {
-														if (subcategory.category === category.id) {
-															return (
-																<React.Fragment key={subcategory.id}>
-																	<p className="my-3">
-																		<a href={`/products/${category.name}/${subcategory.name}`} className="uk-button-text my-2 a-important">
-																			{subcategory.name}
-																		</a>
-																	</p>
-																	{key !== category.subcategories.length - 1 && 
-																		<hr className="text-black-50" />
-																	}
-																</React.Fragment>
-															);
-														}
-														return null;
-													})}
-                                            </div>
-                                    </li>
-
-                                    {category.products.map((product) => (
-                                        <li id="scroller-item" className="me-3" key={product.id}>
-                                            <ProductCard product={product} cardAnimationClass="uk-transition-slide-left-small" />
-                                        </li>
-                                    ))}
-
-                                    {category.products.length > 0 && (
-                                        <li className="uk-transition-toggle me-3">
-                                            <div className="h-100 card uk-card-hover uk-transition-opaque uk-transition-slide-left-small py-5">
-                                                <a className="card-body lead fs-3 text-colored my-5 py-5 text-center" href={`/products/${category.name}`}>
-                                                    Больше товаров...
-                                                </a>
-                                            </div>
-                                        </li>
-                                    )}
-
-                                </ul>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                </section>
-            )}
+			<Index {...{index}} />
 		</MainLayout2>
 	)
 };

@@ -11,7 +11,7 @@ const custom_axios = axios.create({
 async function fetchData(url) {
     const response = await custom_axios.get(url);
     return response.data;
-}
+};
 
 export async function fetchAllData(url) {
     let results = [];
@@ -23,6 +23,18 @@ export async function fetchAllData(url) {
         results = results.concat(response.results);
     }
     return results;
-}
+};
+
+export async function fetchPagesAmount(url) {
+    let result = 0;
+    let response = await fetchData(url);
+    result += 1;
+    
+    while (response.next !== null) {
+        response = await fetchData(response.next);
+        result += 1;
+    }
+    return result;
+};
 
 export default custom_axios;
