@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import axios from '@/api.js';
+import { fetchAllData, fetchPagesAmount } from '@/api.js';
 import ShopPage from "@/components/ShopPage";
 import MainLayout2 from '@/components/MainLayout2.js';
 
@@ -25,7 +28,7 @@ export async function getStaticPaths() {
 
     for (const category of categoriesResponse.data) {
         for (const subcategory of subcategoriesResponse.data.filter(subcategory => subcategory.category === category.id)) {
-            const pagesAmountResponse = await axios.get(`products/?page=1&subcategory=${subcategory.id}`)
+            const pagesAmountResponse = await axios.get(`products/?page=1&subcategory=${subcategory.id}`);
             for (const page of Array.from({length: pagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
                 paths.push({
                     params: {

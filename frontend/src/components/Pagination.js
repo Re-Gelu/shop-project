@@ -5,6 +5,7 @@ const Pagination = (props) => {
 	const { currentPage, totalPages } = {...props};
 	const router = useRouter();
     const {category, subcategory} = router.query;
+	console.log(router.query);
 
 	// Вычисляем диапазон страниц, которые нужно отобразить в пагинации
 	const pageRange = [];

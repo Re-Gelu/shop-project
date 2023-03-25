@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from '@/api.js';
-import { fetchAllData, fetchPagesAmount } from '@/api.js';
 import ShopPage from "@/components/ShopPage";
 import MainLayout2 from '@/components/MainLayout2.js';
 
-const ProductPage2 = (props) => {
+const ProductPage = (props) => {
     const {
 		categories,
 		subcategories,
@@ -28,16 +26,32 @@ export async function getStaticPaths() {
 
     for (const category of categoriesResponse.data) {
         for (const subcategory of subcategoriesResponse.data.filter(subcategory => subcategory.category === category.id)) {
-            const pagesAmountResponse = await axios.get(`products/?page=1&subcategory=${subcategory.id}`)
+            const pagesAmountResponse = await axios.get(`products/?page=1&subcategory=${subcategory.id}`);
             for (const page of Array.from({length: pagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
                 paths.push({
                     params: {
-                        category: category.id.toString(),
-                        subcategory: subcategory.id.toString(),
-                        page: page.toString(),
+                        slug: [
+                            category.id.toString(),
+                            subcategory.id.toString(),
+                            page.toString(),
+                        ]
                     },
                 });
             };
+        };
+    };
+
+    for (const category of categoriesResponse.data) {
+        const pagesAmountResponse = await axios.get(`products/?page=1&subcategory__category=${category.id}`);
+        for (const page of Array.from({length: pagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
+            paths.push({
+                params: {
+                    slug: [
+                        category.id.toString(),
+                        page.toString(),
+                    ]
+                },
+            });
         };
     };
 
@@ -49,10 +63,19 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params }) {
+    const slug = params.slug;
 	const categoriesResponse = await axios.get('categories');
 	const subcategoriesResponse = await axios.get('subcategories');
-    const productsResponse = await axios.get(`products/?page=${params.page}&subcategory=${params.subcategory}`);
-    
+    let productsResponse = [];
+
+    if (slug.length === 3) {
+        productsResponse = await axios.get(`products/?page=${slug[2]}&subcategory=${slug[1]}`);
+    } else if (slug.length === 2) {
+        productsResponse = await axios.get(`products/?page=${slug[1]}&subcategory__category=${slug[0]}`);
+    } else if (slug.length === 1) {
+        productsResponse = await axios.get(`products/?page=${slug[0]}`);
+    }
+
 	return {
 		props: {
 			categories: categoriesResponse.data,
@@ -65,4 +88,4 @@ export async function getStaticProps({ params }) {
 };
 
 
-export default ProductPage2;
+export default ProductPage;
