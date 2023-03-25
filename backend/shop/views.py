@@ -40,7 +40,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class ProductsViewSet(viewsets.ModelViewSet):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
-    filterset_fields = ('subcategory', 'price', 'promo_price')
+    filterset_fields = ('subcategory', 'subcategory__category')
 
 
 class CategoriesViewSet(viewsets.ModelViewSet):
