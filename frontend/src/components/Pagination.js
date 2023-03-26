@@ -2,10 +2,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Pagination = (props) => {
-	const { currentPage, totalPages } = {...props};
+	const { 
+		currentPage, 
+		totalPages, 
+		category,
+		subcategory
+	} = {...props};
 	const router = useRouter();
-    const {category, subcategory} = router.query;
-	console.log(router.query);
 
 	// Вычисляем диапазон страниц, которые нужно отобразить в пагинации
 	const pageRange = [];
@@ -22,10 +25,12 @@ const Pagination = (props) => {
 			<Link className="page-link text-colored" 
 			href={{
 				pathname: router.pathname,
-				query: { 
-					category: category,
-					subcategory: subcategory,
-					page: currentPage === 1 ? 1 : currentPage-1
+				query: {
+					slug: [
+						category,
+						subcategory,
+						currentPage === 1 ? 1 : currentPage - 1
+					]
 				},
 			}}>
 			&laquo;
@@ -34,16 +39,18 @@ const Pagination = (props) => {
 	);
 
 	// Элементы страниц
-	for (let page of pageRange) {
+	for (const page of pageRange) {
 		paginationItems.push(
 			<li key={page} className={`page-item${currentPage === page ? ' active' : ''}`}>
 				<Link className={`page-link${currentPage === page ? ' background-colored border-colored' : ' text-colored'}`} 
 				href={{
 					pathname: router.pathname,
-					query: { 
-						category: category,
-						subcategory: subcategory,
-						page: page
+					query: {
+						slug: [
+							category,
+							subcategory,
+							page
+						]
 					},
 				}}>
 					{page}
@@ -75,9 +82,11 @@ const Pagination = (props) => {
 			href={{
 				pathname: router.pathname,
 				query: { 
-					category: category,
-					subcategory: subcategory,
-					page: currentPage === totalPages ? totalPages : currentPage+1
+					slug: [
+						category,
+						subcategory,
+						currentPage === totalPages ? totalPages : currentPage + 1
+					],
 				},
 			}}>
 			&raquo;

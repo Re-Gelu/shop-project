@@ -6,10 +6,7 @@ import MainLayout2 from '@/components/MainLayout2.js';
 const ProductPage = (props) => {
     const {
 		categories,
-		subcategories,
-        products,
-        total_pages,
-        current_page_number
+		subcategories
     } = {...props};
 
     return (
@@ -25,9 +22,20 @@ export async function getStaticPaths() {
     const paths = [];
 
     for (const category of categoriesResponse.data) {
+        const categoriesPagesAmountResponse = await axios.get(`products/?page=1&subcategory__category=${category.id}`);
+        for (const page of Array.from({length: categoriesPagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
+            paths.push({
+                params: {
+                    slug: [
+                        category.id.toString(),
+                        page.toString(),
+                    ]
+                },
+            });
+        };
         for (const subcategory of subcategoriesResponse.data.filter(subcategory => subcategory.category === category.id)) {
-            const pagesAmountResponse = await axios.get(`products/?page=1&subcategory=${subcategory.id}`);
-            for (const page of Array.from({length: pagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
+            const subcategoriesPagesAmountResponse = await axios.get(`products/?page=1&subcategory=${subcategory.id}`);
+            for (const page of Array.from({length: subcategoriesPagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
                 paths.push({
                     params: {
                         slug: [
@@ -41,18 +49,15 @@ export async function getStaticPaths() {
         };
     };
 
-    for (const category of categoriesResponse.data) {
-        const pagesAmountResponse = await axios.get(`products/?page=1&subcategory__category=${category.id}`);
-        for (const page of Array.from({length: pagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
-            paths.push({
-                params: {
-                    slug: [
-                        category.id.toString(),
-                        page.toString(),
-                    ]
-                },
-            });
-        };
+    const productsPagesAmountResponse = await axios.get(`products/?page=1`);
+    for (const page of Array.from({length: productsPagesAmountResponse.data.total_pages}, (_, i) => i + 1)) {
+        paths.push({
+            params: {
+                slug: [
+                    page.toString(),
+                ]
+            },
+        });
     };
 
     return {
@@ -67,13 +72,25 @@ export async function getStaticProps({ params }) {
 	const categoriesResponse = await axios.get('categories');
 	const subcategoriesResponse = await axios.get('subcategories');
     let productsResponse = [];
+    let category = null;
+	let subcategory = null;
+	let page = null;
 
-    if (slug.length === 3) {
+    if (slug.length >= 3) {
         productsResponse = await axios.get(`products/?page=${slug[2]}&subcategory=${slug[1]}`);
+        category = slug[0]
+        subcategory = slug[1];
+		page = slug[2];
     } else if (slug.length === 2) {
         productsResponse = await axios.get(`products/?page=${slug[1]}&subcategory__category=${slug[0]}`);
+        category = slug[0];
+		page = slug[1];
     } else if (slug.length === 1) {
         productsResponse = await axios.get(`products/?page=${slug[0]}`);
+        page = slug[0];
+    } else {
+        productsResponse = await axios.get(`products/?page=1`);
+        page = '1';
     }
 
 	return {
@@ -82,7 +99,9 @@ export async function getStaticProps({ params }) {
 			subcategories: subcategoriesResponse.data,
             products: productsResponse.data.results,
             total_pages: productsResponse.data.total_pages,
-            current_page_number: productsResponse.data.current_page_number
+            category: category,
+            subcategory: subcategory,
+            page: productsResponse.data.current_page_number,
 		}
 	};
 };

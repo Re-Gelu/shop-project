@@ -1,4 +1,5 @@
 import MainLayout2 from '@/components/MainLayout2.js';
+import TopRow from "@/components/TopRow.js";
 import ProductPageCard from '@/components/ProductPageCard.js';
 import axios from '@/api.js';
 import {fetchAllData} from '@/api.js';
@@ -7,10 +8,12 @@ const ProductPage = (props) => {
 	const {
 		categories,
 		subcategories,
-		product} = {...props};
+		product
+	} = {...props};
 
     return (
 		<MainLayout2 {...{categories, subcategories}}>
+			<TopRow {...props}/>
 			<ProductPageCard {...{product}}/>
 		</MainLayout2>
     );

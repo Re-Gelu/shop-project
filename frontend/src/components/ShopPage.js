@@ -1,18 +1,13 @@
-import { useRouter } from 'next/router';
 import ProductCard from "@/components/ProductCard.js";
 import TopRow from "@/components/TopRow.js";
 import Pagination from "@/components/Pagination.js";
 
 const ProductPage = (props) => {
     const {
-		categories,
-		subcategories,
         products,
         total_pages,
-        current_page_number
+        page
     } = {...props};
-    const router = useRouter();
-    const {category, subcategory} = router.query;
 
     return (
         <div className="row mt-1 g-2">
@@ -26,8 +21,9 @@ const ProductPage = (props) => {
                         </div>
                     ))}
                     <Pagination 
-                        currentPage={current_page_number}
+                        currentPage={page}
                         totalPages={total_pages}
+                        {...props}
                      />
                 </>
             )
@@ -47,39 +43,3 @@ const ProductPage = (props) => {
 };
 
 export default ProductPage;
-
-/* <!-- Pagination --> */
-            /* <nav>
-                <ul class="pagination justify-content-center flex-wrap mt-3 mb-4 fs-4">
-
-                    <!-- previous_page -->
-                    {% if products.has_previous %}
-                        <li class="page-item"><a class="page-link text-colored" href="?page={{products.previous_page_number}}">&laquo;</a></li>
-                    {% else %}
-                        <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
-                    {% endif %}
-
-                    <!-- pagination -->
-                    {% for page in page_range %}
-                        {% if products.number == page %}
-                            <li class="active page-item"><span class="page-link background-colored border-colored">{{page}}</span></li>
-                        {% else %}
-                            {% if page == products.paginator.ELLIPSIS %}
-                                <li class="page-item"><span class="page-link text-colored">{{page}}</span></li>
-                            {% else %}
-                                
-                            <!--  <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{page}}">{{page}}</a></li> -->
-                            <li class="page-item"><a class="page-link text-colored" href="?page={{page}}">{{page}}</a></li>
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-
-                    <!-- next_page -->
-                    {% if products.has_next %}
-                        <!-- <li class="page-item"><a class="page-link" href="{% url 'products' %}{{request.get_full_path|cut:request.path}}&page={{products.next_page_number}}">&raquo;</a></li> -->
-                        <li class="page-item"><a class="page-link text-colored" href="?page={{products.next_page_number}}}">&raquo;</a></li>
-                    {% else %}
-                        <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
-                    {% endif %}
-                </ul>
-            </nav> */

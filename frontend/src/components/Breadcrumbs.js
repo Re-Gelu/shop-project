@@ -2,45 +2,41 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Breadcrumbs = (props) => {
-	const { categories, subcategories } = {...props};
+	let {
+		categories,
+		subcategories,
+        category,
+        subcategory,
+        page,
+		product
+    } = {...props};
 	const router = useRouter();
+	const searchQuery = router.query.searchQuery;
 
-	let category = undefined;
-	let subcategory = undefined;
-	let page = undefined;
-	let searchQuery = undefined;
-
-	const slug = router.query.slug;
-
-	if (slug.length === 3) {
-		subcategory = slug[1];
-		page = slug[2];
-    } else if (slug.length === 2) {
-		subcategory = slug[0];
-		page = slug[1];
-    } else if (slug.length === 1) {
-		page = slug[0];
-    }
-
-	category = categories.filter(oneOfCategories => oneOfCategories.id === parseInt(category))[0];
-	subcategory = subcategories.filter(oneOfSubcategories => oneOfSubcategories.id === parseInt(subcategory))[0];
-
+	if (product === undefined) {
+		category = categories.filter(oneOfCategories => oneOfCategories.id === parseInt(category))[0];
+		subcategory = subcategories.filter(oneOfSubcategories => oneOfSubcategories.id === parseInt(subcategory))[0];
+	} else {
+		category = categories.filter(oneOfCategories => oneOfCategories.id === parseInt(product.category))[0];
+		subcategory = subcategories.filter(oneOfSubcategories => oneOfSubcategories.id === parseInt(product.subcategory))[0];
+	};
+	
 	return (
 		<ol className="breadcrumb">
 			<li className="breadcrumb-item lead">
 				<Link href="/">Главная</Link>
 			</li>
 			<li className="breadcrumb-item lead">
-				<Link href={`products/`}>Товары</Link>
+				<Link href="/products/1">Товары</Link>
 			</li>
-				{(category & !subcategory) ? (
+				{( subcategory === undefined && category !== undefined ) ? (
 					<li className="breadcrumb-item lead">
-						<Link href={`products/${category.id}/${page}`}>
-							{...category.name} - стр. {page}
+						<Link href={`/products/${category.id}/${page}`}>
+							{category.name} - стр. {page}
 						</Link>
 					</li>
 				)
-				: (category) && (
+				: (category !== undefined ) && (
 					<li className="breadcrumb-item lead">
 						<Link href={`/products/${category.id}/1`} >
 							{category.name}
@@ -48,17 +44,32 @@ const Breadcrumbs = (props) => {
 					</li>
 				)
 			}
-			{(category && subcategory ) && (
+			{( product === undefined && (category !== undefined && subcategory !== undefined) ) ? (
 				<li className="breadcrumb-item lead">
 					<Link href={`/products/${category.id}/${subcategory.id}/${page}`} >
 						{subcategory.name} - стр. {page}
 					</Link>
 				</li>
-			)}
-			{searchQuery && (
+			)
+			: ( product !== undefined ) && (
 				<li className="breadcrumb-item lead">
-					<Link href={`products/?search_query=${searchQuery}`}>
+					<Link href={`/products/${category.id}/${subcategory.id}/1`} >
+						{subcategory.name}
+					</Link>
+				</li>
+			)
+			}
+			{(searchQuery !== undefined) && (
+				<li className="breadcrumb-item lead">
+					<Link href={`/products/?search_query=${searchQuery}`}>
 						Поиск - {searchQuery}
+					</Link>
+				</li>
+			)}
+			{(product !== undefined) && (
+				<li className="breadcrumb-item lead">
+					<Link href={`/product/${product.id}`}>
+						{product.name}
 					</Link>
 				</li>
 			)}
