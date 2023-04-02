@@ -6,17 +6,20 @@ import '@/styles/fonts.css'
 import '@/styles/styles.css'
 import { useEffect } from 'react';
 import MainLayout from '@/components/MainLayout.js';
+import { SessionProvider } from "next-auth/react"
 
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
 
 	useEffect(() => {
         import ('bootstrap/dist/js/bootstrap.min.js');
     }, []);
 
 	return (
-		<MainLayout>
-			<Component {...pageProps} />
-		</MainLayout>
+		<SessionProvider session={session}>
+			<MainLayout>
+				<Component {...pageProps} />
+			</MainLayout>
+		</SessionProvider>
 	)
 }

@@ -7,7 +7,7 @@ const Header = (props) => {
             <div className="container-fluid">
 
                 {/* <!-- Left header block - Logo --> */}
-                <Link href="/" className="navbar-brand logo ms-3">Настройте параметр SITE_NAME...</Link>
+                <Link href="/" className="navbar-brand logo ms-3">SITE_NAME</Link>
 
                 {/* <!-- Navbar toggler --> */}
                 <button type="button" className="navbar-toggler text-black" data-bs-toggle="collapse"

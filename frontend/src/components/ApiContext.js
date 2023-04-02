@@ -10,21 +10,23 @@ const cart_animation = (element) => {
     var cart = $("#shopping-cart-offcanvas-open-button");
     var offset = img.offset();
     img.clone()
-        .removeClass('card-img-top h-100 uk-object-scale-down p-2 uk-transition-opaque')
-        .css({
-            'width':img.width(),
-            'position':'absolute',
-            'z-index':'9999',
-            top:offset.top,
-            left:offset.left
-        })
-        .appendTo("body")
-        .animate({opacity: 0.05,
-            left: cart.offset()['left'],
-            top: cart.offset()['top'],
-            width: 20}, 1000, () => {	
+    .removeClass('card-img-top h-100 uk-object-scale-down p-2 uk-transition-opaque')
+    .css({
+        'width':img.width(),
+        'position':'absolute',
+        'z-index':'9999',
+        top:offset.top,
+        left:offset.left
+    })
+    .appendTo("body")
+    .animate({opacity: 0.05,
+        left: cart.offset()['left'],
+        top: cart.offset()['top'],
+        width: 20}, 1000, 
+        function() {
             $(this).remove();
-        });
+        }
+    );
 };
 
 const ApiProvider = ({ children }) => { 
@@ -54,7 +56,8 @@ const ApiProvider = ({ children }) => {
 		if (
             (e.target.getAttribute("id") || 
             e.target.parentElement.getAttribute("id") === "cart-add-one-btn") &&
-            e.target.getAttribute("id") !== "cart-offcanvas-remove-btn"
+            e.target.getAttribute("id") !== "cart-offcanvas-remove-btn" &&
+            e.target.getAttribute("id") !== "cart-dashboard-remove-btn"
         ) {
 			cart_animation(e.target);
 		};

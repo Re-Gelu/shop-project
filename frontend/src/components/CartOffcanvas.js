@@ -42,7 +42,7 @@ const CartOffcanvas = (props) => {
 										className="flex-shrink-0 me-3 my-auto rounded uk-transition-scale-up uk-transition-opaque" width="60" height="60" />
 										<div className="row g-3">
 											<div className="col-12">
-												<Link href={`product/${product.id}/?subcategory=${product.subcategory}`} className="lead uk-button-text">{product.name}</Link>
+												<Link href={`product/${product.id}/`} className="lead uk-button-text">{product.name}</Link>
 												<button id="cart-offcanvas-remove-btn" product-id={product.id} className="btn-close btn-sm float-end" aria-label="Delete product"
 												onClick={(e) => cartEventHandler(e, {"id": product.id, "action": false,"amount": 100})}></button>
 											</div><br />

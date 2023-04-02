@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSession } from 'next-auth/react';
 import {API_SERVER_URL} from '@/config.js';
 
 const custom_axios = axios.create({
@@ -6,6 +7,14 @@ const custom_axios = axios.create({
     withCredentials: true,
     xsrfCookieName: "csrftoken",
     xsrfHeaderName: "X-CSRFToken"
+});
+
+custom_axios.interceptors.request.use(async (request) => {
+    const session = await getSession();
+    if (session) {
+        request.headers.Authorization = `Bearer ${session.access}`;
+    }
+    return request;
 });
 
 async function fetchData(url) {

@@ -1,9 +1,42 @@
 import Link from 'next/link';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Cookies from 'js-cookie';
+import { signIn } from "next-auth/react";
+
 
 const Login = (props) => {
+
+	async function onSubmit(data) {
+		signIn("credentials", {...data, callbackUrl: `${window.location.origin}/dashboard`});
+	};
+
+	const formik = useFormik({
+		initialValues: {
+			username: "",
+			password: "",
+			remember: "on",
+			csrftoken: Cookies.get('csrftoken')
+		},
+		validationSchema: Yup.object({
+			username: Yup.string()
+				.min(1, 'Обязательное поле!')
+				.max(30, 'Поле должно содержать 30 символов или меньше!')
+				.required()
+				.email(),
+			password: Yup.string()
+				.min(1, 'Обязательное поле!')
+				.max(30, 'Поле должно содержать 30 символов или меньше!')
+				.required(),
+		}),
+		onSubmit: values => {
+			onSubmit(values);
+		}
+	});
+
 	return (
 		<div className="container col-xl-4 col-md-6 col-8 p-3 p-xl-5 pt-5">
-			<form className="row g-4 needs-validation" method="post">
+			<form className="row g-4 needs-validation" onSubmit={formik.handleSubmit}>
 
 				<p className="h3 text-center">Вход</p>
 
@@ -14,7 +47,53 @@ const Login = (props) => {
 					<Link className="text-decoration-underline ms-2" href="/registration">зарегистрируйтесь здесь!</Link>
 				</p>
 
+				<div className="form-row"> 
+					<div id="div_id_login" className="mb-3"> 
+						<label htmlFor="id_login" className="form-label requiredField">
+                			Адрес электронной почты<span className="asteriskField">*</span> 
+						</label> 
+						<div> 
+							<div className="input-group"> 
+								<span className="input-group-text">
+									<i className="bi bi-envelope"></i>
+								</span> 
+								<input type="text" name="login" autoFocus="" autoComplete="current-login" placeholder="email" 
+								className="textinput textInput form-control" required="" id="id_login" {...formik.getFieldProps('username')}/>
+							</div> 
+						</div> 
+						{formik.errors.username ? <div className='invalid-feedback'><strong>{formik.errors.username}</strong></div> : null}
+					</div> 
+					<div id="div_id_password" className="mb-3"> 
+						<label htmlFor="id_password" className="form-label requiredField">
+							Пароль<span className="asteriskField">*</span> 
+						</label> 
+						<div> 
+							<div className="input-group"> 
+								<span className="input-group-text">
+									<i className="bi bi-lock"></i>
+								</span> 
+								<input type="password" name="password" placeholder=" " autoComplete="current-password" 
+								className="textinput textInput form-control" required="" id="id_password" {...formik.getFieldProps('password')}/>
+								{formik.errors.password ? <div className='invalid-feedback'>{formik.errors.password}</div> : null}
+							</div> 
+						</div> 
+					</div>
+					<div className="mb-3"> 
+						<div id="div_id_remember" className="mb-3 form-check"> 
+							<input type="checkbox" name="remember" value={'on'} checked={true}
+							className="background-colored border-colored checkboxinput form-check-input" id="id_remember"  {...formik.getFieldProps('remember')}/> 
+							<label htmlFor="id_remember" className="form-check-label">Запомнить меня</label> 
+						</div> 
+					</div> 
+				</div>
+
 				<input type="hidden" name="next" value="{{next}}"/>
+				<input type="hidden" name="csrfmiddlewaretoken" value={Cookies.get('csrftoken')} />
+
+				<div className="col-12 text-center mt-0"> 
+					<hr />
+					<button className="btn btn-lg uk-button-text m-2 px-5 border-colored" type="submit">Войти</button> 
+				</div>
 
 			</form>
 		</div>

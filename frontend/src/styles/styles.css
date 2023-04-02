@@ -160,8 +160,8 @@ a.logo:hover {
 }
 
 .waves-container .wave {
-	width: calc(var(--i) * 1px);
-	height: calc(var(--i) * 1px);
+	width: calc(var(--i) * 2px);
+	height: calc(var(--i) * 2px);
 	border: 1px solid var(--a-text-active);
 	opacity: 10%;
 	border-radius: 50%;

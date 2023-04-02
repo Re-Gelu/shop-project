@@ -20,7 +20,9 @@ const Footer = (props) => {
             <div className="mt-4">© 2022 Название сайта - Интернет-маркетплейс на Django</div>
             <sub className="text-colored float-end pt-4 pb-5 d-inline-flex">made by Re;Gelu
                 <div className="waves-container mx-3">
-                  <div className="wave" style={{"--i": 1}}></div>
+                    {Array.from({length: 10}, (_, i) => i + 1).map((i) => 
+                        <div key={i} className="wave" style={{"--i": i}}></div>
+                    )}
                 </div>
             </sub>
             
