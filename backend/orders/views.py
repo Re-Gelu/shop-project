@@ -22,6 +22,8 @@ from shop.models import *
 class OrdersViewSet(viewsets.ModelViewSet):
     queryset = Orders.objects.all()
     serializer_class = OrdersSerializer
+    filterset_fields = ('user_id', 'order_UUID')
+    
 
     def create(self, request):
         cart = Cart(request)

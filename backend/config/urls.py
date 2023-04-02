@@ -16,6 +16,7 @@ Including another URLconf
 from shop.views import *
 from cart.views import *
 from orders.views import *
+from login.views import *
 from rest_framework import routers
 from baton.autodiscover import admin
 from django.contrib.auth.views import *
@@ -94,8 +95,8 @@ urlpatterns = [
     
     path('api/auth/', include('djoser.urls')),
     
-    path('auth/', include('djoser.urls.authtoken')),
-    
+    path('api/auth/', include('djoser.urls.jwt')),
+
     # Shop app URLS
     path('', include('shop.urls')),
     

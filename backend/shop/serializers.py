@@ -6,10 +6,12 @@ from .models import *
 # Serializers
 
 
-""" class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups'] """
+        fields = ['id', 'url', 'username', 'email', 'groups', 
+                  'is_staff', 'is_superuser', 'is_active', 
+                  'first_name', 'last_name']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):

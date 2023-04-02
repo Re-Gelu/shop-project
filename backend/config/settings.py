@@ -211,7 +211,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication'
     ],
@@ -219,6 +219,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'config.pagination.CustomPagination',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 12
+}
+
+# JWT Authentication settings
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
+    "TOKEN_OBTAIN_SERIALIZER": "login.serializers.CustomTokenObtainPairSerializer"
 }
 
 # django-debug-toolbar settings
@@ -529,4 +536,9 @@ CORS_ALLOW_CREDENTIALS = True
 DJOSER = {
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {
+        'user': 'login.serializers.CustomUserSerializer',
+        'current_user': 'login.serializers.CustomUserSerializer',
+        'user_create': 'login.serializers.CustomUserCreateSerializer'
+    }
 }
