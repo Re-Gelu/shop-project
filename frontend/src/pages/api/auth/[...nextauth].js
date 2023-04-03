@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import jwtDecode from "jwt-decode";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from '@/api.js';
-import { BASE_URL } from '@/config.js';
 
 async function refreshAccessToken(token) {
 	try {
@@ -29,7 +28,6 @@ async function refreshAccessToken(token) {
 };
 
 export const authOptions = {
-	site: BASE_URL,
 	providers: [
 		CredentialsProvider({
 			name: "Django Rest Framework",

@@ -6,7 +6,10 @@ const custom_axios = axios.create({
     baseURL: API_SERVER_URL,
     withCredentials: true,
     xsrfCookieName: "csrftoken",
-    xsrfHeaderName: "X-CSRFToken"
+    xsrfHeaderName: "X-CSRFToken",
+    validateStatus: (status) => {
+        return status >= 200 && status < 500
+    },
 });
 
 custom_axios.interceptors.request.use(async (request) => {

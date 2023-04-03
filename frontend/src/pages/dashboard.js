@@ -49,7 +49,7 @@ const Dashboard = (props) => {
 					<div className="g-3 text-center">
 						<p className="h2">Личный кабинет</p>
 						<hr />
-						<p className="lead">Привет{user && user.first_name && user.first_name.length > 0 && ` ,${user.first_name}`}</p>
+						<p className="lead">Привет{user && user.first_name && user.first_name.length > 0 && `, ${user.first_name}`}</p>
 					</div>
 				</div>
 			</section>

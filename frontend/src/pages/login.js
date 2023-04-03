@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 const Login = (props) => {
 
 	async function onSubmit(data) {
+		console.log(data);
 		signIn("credentials", {...data, callbackUrl: `${window.location.origin}/dashboard`});
 	};
 
@@ -15,19 +16,18 @@ const Login = (props) => {
 		initialValues: {
 			username: "",
 			password: "",
-			remember: "on",
 			csrftoken: Cookies.get('csrftoken')
 		},
 		validationSchema: Yup.object({
 			username: Yup.string()
 				.min(1, 'Обязательное поле!')
-				.max(30, 'Поле должно содержать 30 символов или меньше!')
-				.required()
-				.email(),
+				.max(30, 'Поле должно содержать меньше 30 символов!')
+				.required('Обязательное поле!')
+				.email('Это не адрес электронной почты!   :)'),
 			password: Yup.string()
 				.min(1, 'Обязательное поле!')
-				.max(30, 'Поле должно содержать 30 символов или меньше!')
-				.required(),
+				.max(30, 'Поле должно содержать меньше 30 символов!')
+				.required('Обязательное поле!')
 		}),
 		onSubmit: values => {
 			onSubmit(values);
@@ -53,29 +53,32 @@ const Login = (props) => {
                 			Адрес электронной почты<span className="asteriskField">*</span> 
 						</label> 
 						<div> 
-							<div className="input-group"> 
+							<div className={formik.errors.username ? "input-group is-invalid" : "input-group"}> 
 								<span className="input-group-text">
 									<i className="bi bi-envelope"></i>
 								</span> 
-								<input type="text" name="login" autoFocus="" autoComplete="current-login" placeholder="email" 
-								className="textinput textInput form-control" required="" id="id_login" {...formik.getFieldProps('username')}/>
+								<input type="text" name="username" autoFocus={true} autoComplete="current-login" placeholder="email" 
+								className={formik.errors.username ? "emailinput form-control is-invalid" : "emailinput form-control"}
+								required={true} id="id_login" {...formik.getFieldProps('username')}/>
 							</div> 
+							{formik.errors.username ? <div className='invalid-feedback'><strong>{formik.errors.username}</strong></div> : null}
 						</div> 
-						{formik.errors.username ? <div className='invalid-feedback'><strong>{formik.errors.username}</strong></div> : null}
 					</div> 
 					<div id="div_id_password" className="mb-3"> 
 						<label htmlFor="id_password" className="form-label requiredField">
 							Пароль<span className="asteriskField">*</span> 
 						</label> 
 						<div> 
-							<div className="input-group"> 
+							<div className={formik.errors.password ? "input-group is-invalid" : "input-group"}> 
 								<span className="input-group-text">
 									<i className="bi bi-lock"></i>
 								</span> 
 								<input type="password" name="password" placeholder=" " autoComplete="current-password" 
-								className="textinput textInput form-control" required="" id="id_password" {...formik.getFieldProps('password')}/>
-								{formik.errors.password ? <div className='invalid-feedback'>{formik.errors.password}</div> : null}
-							</div> 
+									className={formik.errors.password ? "textinput textInput form-control is-invalid" : "textinput textInput form-control"}
+									required="" id="id_password" {...formik.getFieldProps('password')}
+								/>
+							</div>
+							{formik.errors.password ? <div className='invalid-feedback'><strong>{formik.errors.password}</strong></div> : null}
 						</div> 
 					</div>
 					<div className="mb-3"> 
@@ -87,7 +90,6 @@ const Login = (props) => {
 					</div> 
 				</div>
 
-				<input type="hidden" name="next" value="{{next}}"/>
 				<input type="hidden" name="csrfmiddlewaretoken" value={Cookies.get('csrftoken')} />
 
 				<div className="col-12 text-center mt-0"> 

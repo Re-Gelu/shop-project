@@ -42,13 +42,13 @@
                         {% for order in current_orders %}
                             <tr>
                                 <td>
-                                    {{order.UUID}}
+                                    {{order.order_UUID}}
                                 </td>
                                 <td>
                                     {{order.get_status_display}}
                                 </td>
                                 <td>
-                                    <pre class="p-0 border-0">{{order.product_info}}</pre>
+                                    <pre class="p-0 border-0">{{order.order_info}}</pre>
                                 </td>
                                 <td>
                                     {{order.adress|cut:'Адрес: '}}
