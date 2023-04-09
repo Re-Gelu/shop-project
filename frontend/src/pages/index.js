@@ -3,6 +3,7 @@ import React from "react";
 import MainLayout2 from '@/components/MainLayout2.js';
 import Index from '@/components/Index.js';
 import axios from '@/api.js';
+import { INTERNAL_API_SERVER_URL } from '@/config.js';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,12 +22,13 @@ const IndexPage = (props) => {
 };
 
 export async function getStaticProps() {
-	const categoriesResponse = await axios.get('categories');
-	const subcategoriesResponse = await axios.get('subcategories');
-	const indexResponse = await axios.get('index_page');
+	const categoriesResponse = await axios.get(`${INTERNAL_API_SERVER_URL}categories`);
+	const subcategoriesResponse = await axios.get(`${INTERNAL_API_SERVER_URL}subcategories`);
+	const indexResponse = await axios.get(`${INTERNAL_API_SERVER_URL}index_page`);
 	const categories = categoriesResponse.data;
 	const subcategories = subcategoriesResponse.data;
 	const index = indexResponse.data;
+	console.log(categories);
 	return {
 		props: {
 			categories,

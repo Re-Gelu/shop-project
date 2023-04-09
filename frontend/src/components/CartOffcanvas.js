@@ -27,14 +27,14 @@ const CartOffcanvas = (props) => {
             {/* <!-- Offcanvas body--> */}
             <div id="cart-offcanvas-body" className="offcanvas-body">
 				<div>
-					{(!Object.keys(cart).length) ?
+					{cart && (!Object.keys(cart).length) ?
 						<div className="lead fs-3 text-colored my-5 py-5 text-center">
 							Корзина пуста
 						</div>
 					:
 						<>
 						<div className="p-2">
-							{cart.map((product, key) => 
+							{cart && cart.map((product, key) => 
 								<div className="uk-transition-toggle" key={key}>
 									<div className="uk-card-hover uk-transition-scale-up uk-transition-opaque d-flex border p-3" aria-hidden="true">
 										

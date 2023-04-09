@@ -522,11 +522,13 @@ BATON = {
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+CORS_ALLOWED_ORIGIN_REGEXES = [
+   r"http://localhost:\d+/",
+   r"http://localhost",
+   r"http://127.0.0.1:\d+/",
+   r"http://127.0.0.1",
+   r"http://host.docker.internal:\d+/",
+   r"http://host.docker.internal/",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

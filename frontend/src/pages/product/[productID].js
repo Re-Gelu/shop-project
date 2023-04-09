@@ -3,6 +3,8 @@ import TopRow from "@/components/TopRow.js";
 import ProductPageCard from '@/components/ProductPageCard.js';
 import axios from '@/api.js';
 import {fetchAllData} from '@/api.js';
+import { INTERNAL_API_SERVER_URL } from '@/config.js';
+
 
 const ProductPage = (props) => {
 	const {
@@ -20,7 +22,7 @@ const ProductPage = (props) => {
 };
 
 export async function getStaticPaths() {
-	const data = await fetchAllData(`products/?page=1`);
+	const data = await fetchAllData(`${INTERNAL_API_SERVER_URL}products/?page=1`);
 	return {
 		paths: data.map((product) => ({
 			params: { productID: product.id.toString() }
@@ -30,9 +32,9 @@ export async function getStaticPaths() {
 };
 
 export async function getStaticProps({ params }) {
-    const productResponse = await axios.get(`products/${params.productID}`);
-	const categoriesResponse = await axios.get('categories');
-	const subcategoriesResponse = await axios.get('subcategories');
+    const productResponse = await axios.get(`${INTERNAL_API_SERVER_URL}products/${params.productID}`);
+	const categoriesResponse = await axios.get(`${INTERNAL_API_SERVER_URL}categories`);
+	const subcategoriesResponse = await axios.get(`${INTERNAL_API_SERVER_URL}subcategories`);
 	const categories = categoriesResponse.data;
 	const subcategories = subcategoriesResponse.data;
 	const product = productResponse.data;

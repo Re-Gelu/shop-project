@@ -20,7 +20,6 @@ const Dashboard = (props) => {
 		cartEventHandler
 	} = useContext(ApiContext);
 
-
 	if (status === "unauthenticated") {
 		router.push('/login')
 	};
@@ -32,7 +31,7 @@ const Dashboard = (props) => {
 				.then(response => {
 					setUser(response.data);	
 				});
-				axios.get(`orders/?user_id=${session.user.user_id}&page_size=6`)
+				axios.get(`orders/?user_id=${session?.user.user_id}&page_size=6`)
 				.then(response => {
 					setCurrentOrders(response.data.results);
 				});

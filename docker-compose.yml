@@ -6,8 +6,8 @@ services:
     build: ./backend
     container_name: 'gunicorn_backend'
     volumes:
-      - static_volume:/usr/src/app/backend/staticfiles
-      - media_volume:/usr/src/app/backend/media
+      - backend_static_volume:/usr/src/app/backend/staticfiles
+      - backend_media_volume:/usr/src/app/backend/media
     expose:
       - 8000
     env_file:
@@ -15,6 +15,16 @@ services:
     depends_on:
       - db
       - redis
+
+  frontend:
+    build: ./frontend
+    container_name: 'next_frontend'
+    expose:
+      - 3000
+    env_file:
+      - frontend/.env
+    depends_on:
+      - nginx_backend
 
   db:
     image: postgres:13.0-alpine
@@ -24,17 +34,29 @@ services:
     env_file:
       - backend/.env.prod.db
 
-  nginx:
+  nginx_backend:
     build: ./backend/nginx
-    container_name: 'nginx'
+    container_name: 'nginx_backend'
     restart: always
     volumes:
-      - static_volume:/usr/src/app/backend/staticfiles
-      - media_volume:/usr/src/app/backend/media
+      - backend_static_volume:/usr/src/app/backend/staticfiles
+      - backend_media_volume:/usr/src/app/backend/media
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - backend
+  
+  nginx_frontend:
+    build: ./frontend/nginx
+    container_name: 'nginx_frontend'
+    restart: always
+    volumes:
+      - frontend_static_volume:/usr/src/app/frontend/_next/static
+      - frontend_next_static_volume:/usr/src/app/frontend/static
+    ports:
+      - 30:30
+    depends_on:
+      - frontend
 
   redis:
     image: redis:7-alpine
@@ -60,5 +82,7 @@ services:
 volumes:
 
   postgres_data:
-  static_volume:
-  media_volume:
+  backend_static_volume:
+  backend_media_volume:
+  frontend_static_volume:
+  frontend_next_static_volume:

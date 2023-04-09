@@ -8,7 +8,6 @@ import { signIn } from "next-auth/react";
 const Login = (props) => {
 
 	async function onSubmit(data) {
-		console.log(data);
 		signIn("credentials", {...data, callbackUrl: `${window.location.origin}/dashboard`});
 	};
 
