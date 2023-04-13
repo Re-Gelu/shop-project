@@ -9,7 +9,8 @@
 - NGNIX, Gunicorn
 - Redis, PostgreSQL
 
-## :package: [Зависимости проекта](https://github.com/Re-Gelu/Sample_shop/blob/master/requirements.txt)
+## :package: [Зависимости бекэнда](https://github.com/Re-Gelu/Shop-project/blob/master/requirements.txt)
+## :package: [Зависимости фронтенда](https://github.com/Re-Gelu/Shop-project/blob/master/frontend/package.json)
 
 ## :wrench: Запуск проекта
 
