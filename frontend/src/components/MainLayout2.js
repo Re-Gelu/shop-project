@@ -1,4 +1,10 @@
 import Link from 'next/link';
+import { Source_Sans_Pro } from 'next/font/google';
+
+const sourceSansPro = Source_Sans_Pro({ 
+	subsets: ['latin', 'cyrillic'],
+	weight: ['300'],
+});
 
 const MainLayout2 = ({children, categories, subcategories}) => {
 
@@ -15,7 +21,7 @@ const MainLayout2 = ({children, categories, subcategories}) => {
 
 						<nav className="ms-1 mb-1 card">
 							<div className="card-header">
-								<p className="text-center lead sidebar-menu-header my-2"><i className="bi bi-list"></i> Категории:</p>
+								<p className={`text-center lead sidebar-menu-header my-2 ${sourceSansPro.className}`}><i className="bi bi-list"></i> Категории:</p>
 							</div>
 							<ul className="card-body list-unstyled">
 								{categories && categories.map((category, key) =>
@@ -55,7 +61,7 @@ const MainLayout2 = ({children, categories, subcategories}) => {
 
 						<section className="ms-1 mb-1 mt-3 card d-none d-md-block">
 							<div className="card-header">
-								<p className="text-center lead sidebar-menu-header my-2"><i className="bi bi-hand-thumbs-up small"></i> Возможно вам понравится:</p>
+								<p className={`text-center lead sidebar-menu-header my-2 ${sourceSansPro.className}`}><i className="bi bi-hand-thumbs-up small"></i> Возможно вам понравится:</p>
 							</div>
 
 								<div className="col-12">

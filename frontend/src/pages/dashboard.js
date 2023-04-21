@@ -88,7 +88,7 @@ const Dashboard = (props) => {
 			)}
 
 			<div id="dashboard-cart">
-				{(Object.keys(cart).length > 0) && <section className="row m-0">
+				{(cart && Object.keys(cart).length > 0) && <section className="row m-0">
 					<div id="cart-container" className="container col-xl-6 col-lg-10 col-md-12 col-12 p-0">
 						<div className="g-3 text-center">
 							<p className="h3">Корзина</p>

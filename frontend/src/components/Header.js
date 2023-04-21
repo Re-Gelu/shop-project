@@ -1,4 +1,10 @@
 import Link from 'next/link';
+import { Source_Sans_Pro } from 'next/font/google';
+
+const sourceSansPro = Source_Sans_Pro({ 
+	subsets: ['latin', 'cyrillic'],
+	weight: ['200'],
+});
 
 const Header = (props) => {
     return (
@@ -7,7 +13,7 @@ const Header = (props) => {
             <div className="container-fluid">
 
                 {/* <!-- Left header block - Logo --> */}
-                <Link href="/" className="navbar-brand logo ms-3">SITE_NAME</Link>
+                <Link href="/" className={`navbar-brand logo ms-3 ${sourceSansPro.className}`}>SITE_NAME</Link>
 
                 {/* <!-- Navbar toggler --> */}
                 <button type="button" className="navbar-toggler text-black" data-bs-toggle="collapse"

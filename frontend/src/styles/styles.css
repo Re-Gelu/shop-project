@@ -23,7 +23,7 @@
 
 body {
 	background-color: var(--body-background-color);
-	font-family: 'Montserrat', 'Source Sans Pro', Verdana, Helvetica, sans-serif;
+	/* font-family: 'Montserrat', 'Source Sans Pro', Verdana, Helvetica, sans-serif; */
 }
 
 a, a:visited, a:active {
@@ -76,9 +76,7 @@ li:hover:not(#scroller-item), li:active:not(#scroller-item) {
 }
 
 a.logo {
-	font-weight: 100;
 	font-size: 36px;
-	font-family: 'Source Sans Pro' , sans-serif;
 	text-decoration: none;
 	color: var(--a-text-active);
 }
@@ -128,8 +126,6 @@ a.logo:hover {
 
 .sidebar-menu-header {
 	font-size: 24px;
-	font-family: 'Source Sans Pro' , sans-serif;
-	font-weight: 300;
 	color: var(--a-text-active)
 }
 
