@@ -184,7 +184,7 @@ const Dashboard = (props) => {
 							</table>
 							<div className="row my-3">
 								<div className="col-3"></div>
-									<a type="button" className="btn btn-lg uk-button-text border-colored col-6">Перейти к оформлению заказа</a>
+									<Link type="button" className="btn btn-lg uk-button-text border-colored col-6" href="/order">Перейти к оформлению заказа</Link>
 								<div className="col-3"></div>
 							</div>
 						</div>

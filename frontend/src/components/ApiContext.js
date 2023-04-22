@@ -47,7 +47,6 @@ const ApiProvider = ({ children }) => {
     const cartEventHandler = (e, data) => {
 		axios.post('cart/', data)
 		.then(response => {
-            console.log(response.data);
 			setCart(response.data.cart);
 			setCartTotalPrice(response.data.cart_total_price);
 			setCartTotalPromoPrice(response.data.cart_total_promo_price);

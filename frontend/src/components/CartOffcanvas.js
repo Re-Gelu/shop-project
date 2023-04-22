@@ -96,7 +96,7 @@ const CartOffcanvas = (props) => {
 						</div>
 
 						<div className="d-grid gap-2">
-							<a type="button" className="btn btn-lg uk-button-text border-colored">Перейти к оформлению заказа</a>
+							<Link type="button" className="btn btn-lg uk-button-text border-colored" href="/order">Перейти к оформлению заказа</Link>
 						</div>
 						</>
 					}
