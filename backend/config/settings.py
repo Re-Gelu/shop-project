@@ -194,6 +194,8 @@ QIWI_PRIVATE_KEY = ""
 
 QIWI_PAYMENTS_LIFETIME = 30
 
+SUCCESS_PAYMENT_URL = "http://127.0.0.1:3000/dashboard"
+
 # REST framework settings
 
 REST_FRAMEWORK = {

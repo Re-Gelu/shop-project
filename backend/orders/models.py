@@ -8,7 +8,7 @@ class Orders(models.Model):
 
     user_id = models.PositiveIntegerField(
         blank=True, null=True,
-        auto_created=True
+        auto_created=True,
     )
 
     order_UUID = ShortUUIDField(
@@ -18,13 +18,12 @@ class Orders(models.Model):
         verbose_name="UUID заказа",
         length=10,
         max_length=10,
-        editable=False,
     )
 
     order_info = models.TextField(
         blank=True, null=True,
         verbose_name="Список товаров",
-        auto_created=True
+        auto_created=True,
     )
 
     adress = models.TextField(
@@ -51,7 +50,13 @@ class Orders(models.Model):
 
     cart = models.JSONField(
         blank=True, null=True,
-        auto_created=True
+        auto_created=True,
+    )
+    
+    payment_link = models.URLField(
+        verbose_name="Ссылка на оплату",
+        blank=True, null=True,
+        auto_created=True,
     )
 
     class PaymentStatuses(models.TextChoices):
@@ -66,13 +71,14 @@ class Orders(models.Model):
         default=PaymentStatuses.CREATED,
         verbose_name="Статус заказа",
         blank=True, null=True,
+        editable=False,
     )
 
     def expire_time(self):
         return self.created >= timezone.now() - datetime.timedelta(days=7)
 
     def __str__(self):
-        return f' Заказ №: {self.id}, UUID: {self.UUID}'
+        return f' Заказ №: {self.id}, UUID: {self.order_UUID}'
 
     def save(self, *args, **kwargs):
         self.updated = timezone.now()

@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from rest_framework.response import Response
+from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import status
 from .serializers import *
@@ -23,6 +24,7 @@ class OrdersViewSet(viewsets.ModelViewSet):
     queryset = Orders.objects.all()
     serializer_class = OrdersSerializer
     filterset_fields = ('user_id', 'order_UUID')
+    permission_classes = [permissions.IsAuthenticated]
     
 
     def create(self, request):
@@ -42,8 +44,30 @@ class OrdersViewSet(viewsets.ModelViewSet):
         # Если ключа QIWI нет или он не прошел проверку
         if p2p == None:
             return Response({"error": "Set QIWI_PRIVATE_KEY setting!"}, status=status.HTTP_403_FORBIDDEN)
-
-        return super().create(request)
+        
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        order = serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        
+        # Создание QIWI платежа
+        site_name = Setting.get("SITE_NAME")
+        bill = p2p.bill(
+            bill_id=order.order_UUID,
+            amount=cart.get_total_promo_price(),
+            lifetime=Setting.get("QIWI_PAYMENTS_LIFETIME"),
+            comment=f"{site_name} - Заказ №{order.order_UUID}"
+        )
+        
+        # Доабавление ссылки на оплату
+        order.payment_link = bill.pay_url + f"&successUrl={settings.SUCCESS_PAYMENT_URL}"
+        order.save()
+        serializer = self.get_serializer(order)
+        
+        # Очищаем корзину
+        cart.clear()
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 @method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
@@ -100,10 +124,10 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
         site_name = Setting.get("SITE_NAME")
         successUrl = f"{request.scheme}://{request.get_host()}/dashboard/"
         bill = p2p.bill(
-            bill_id=new_order.UUID,
+            bill_id=new_order.order_UUID,
             amount=cart.get_total_promo_price(),
             lifetime=Setting.get("QIWI_PAYMENTS_LIFETIME"),
-            comment=f"{site_name} - Заказ №{new_order.UUID}"
+            comment=f"{site_name} - Заказ №{new_order.order_UUID}"
         )
 
         new_order.save()
