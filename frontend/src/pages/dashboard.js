@@ -21,7 +21,7 @@ const Dashboard = (props) => {
 	} = useContext(ApiContext);
 
 	if (status === "unauthenticated") {
-		router.push('/login')
+		router.push('/login');
 	};
 
 	useEffect(() => {
@@ -33,6 +33,7 @@ const Dashboard = (props) => {
 				});
 				axios.get(`orders/?user_id=${session?.user.user_id}&page_size=6`)
 				.then(response => {
+					console.log(response.data.results);
 					setCurrentOrders(response.data.results);
 				});
 			} catch (e) {
@@ -72,7 +73,11 @@ const Dashboard = (props) => {
 							{currentOrders.map((order) => (
 								<tr key={order.id}>
 									<td>{order.order_UUID}</td>
-									<td>{order.status}</td>
+									<td>
+										<a href={order.payment_link} uk-tooltip={`Переход к оплате заказа №${order.order_UUID}`}>
+											{order.status}
+										</a>
+									</td>
 									<td>
 										<pre className="p-0 border-0">{order.order_info}</pre>
 									</td>
@@ -137,10 +142,10 @@ const Dashboard = (props) => {
 
 											<td className="d-md-table-cell d-none">
 												{product.promo_price ?
-													<div>
+													<>
 														<div className="text-decoration-line-through">{product.price} RUB</div>
 														<div className="text-danger">{product.promo_price} RUB</div>
-													</div>
+													</>
 												:
 													`${product.price} RUB`
 												}
@@ -148,10 +153,10 @@ const Dashboard = (props) => {
 
 											<td>
 												{product.total_promo_price ?
-													<div>
+													<>
 														<div className="text-decoration-line-through">{product.total_price} RUB</div>
 														<div className="text-danger">{product.total_promo_price} RUB</div>
-													</div>
+													</>
 												:
 													`${product.total_price} RUB`
 												}
