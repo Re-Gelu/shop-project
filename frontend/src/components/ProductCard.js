@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ApiContext } from '@/components/ApiContext.js';
+import Link from 'next/link';
 
 
 const ProductCard = ({ product, cardAnimationClass }) => {
@@ -48,9 +49,9 @@ const ProductCard = ({ product, cardAnimationClass }) => {
 
                 <div className="card-footer d-flex bg-white row">
                     <div className="my-2 col-9">
-                    <a href={`/product/${product.id}`} className="uk-button-text a-important">
+                    <Link href={`/product/${product.id}`} className="uk-button-text a-important">
                         ПОДРОБНЕЕ
-                    </a>
+                    </Link>
                     </div>
                     {(!product.available || product.stock === 0) ? (
                     <div className="my-2 p-0 col-3">
