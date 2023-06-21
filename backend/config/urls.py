@@ -16,7 +16,7 @@ Including another URLconf
 from shop.views import *
 from cart.views import *
 from orders.views import *
-from login.views import *
+from accounts.views import *
 from rest_framework import routers
 from baton.autodiscover import admin
 from django.contrib.auth.views import *
@@ -45,8 +45,6 @@ schema_view = get_schema_view(
 
 # REST API router
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
 router.register(r'products', ProductsViewSet)
 router.register(r'categories', CategoriesViewSet)
 router.register(r'subcategories', SubcategoriesViewSet)
@@ -100,8 +98,8 @@ urlpatterns = [
     # Shop app URLS
     path('', include('shop.urls')),
     
-    # Login app URLS
-    path('', include('login.urls')),
+    # accounts app URLS
+    path('', include('accounts.urls')),
     
     # Orders app URLS
     path('', include('orders.urls')),
