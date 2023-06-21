@@ -14,7 +14,6 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User, Group
 from cart.cart import Cart
 from orders.models import *
 from .serializers import *
@@ -22,18 +21,6 @@ from .models import *
 from .db_auto_fill import db_auto_fill
 
 # ViewSets
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser]
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAdminUser]
 
 
 class ProductsViewSet(viewsets.ModelViewSet):

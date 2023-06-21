@@ -38,6 +38,10 @@ const Dashboard = (props) => {
 		};
 	}, [status]);
 
+	useEffect(() => {
+		console.log(status);
+	}, [status]);
+
 	if (status === "unauthenticated") {
 		router.push('/login');
 	} else if (status === "loading") {
