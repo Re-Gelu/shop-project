@@ -57,21 +57,21 @@ class RegistrationForm(UserCreationForm):
     helper.layout = Layout(
         Row(
             PrependedText(
-                "email", 
+                "email",
                 format_html('<i class="bi bi-envelope"></i>')
             ),
             Column(
                 PrependedText(
-                    "first_name", 
+                    "first_name",
                     format_html('<i class="bi bi-person"></i>')
-                ), 
+                ),
                 css_class='form-group col-md-6'
             ),
             Column(
                 PrependedText(
-                    "last_name", 
+                    "last_name",
                     format_html('<i class="bi bi-person-plus"></i>')
-                ), 
+                ),
                 css_class='form-group col-md-6'
             ),
             css_class='form-row m-0'
@@ -79,16 +79,16 @@ class RegistrationForm(UserCreationForm):
         Row(
             Column(
                 PrependedText(
-                    "password1", 
+                    "password1",
                     format_html('<i class="bi bi-lock"></i>')
-                    ), 
+                ),
                 css_class='form-group col-md-6'
             ),
             Column(
                 PrependedText(
-                    "password2", 
+                    "password2",
                     format_html('<i class="bi bi-key"></i>')
-                ), 
+                ),
                 css_class='form-group col-md-6'
             ),
             css_class='form-row m-0'
@@ -106,21 +106,21 @@ class ChangePassword(PasswordChangeForm):
         Div(
             Column(
                 PrependedText(
-                    "old_password", 
+                    "old_password",
                     format_html('<i class="bi bi-unlock"></i>')
-                ), 
+                ),
                 css_class='form-group'
             ),
             Column(
                 PrependedText(
-                    "new_password1", 
+                    "new_password1",
                     format_html('<i class="bi bi-lock"></i>')
-                ), 
+                ),
                 css_class='form-group'
             ),
             Column(
                 PrependedText(
-                    "new_password2", 
+                    "new_password2",
                     format_html('<i class="bi bi-key"></i>')
                 ),
                 css_class='form-group'

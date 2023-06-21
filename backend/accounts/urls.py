@@ -39,7 +39,7 @@ urlpatterns = [
         'password_change',
         cache_page(settings.CACHING_TIME)(
             PasswordChangeView.as_view(
-                template_name="change_password.html", 
+                template_name="change_password.html",
                 form_class=ChangePassword
             )
         ),
