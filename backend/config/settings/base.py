@@ -73,11 +73,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.CacheMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'watson.middleware.SearchContextMiddleware',
@@ -85,10 +87,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+TEMPLATE_DIR = BASE_DIR / 'templates'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -206,6 +210,24 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 12
 }
+
+
+# Session settings
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+CART_SESSION_ID = 'cart'
+
+
+# cart settings
+
+MAX_PRODUCT_AMOUNT_IN_CART = 100
+
+MIN_PRODUCT_AMOUNT_IN_CART = 1
+
+MAX_PRODUCTS_IN_CART = 10
+
+MIN_PRODUCTS_IN_CART = 1
 
 
 # JWT Authentication settings
