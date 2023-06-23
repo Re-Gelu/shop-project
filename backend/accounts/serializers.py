@@ -1,6 +1,8 @@
 from django.contrib.auth.models import Group, User
 from djoser import serializers as djoser_serializers
 from djoser.conf import settings
+from orders.models import Orders
+from orders.serializers import OrdersSerializer
 from rest_framework import serializers
 
 
@@ -22,7 +24,11 @@ class CustomUserSerializer(djoser_serializers.UserSerializer):
         read_only_fields = (settings.LOGIN_FIELD, ) + additional_fields
 
     def get_orders(self, obj):
-        return []
+        queryset = Orders.objects.filter(
+            user_id=obj.id
+        ).order_by('-id')
+        serializer = OrdersSerializer(queryset, many=True)
+        return serializer.data
 
 
 class CustomUserCreateSerializer(djoser_serializers.UserCreateSerializer):
