@@ -1,17 +1,15 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework import permissions
-from rest_framework import viewsets
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.renderers import TemplateHTMLRenderer
-from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from shop.models import Products
-from .serializers import *
+
 from .cart import Cart
-import django.contrib.auth
+from .serializers import *
 
 # ViewSets
 
