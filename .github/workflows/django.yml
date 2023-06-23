@@ -26,7 +26,7 @@ jobs:
       run: |
         sudo apt install build-essential libpq-dev
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r ./backend/requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test --settings config.settings.testing
+        python ./backend/manage.py test --settings config.settings.testing
