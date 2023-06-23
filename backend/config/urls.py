@@ -13,22 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from shop.views import *
-from cart.views import *
-from orders.views import *
-from login.views import *
-from rest_framework import routers
-from baton.autodiscover import admin
-from django.contrib.auth.views import *
-from django.urls import path, re_path, include
-from django.conf.urls.static import static
-from django.conf import settings
-from filebrowser.sites import site
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
 import mimetypes
+
 import debug_toolbar
+from accounts.viewsets import *
+from baton.autodiscover import admin
+from cart.viewsets import *
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth.views import *
+from django.urls import include, path, re_path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from filebrowser.sites import site
+from orders.viewsets import *
+from rest_framework import permissions, routers
+from shop.viewsets import *
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -45,8 +45,7 @@ schema_view = get_schema_view(
 
 # REST API router
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
+router.register(r'groups', GroupsViewSet)
 router.register(r'products', ProductsViewSet)
 router.register(r'categories', CategoriesViewSet)
 router.register(r'subcategories', SubcategoriesViewSet)
@@ -100,8 +99,8 @@ urlpatterns = [
     # Shop app URLS
     path('', include('shop.urls')),
     
-    # Login app URLS
-    path('', include('login.urls')),
+    # accounts app URLS
+    path('', include('accounts.urls')),
     
     # Orders app URLS
     path('', include('orders.urls')),

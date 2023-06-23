@@ -3,7 +3,7 @@ from .models import Orders
 from django_celery_results.models import TaskResult
 from django.utils import timezone
 import datetime
-from .QIWI import get_QIWI_p2p
+from config.qiwi import get_QIWI_p2p
 
 # Задача обработчика платежей
 
@@ -14,14 +14,14 @@ def payment_handler():
     p2p = get_QIWI_p2p()
     if p2p != None and (Orders.objects.filter(status=Orders.PaymentStatuses.CREATED).exists() or Orders.objects.filter(status=Orders.PaymentStatuses.WAITING).exists()):
         for order in Orders.objects.filter(status=Orders.PaymentStatuses.CREATED) or Orders.objects.filter(status=Orders.PaymentStatuses.WAITING):
-            payment_status = p2p.check(order.order_UUID).status
-            if order.status != payment_status:
-                result += f'\nOrder with id: {order.order_UUID} have new payment status {order.status} -> {payment_status}. '
-                order.status = payment_status
+            payment_status = p2p.check(order.shortuuid).status
+            if order.payment_status != payment_status:
+                result += f'\nOrder with id: {order.shortuuid} have new payment status {order.payment_status} -> {payment_status}. '
+                order.payment_status = payment_status
                 order.save()
             if payment_status == Orders.PaymentStatuses.REJECTED or payment_status == Orders.PaymentStatuses.EXPIRED:
-                p2p.reject(order.order_UUID)
-                result += f'Order with id: {order.order_UUID} have been deleted. '
+                p2p.reject(order.shortuuid)
+                result += f'Order with id: {order.shortuuid} have been deleted. '
         return result if result != "" else "Waiting for new payment statuses..."
     else:
         return "No orders to handle for now..."

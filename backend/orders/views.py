@@ -1,76 +1,24 @@
+from cart.cart import Cart
+from config.qiwi import get_QIWI_p2p
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from extra_settings.models import Setting
-from django.http import HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
-from rest_framework.response import Response
-from rest_framework import permissions
-from rest_framework import viewsets
-from rest_framework import status
-from .serializers import *
-from .models import *
-from .forms import *
-from .QIWI import get_QIWI_p2p
-from cart.cart import Cart
-from shop.views import CustomTemplateView
 from shop.models import *
+from shop.views import CustomTemplateView
 
-# ViewSets
+from .forms import *
+from .models import *
 
-
-class OrdersViewSet(viewsets.ModelViewSet):
-    queryset = Orders.objects.all()
-    serializer_class = OrdersSerializer
-    filterset_fields = ('user_id', 'order_UUID')
-    permission_classes = [permissions.IsAuthenticated]
-    
-
-    def create(self, request):
-        cart = Cart(request)
-        p2p = get_QIWI_p2p()
-
-        # Add and update data to save in bd
-        request.data.update({"cart": list(cart)})
-        request.data.update({"user_id": request.user.id})
-        request.data.update({"order_info": ""})
-        for key, item in enumerate(cart):
-            request.data["order_info"] += f"\n{key + 1}) ID товара: {item.get('id')}, Наименование товара: {item.get('name')}"
-            request.data["order_info"] += f", Общая стоимость товара: {item.get('total_promo_price')}$" if 'total_promo_price' in item else f", Общая стоимость товара: {item.get('total_price')}$"
-
-        request.data["order_info"] += f"\n\nИТОГО: {cart.get_total_promo_price()} RUB"
-
-        # Если ключа QIWI нет или он не прошел проверку
-        if p2p == None:
-            return Response({"error": "Set QIWI_PRIVATE_KEY setting!"}, status=status.HTTP_403_FORBIDDEN)
-        
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        order = serializer.save()
-        headers = self.get_success_headers(serializer.data)
-        
-        # Создание QIWI платежа
-        site_name = Setting.get("SITE_NAME")
-        bill = p2p.bill(
-            bill_id=order.order_UUID,
-            amount=cart.get_total_promo_price(),
-            lifetime=Setting.get("QIWI_PAYMENTS_LIFETIME"),
-            comment=f"{site_name} - Заказ №{order.order_UUID}"
-        )
-        
-        # Доабавление ссылки на оплату
-        order.payment_link = bill.pay_url + f"&successUrl={settings.SUCCESS_PAYMENT_URL}"
-        order.save()
-        serializer = self.get_serializer(order)
-        
-        # Очищаем корзину
-        cart.clear()
-        
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+# Кэшируются только GET и HEAD ответы со статусом 200
+default_decorators = (cache_page(getattr(settings, 'CACHING_TIME', 60)), vary_on_headers("Authorization",))
 
 
-@method_decorator(cache_page(settings.CACHING_TIME), name="dispatch")
+@method_decorator(default_decorators, name="dispatch")
 class OrderPageView(LoginRequiredMixin, CustomTemplateView):
     """ Order page class view """
 
@@ -122,14 +70,19 @@ class OrderPageView(LoginRequiredMixin, CustomTemplateView):
 
         # Создание QIWI платежа
         site_name = Setting.get("SITE_NAME")
-        successUrl = f"{request.scheme}://{request.get_host()}/dashboard/"
         bill = p2p.bill(
-            bill_id=new_order.order_UUID,
+            bill_id=new_order.shortuuid,
             amount=cart.get_total_promo_price(),
             lifetime=Setting.get("QIWI_PAYMENTS_LIFETIME"),
-            comment=f"{site_name} - Заказ №{new_order.order_UUID}"
+            comment=f"{site_name} - Заказ №{new_order.shortuuid}"
         )
-
+        
+        success_payment_url = getattr(settings, "SUCCESS_PAYMENT_URL", "")
+        
+        # Доабавление ссылки на оплату
+        new_order.payment_link = bill.pay_url + \
+            f"&successUrl={success_payment_url}"
         new_order.save()
+        
         cart.clear()
-        return redirect(bill.pay_url + f"&successUrl={successUrl}")
+        return redirect(bill.pay_url + f"&successUrl={success_payment_url}")

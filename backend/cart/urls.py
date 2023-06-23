@@ -1,15 +1,15 @@
 from django.urls import path
-from . import views
+from . import viewsets
 
 urlpatterns = [
     path(
         'api/header_offcanvas_body/',
-        views.HeaderOffcanvasBodyView.as_view(),
+        viewsets.HeaderOffcanvasBodyView.as_view(),
         name='header_offcanvas_body'
     ),
     path(
         'api/dashboard_cart/',
-        views.DashboardCartView.as_view(),
+        viewsets.DashboardCartView.as_view(),
         name='dashboard_cart'
     ),
 ]

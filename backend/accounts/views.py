@@ -1,9 +1,8 @@
 from django.shortcuts import render
-
-from .forms import RegistrationForm
-
 from shop.models import *
 from shop.views import CustomTemplateView
+
+from .forms import RegistrationForm
 
 
 class RegistrationPageView(CustomTemplateView):

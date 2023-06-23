@@ -1,23 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User, Group
 from shop.models import *
+
 from .models import *
 
 # Serializers
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'url', 'username', 'email', 'groups', 
-                  'is_staff', 'is_superuser', 'is_active', 
-                  'first_name', 'last_name']
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['url', 'name']
 
 
 class ProductsSerializer(serializers.ModelSerializer):

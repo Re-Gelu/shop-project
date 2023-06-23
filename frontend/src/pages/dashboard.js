@@ -38,6 +38,10 @@ const Dashboard = (props) => {
 		};
 	}, [status]);
 
+	useEffect(() => {
+		console.log(status);
+	}, [status]);
+
 	if (status === "unauthenticated") {
 		router.push('/login');
 	} else if (status === "loading") {
@@ -75,9 +79,9 @@ const Dashboard = (props) => {
 							<tbody>
 								{currentOrders.map((order) => (
 									<tr key={order.id}>
-										<td>{order.order_UUID}</td>
+										<td>{order.shortuuid}</td>
 										<td>
-											<a href={order.payment_link} uk-tooltip={`Переход к оплате заказа №${order.order_UUID}`}>
+											<a href={order.payment_link} uk-tooltip={`Переход к оплате заказа №${order.shortuuid}`}>
 												{order.status}
 											</a>
 										</td>

@@ -1,0 +1,21 @@
+name: Docker Compose CI
+
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: isbang/compose-action@v1.4.1
+      with:
+        compose-file: "./docker-compose.yml"
+    - run: docker-compose -f docker-compose.yml exec -T backend python manage.py test --settings config.settings.production_testing

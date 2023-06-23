@@ -4,6 +4,6 @@ from .models import *
 
 @admin.register(Orders)
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ("order_UUID", "created", "status")
-    list_filter = ("created", "status")
-    search_fields = ("order_UUID", "adress", "status")
+    list_display = ("shortuuid", "created", "payment_status")
+    list_filter = ("created", "payment_status")
+    search_fields = ("shortuuid", "adress", "payment_status")

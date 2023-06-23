@@ -1,8 +1,11 @@
 from django.utils import timezone
-from django.utils.safestring import mark_safe
 from django.db import models
 from tinymce import models as tinymce_models
 import datetime
+
+events_images_folder_path = "events_images/"
+
+placeholder_image_path = events_images_folder_path + "placeholder.jpg"
 
 
 class Categories(models.Model):
@@ -58,7 +61,8 @@ class Subcategories(models.Model):
 
 class MainPageSlider(models.Model):
     image = models.ImageField(
-        upload_to="main_page_slider", verbose_name="Изображение"
+        upload_to="main_page_slider", verbose_name="Изображение", 
+        default=placeholder_image_path
     )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата добавления изображения"
@@ -76,6 +80,8 @@ class MainPageSlider(models.Model):
 
     def save(self, *args, **kwargs):
         self.updated = timezone.now()
+        if not self.image:
+            self.image = placeholder_image_path
         super().save(*args, **kwargs)
 
 
@@ -92,7 +98,7 @@ class Products(models.Model):
     )
     image = models.ImageField(
         upload_to="product_images", verbose_name="Изображение товара",
-        blank=True, null=True
+        default=placeholder_image_path
     )
     information = models.TextField(
         max_length=100, blank=True, null=True,
@@ -119,8 +125,7 @@ class Products(models.Model):
         null=True, verbose_name="Подкатегория товара"
     )
 
-    class Meta:
-        ordering = ('name',)
+    class Meta: 
         verbose_name = 'товар'
         verbose_name_plural = 'Товары'
 
@@ -139,6 +144,6 @@ class Products(models.Model):
         if self.promo_price and self.promo_price >= self.price:
             self.promo_price = None
         if not self.image:
-            self.image = '#'
+            self.image = placeholder_image_path
         self.updated = timezone.now()
         super().save(*args, **kwargs)
