@@ -42,7 +42,7 @@
                         {% for order in current_orders %}
                             <tr>
                                 <td>
-                                    {{order.order_UUID}}
+                                    {{order.shortuuid}}
                                 </td>
                                 <td>
                                     {{order.get_status_display}}

@@ -1,7 +1,9 @@
 from decimal import Decimal
+
 from django.conf import settings
-from shop.models import *
 from rest_framework.serializers import ModelSerializer
+from shop.models import *
+
 from .serializers import CartSerializer
 
 

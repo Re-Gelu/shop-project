@@ -1,11 +1,11 @@
-from django.forms import EmailField, TextInput
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from django.utils.html import format_html
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, HTML, Row, Column, Field
-from crispy_forms.bootstrap import PrependedText, FormActions
 from allauth.account.forms import LoginForm as AuthenticationForm
+from crispy_forms.bootstrap import FormActions, PrependedText
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.contrib.auth.models import User
+from django.forms import EmailField, TextInput
+from django.utils.html import format_html
 
 
 class LoginForm(AuthenticationForm):

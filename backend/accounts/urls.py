@@ -1,10 +1,11 @@
-from django.urls import path
-from django.contrib.auth.views import *
-from django.views.decorators.cache import cache_page
-from django.conf import settings
 from allauth.account.views import LoginView
-from .forms import *
+from django.conf import settings
+from django.contrib.auth.views import *
+from django.urls import path
+from django.views.decorators.cache import cache_page
+
 from . import views
+from .forms import *
 
 urlpatterns = [
     path(
