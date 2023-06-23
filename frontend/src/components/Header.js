@@ -3,7 +3,7 @@ import { Source_Sans_Pro } from 'next/font/google';
 
 const sourceSansPro = Source_Sans_Pro({ 
 	subsets: ['latin', 'cyrillic'],
-	weight: ['200'],
+	weight: '200',
 });
 
 const Header = (props) => {
