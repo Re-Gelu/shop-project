@@ -80,6 +80,8 @@ class MainPageSlider(models.Model):
 
     def save(self, *args, **kwargs):
         self.updated = timezone.now()
+        if not self.image:
+            self.image = placeholder_image_path
         super().save(*args, **kwargs)
 
 
@@ -96,7 +98,7 @@ class Products(models.Model):
     )
     image = models.ImageField(
         upload_to="product_images", verbose_name="Изображение товара",
-        blank=True, null=True
+        default=placeholder_image_path
     )
     information = models.TextField(
         max_length=100, blank=True, null=True,

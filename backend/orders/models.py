@@ -1,7 +1,8 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 from shortuuid.django_fields import ShortUUIDField
-import datetime
 
 
 class Orders(models.Model):
@@ -11,7 +12,7 @@ class Orders(models.Model):
         auto_created=True,
     )
 
-    order_UUID = ShortUUIDField(
+    shortuuid = ShortUUIDField(
         auto_created=True,
         alphabet="0123456789",
         unique=True,
@@ -56,7 +57,6 @@ class Orders(models.Model):
     payment_link = models.URLField(
         verbose_name="Ссылка на оплату",
         blank=True, null=True,
-        auto_created=True,
     )
 
     class PaymentStatuses(models.TextChoices):
@@ -66,19 +66,18 @@ class Orders(models.Model):
         EXPIRED = "EXPIRED", "Время жизни счета истекло. Счет не оплачен."
         REJECTED = "REJECTED", "Платёж отклонен"
 
-    status = models.TextField(
+    payment_status = models.TextField(
         choices=PaymentStatuses.choices,
         default=PaymentStatuses.CREATED,
         verbose_name="Статус заказа",
         blank=True, null=True,
-        editable=False,
     )
 
     def expire_time(self):
         return self.created >= timezone.now() - datetime.timedelta(days=7)
 
     def __str__(self):
-        return f' Заказ №: {self.id}, UUID: {self.order_UUID}'
+        return f' Заказ №: {self.id}, UUID: {self.shortuuid}'
 
     def save(self, *args, **kwargs):
         self.updated = timezone.now()
