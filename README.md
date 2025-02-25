@@ -117,8 +117,6 @@ POST запрос по адресу ```http://.../api/db_auto_fill``` с сод�
 ![Изображение №2](https://user-images.githubusercontent.com/75813517/199733450-389a54c8-18d5-4f43-b9c8-ddaeab7486c9.png)
 ![Изображение №3](https://user-images.githubusercontent.com/75813517/199733692-bf94269c-043a-45d9-818a-8430408c75e7.png)
 ![Изображение №4](https://user-images.githubusercontent.com/75813517/199733891-7cf053ef-2f34-43bb-bb8e-d247c6f5ba80.png)
-![Изображение №5](https://user-images.githubusercontent.com/75813517/199734053-debf4bfa-14cd-4771-9414-af2f56fe2bc6.png)
-![Изображение №6](https://user-images.githubusercontent.com/75813517/199734154-a2008491-838e-4af6-96a8-0775d38821c8.png)
 ![Изображение №7](https://user-images.githubusercontent.com/75813517/199734251-e7d27528-c5ac-4bb0-9a61-b8c290af1232.png)
 ![Изображение №8](https://user-images.githubusercontent.com/75813517/214181643-c3f95e35-616a-4281-b875-a4c10def33be.png)
 ![Изображение №9](https://user-images.githubusercontent.com/75813517/214181841-eb8f48de-13cf-4b59-a10d-e1a7e7da467e.png)
